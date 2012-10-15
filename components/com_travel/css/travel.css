@@ -1,0 +1,121 @@
+/**                               ______________________________________________
+*                          o O   |                                              |
+*                 (((((  o      <    Generated with Cook Self Service  V1.5.2   |
+*                ( o o )         |______________________________________________|
+* --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
+* @version		1.0.0
+* @package		Travel
+* @subpackage	
+* @copyright	Copyright 2012, All rights reserved
+* @author		Edward Khor - www.enfonius.com - edward@enfonius.com
+* @license		GNU/GPL
+*
+* /!\  Joomla! is free software.
+* This version may have been modified pursuant to the GNU General Public License,
+* and as distributed it includes or is derivative of works licensed under the
+* GNU General Public License or other free or open source software licenses.
+*
+*             .oooO  Oooo.     See COPYRIGHT.php for copyright notices and details.
+*             (   )  (   )
+* -------------\ (----) /----------------------------------------------------------- +
+*               \_)  (_/
+*/
+
+
+.required {border-left:3px red solid;}
+.invalid {border-color:red;}
+.filter_buttons{float:right;}
+
+.grid_wrapper th,
+.grid_wrapper td{	text-align:center;}
+
+
+
+#grid{ 	border:1px solid #AAA;	padding:1px;	width:100%;}
+
+#grid td{	padding:1px;}
+
+#grid th{	background:#CCC;	padding-left:5px;	padding-right:5px;}
+
+
+fieldset.adminform{	border:1px solid #CCCCCC;}
+fieldset.adminform legend{	margin-left:20px;}
+table.admintable td{	padding:5px;}
+table.admintable td.key{	width:200px;	padding-right:20px;	font-size:14px;}
+
+
+div.col{	float: left;}
+
+div.width-50{	width: 50%;}
+
+input{	border:solid 1px #CCC; border-left:solid 3px #CCC; }
+
+
+fieldset#filters,
+fieldset.filters{	border:none;	background-color:#f6f6f6;	padding:0;}
+
+fieldset#filters legend,
+fieldset.filters legend{	padding-left:20px;	font-size:16px;}
+
+fieldset#filters div.filter,
+fieldset.filters div.filter{	margin:8px;}
+
+fieldset#filters div.filter_buttons,
+fieldset.filters div.filter_buttons{	margin:8px;}
+
+
+fieldset.filters label.filter{	display:block;	font-weigth:bold;	font-style:italic;	color:#333;	border-left:solid 2px #444;	padding-left:5px;	margin:0;}
+
+.flt-left{	float:left;}
+.flt-right{	float:right;}
+
+
+
+
+
+/**
+*	FILTERS & FIELDS
+*/
+
+
+
+/* calendar picker style */
+img.calendar{	margin-top:0;	margin-bottom:-5px;}
+div.filter.datepicker input{	margin-right:-1px;}
+
+
+
+/* Field validator */
+.field_message span.message_info{	color:#006600;	font-style:italic;}
+.field_message span.message_incorrect{	color:#FF0000;	font-style:italic;}
+.field_message span.message_required{	color:#FF0000;	font-style:italic;}
+
+
+.validatoricon{	width:16px;	height:16px;	background-position:center;	background-repeat:no-repeat;}
+.validatoricon_incorrect{	background-image:url(../images/incorrect.png);}
+.validatoricon_valid{	background-image:url(../images/valid.png);}
+
+/* Field validator end */
+
+
+
+
+
+/**
+*	AJAX
+*/
+
+/* Chains direction */
+div.ajaxchain-filter,
+div.ajaxchain-wrapper{
+	float:left;  		/* Horizontal */
+/*	margin-left:10px;       Vertical */
+}
+
+/* Ajax separtator */
+div.ajaxchain-filter div.separator{	padding:0; margin:0;	padding-left:10px;	background-image:url(../images/breadcrumb_separator.png);	background-position:left;	background-repeat:no-repeat;}
+
+
+
+
+

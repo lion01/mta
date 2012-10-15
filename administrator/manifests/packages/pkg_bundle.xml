@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="2.5">
+	<name>bundle</name>
+	<packagename>bundle</packagename>
+	<description>
+		<![CDATA[
+			<p>This package installs the following Joomla extensions:</p>
+			<ul>
+				<li>Module K2 jCarousel</li>
+				<li>BgMax</li>
+				<li>Module jGmap</li>
+				<li>K2 component</li>
+			</ul>
+		]]>
+	</description>
+		 <files folder="packages">
+		   <file type="module" id="mod_k2_jcarousel" client="site">mod_k2_jcarousel_v1.4.zip</file>
+		   <file type="module" id="mod_bgmax" client="site">mod_bgmax.zip</file>
+		   <file type="module" id="mod_jgmap" client="site">mod_JGMap.zip</file>
+		   <file type="component" id="com_k2">K2_v2.5.7.zip</file>
+		   <file type="plugin" id="plg_jqueryeasy" client="site">plg_jqueryeasy.zip</file> 
+		 </files>
+ </extension>

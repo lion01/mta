@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset
+		name="parameters"
+		label="TRAVEL_CONFIG_CONFIGURATION"
+		description="TRAVEL_CONFIG_COMPONENT_CONFIGURATION"
+		>
+
+	</fieldset>
+
+	<fieldset
+		name="permissions"
+		label="TRAVEL_CONFIG_PERMISSIONS"
+		description="TRAVEL_CONFIG_DEFAULT_PERMISSIONS_USED_FOR_ALL_CONTENT_IN_THIS_COMPONENT"
+		>
+		<field
+			name="rules"
+			type="rules"
+			label="TRAVEL_CONFIG_COMPONENT_PERMISSIONS"
+			filter="rules"
+			validate="rules"
+			component="com_travel"
+			section="component">
+
+
+
+		</field>
+	</fieldset>
+
+
+</config>

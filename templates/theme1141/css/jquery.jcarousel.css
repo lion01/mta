@@ -1,0 +1,95 @@
+
+div.k2ItemsBlock.carousel{
+	position:relative;}
+	
+
+.jcarousel-direction-rtl {
+	direction: rtl;
+}
+
+.jcarousel-container-horizontal {}
+
+.jcarousel-container-vertical {}
+
+.jcarousel-clip {overflow: hidden;}
+
+.jcarousel-clip-horizontal {}
+
+.jcarousel-clip-vertical {}
+
+.jcarousel-item {}
+
+.jcarousel-item-horizontal {
+	margin-left: 0;
+    margin-right: 10px;
+}
+
+.jcarousel-direction-rtl .jcarousel-item-horizontal {
+	margin-left: 10px;
+    margin-right: 0;
+}
+
+div.jcarousel-clip.jcarousel-clip-vertical{
+    height: 324px;
+    margin: 0 0 9px;
+}
+
+div.k2ItemsBlock.carousel .jcarousel-item-vertical {
+    margin: 0px;
+}
+
+.jcarousel-item-placeholder {
+    background: #fff;
+    color: #000;
+}
+/*  Horizontal Buttons  */
+.jcarousel-next-horizontal, .jcarousel-prev-horizontal{
+	display: inline-block;
+	background: url(../images/jcarousel/arrows.png) no-repeat;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	bottom: 0px;
+	cursor: pointer;
+}
+
+.jcarousel-next-horizontal {background-position: right 0; right:0;}
+.jcarousel-prev-horizontal {background-position: left 0; right:40px;}
+
+.jcarousel-next-horizontal:hover {background-position: right bottom;}
+.jcarousel-prev-horizontal:hover {background-position: left bottom;}
+
+
+.jcarousel-prev-vertical,
+.jcarousel-next-vertical{
+	display: inline-block;
+	background: url(../images/jcarousel/arrows.png) no-repeat;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	bottom: -17px;
+	right: 0px;
+	cursor: pointer;
+}
+
+.jcarousel-next-vertical {background-position: left bottom; right:0;}
+.jcarousel-prev-vertical {background-position: left 0; right:18px;}
+
+.jcarousel-next-vertical:hover {background-position: right top;}
+.jcarousel-prev-vertical:hover {background-position: right bottom;}
+
+
+div.k2ItemsBlock.carousel div.moduleItemIntrotext {}
+div.k2ItemsBlock.carousel a.moduleItemImage {
+    background: url(../images/template/moduleItemImage.png) 0 0 repeat;
+    padding: 8px;
+    display: inline-block;
+    margin: 0 0 22px;
+}
+div.k2ItemsBlock.carousel a.moduleItemTitle {
+    font: bold 12px/18px Tahoma;
+    color: white;
+    text-transform: uppercase;
+	display: inline-block;
+	margin: 0 0 0px;
+}

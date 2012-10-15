@@ -1,0 +1,183 @@
+/**
+ * @package   Gantry Template - RocketTheme
+ * @version   3.2.15 January 25, 2012
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2012 RocketTheme, LLC
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
+ */
+
+/* Global */
+.menutop li {height: auto;margin: 0;padding: 0;position: relative;list-style: none;}
+.menutop em {font-size: 80%;font-weight: normal;display: block;font-style: normal;}
+.menutop li .item, .menutop li.active .item {display: block;margin: 0;text-decoration: none;float: none;width: auto;}
+.menutop li .fusion-submenu-wrapper {float: none;left: -999em;position: absolute;z-index: 500;}
+.menutop li:hover li ul, .menutop li.sfHover li ul {top: -999em;}
+.menutop li:hover ul, .menutop li.sfHover ul {top: 0;}
+
+/* Root Items */
+.menutop {
+    list-style: none;
+    margin: 0;
+    padding: 0px;
+    position: relative;
+    line-height: 1em;
+    display: inline-block;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.menutop li.root {
+    float: left;
+    margin-right: 1px;
+    padding: 0;
+}
+.menutop li.root.lastItem {
+    margin-right: 0;
+}
+
+/**/
+
+#splash .menutop li.root {}
+#splash .menutop li.root > .item {}
+/**/
+
+.menutop li.root > .item {
+	white-space: nowrap;
+	display: block;
+	padding: 0;
+	font: bold 25px/204px arial;
+    text-transform: lowercase;
+	cursor: pointer;
+	position: relative;
+	margin: 260px 0 0;
+	outline: none;
+    width: 187px;
+    height: 208px;
+    background: url(../images/template/nava.png) 0 0 repeat;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    text-align: center;
+    text-shadow: 0px 0px 5px rgba(0,0,0,1);
+}
+	
+.menutop li.root > .item:hover,
+.menutop li.root.active > .item,
+.menutop li.root.f-mainparent-itemfocus > .item {background: #070707;}
+
+.menutop li.root {position: relative;}
+.menutop li.root .item {}
+
+
+/**/
+
+.menutop li.root {position: absolute;}
+.menutop li.root.active {
+    z-index: 2;
+    background: none;
+}
+
+.menutop li.root:first-child {z-index: 1;}
+.menutop li.root:first-child .item {
+    background: #070707;
+}
+
+#splash .menutop li.root {
+    float: left;
+    background: url(../images/template/nav.png) 0 0 repeat;
+    padding: 0 0 280px;
+    position: relative;
+}
+#splash .menutop li.root {position: relative;}
+#splash .menutop li.root .item {
+    background: url(../images/template/nava.png) 0 0 repeat;
+}
+#splash .menutop li.root > .item:hover,
+#splash .menutop li.root.active > .item,
+#splash .menutop li.root.f-mainparent-itemfocus > .item {background: #070707;}
+
+/**/
+
+.menutop li.root > span.item{cursor:default;}	
+
+.menutop li.root > .item span {display: block;margin: 0;outline: none;padding: 0 15px;width: auto;line-height: 204px;}
+.menutop li.root > .item em {font-size: 10px;display: block;text-transform: lowercase;line-height: 0.3em;}
+.menutop li.parent.root .item span {
+    background: url(../images/template/sep.png) center 66px no-repeat;
+}
+.menutop li.root .subtext span {line-height: 1.9em;}
+.menutop li.root > .item img {margin: 0 4px 0 0;vertical-align: text-bottom;}
+
+/* Dropdown Surrounds */
+.menutop ul {
+    width: 100px !important;
+    padding: 0; 
+    margin: 0px; 
+    float: left;
+}
+.menutop .drop-bot {height: 1px;overflow: hidden;clear: both;}
+.menutop .fusion-submenu-wrapper {height: auto !important;}
+
+.menutop ul.level2 { margin: 0px;}
+
+/* Dropdown Items */
+.menutop ul li {
+    padding: 1px 0 0;
+    display: block;
+    background: white url(../images/template/nav-border.png) 0 0 repeat-x !important;
+}
+.menutop ul li:first-child {
+    padding: 0;
+    background: none;
+}
+.menutop ul li > .item {
+	padding: 0 15px;
+	height: auto;
+	display: block;
+	font-size: 13px;
+	cursor: pointer;
+    width: auto !important;
+    position: relative;
+}
+	
+.menutop ul li > .item:hover,
+.menutop ul li.active > .item,
+.menutop ul li.f-menuparent-itemfocus > .item {}
+
+.menutop ul li > .item span {
+    display: block;
+    overflow: hidden;
+    line-height: 35px;
+}
+.menutop ul li .item img {float: left;margin: 8px 6px 0 0;vertical-align: top;}
+.menutop ul li .nolink span {display: block;}
+.menutop ul li span.item {cursor: default;outline: none;}
+.menutop ul li .subtext span {line-height: 1.9em;}
+.menutop ul li .subtext em {line-height: 0.6em;padding-bottom: 7px;text-transform: lowercase;}
+
+/* No JS */
+.menutop li.root:hover > .fusion-submenu-wrapper {top: 35px;left: 0;}
+.menutop ul li:hover > .fusion-submenu-wrapper {left: 180px;top: 0;}
+
+/* Fusion JS */
+.fusion-js-container {display: block;height: 0;left: 0;overflow: visible;position: absolute;top: 0;z-index: 600000!important;background: transparent !important;}
+.fusion-js-subs {display: none;margin: 0;overflow: hidden;padding: 0 !important;position: absolute;}
+
+/* Grouped & Modules */
+.menutop .fusion-grouped {padding-bottom: 10px;}
+.menutop .fusion-grouped ol {padding: 0;}
+.menutop .fusion-grouped ol li {padding: 0 15px;}
+.menutop .fusion-grouped ol li .item {padding: 0 15px;}
+.menutop .fusion-grouped ol li span {font-size: 85%;line-height: 2em;}
+.menutop .type-module ol {padding: 0;}
+.menutop .type-module ol li {padding: 0;}
+.menutop .type-module ol li .fusion-modules {background: none;}
+.menutop .type-module ol li .fusion-module {padding: 0;background: none;overflow: hidden;}
+.menutop .fusion-module, .menutop .fusion-modules, .menutop .fusion-grouped {display: block;}
+.menutop .fusion-modules.item {padding: 15px;}
+.menutop .fusion-module em {display: inline;font-size: inherit;font-style: italic;}
+.menutop .fusion-module a {font-size: inherit;line-height: 130%;}
+.menutop .fusion-module p, .menutop .fusion-modules p {line-height: 160%;}
+.menutop ul li.grouped-parent > .daddy span {background: none;}

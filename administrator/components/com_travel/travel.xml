@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.6" method="new">
+	<name><![CDATA[Travel]]></name>
+	<author><![CDATA[Edward Khor]]></author>
+	<creationDate>2012-10-14</creationDate>
+	<copyright><![CDATA[Copyright 2012, All rights reserved]]></copyright>
+	<authorEmail><![CDATA[edward@enfonius.com]]></authorEmail>
+	<authorUrl><![CDATA[www.enfonius.com]]></authorUrl>
+	<version><![CDATA[1.0.0]]></version>
+	<license><![CDATA[GNU/GPL]]></license>
+	<description><![CDATA[]]></description>
+
+	<update>
+		<schemas>
+
+
+
+
+		</schemas>
+	</update>
+
+
+	<files folder="site">
+		<folder>controllers</folder>
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+		<filename>index.html</filename>
+		<filename>router.php</filename>
+		<filename>travel.php</filename>
+	</files>
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB.com_travel.ini</language>
+	</languages>
+
+	<administration>
+
+		<menu img="components/com_travel/images/icon-16-travel.png">TRAVEL_MENU_TRAVEL</menu>
+		<submenu>
+			
+			<menu img="components/com_travel/images/icon-16-travel_packages.png" link="option=com_travel&amp;view=packages">TRAVEL_MENU_PACKAGES</menu>
+			<menu img="components/com_travel/images/icon-16-travel_sales.png" link="option=com_travel&amp;view=sales">TRAVEL_MENU_SALES</menu>
+
+            
+		</submenu>
+
+		<files folder="admin">
+			<folder>classes</folder>
+			<folder>controllers</folder>
+			<folder>css</folder>
+			<folder>dom</folder>
+			<folder>helpers</folder>
+			<folder>images</folder>
+			<folder>js</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>index.html</filename>
+			<filename>travel.php</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB.com_travel.ini</language>
+			<language tag="en-GB">language/en-GB.com_travel.sys.ini</language>
+		</languages>
+
+	</administration>
+
+
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<scriptfile>script.php</scriptfile>
+
+
+
+
+
+
+</extension>

@@ -1,0 +1,39 @@
+.icon-32-export {
+	background-image:url("../icons/export.png");
+}
+table.admintable td label {
+	clear: none ;
+	min-width: 40px;
+	margin : 3px 2px ;
+}
+
+table.admintable td.key {
+	font-weight: bold ;
+}
+
+fieldset.adminform {
+	background-color: white ;
+}
+
+table.admintable {
+	background-color: white ;	
+}
+
+table.admintable td label {
+	clear: none ;
+	min-width: 40px;
+	margin : 3px 2px ;
+	display: inline-block; 
+}
+fieldset.adminform {
+	border: none ;	
+}
+.form-horizontal label.control-label {
+	text-align: left;
+}
+
+.form-horizontal div.controls label {	
+	clear: none ;
+	min-width: 40px;
+	display: inline-block; 
+}

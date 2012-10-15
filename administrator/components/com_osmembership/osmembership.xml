@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
+<extension type="component" version="1.6.0" method="upgrade">
+  <name>OS Membership</name>
+  <creationDate>May 2012</creationDate>
+  <author>Tuan Pham Ngoc</author>
+  <authorEmail>contact@joomdonation.com</authorEmail>
+  <authorUrl>http://www.joomdonation.com</authorUrl>
+  <copyright>Copyright (C) 2012 Ossolution Team</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <version>1.5.0</version>
+  <description>Membership Pro give you an quick and easy way to sell memberships and give subscribers access to resources on your site</description> 
+  <scriptfile>install.osmembership.php</scriptfile>
+  <install>
+    <sql>
+      <file driver="mysql" charset="utf8">sql/install.osmembership.sql</file>
+    </sql>
+  </install>      
+  <media destination="com_osmembership" folder="site/media">		
+	<filename>index.html</filename>
+	<filename>forum-icon.jpg</filename>
+	<filename>sub_atpro.png</filename>
+	<filename>sub_deluxe.png</filename>
+  </media>
+  <languages>
+	<language tag="en-GB">site/languages/en-GB/en-GB.com_osmembership.ini</language>
+  </languages>
+  <files folder="site">  
+    <filename>index.html</filename>
+    <filename>osmembership.php</filename>
+    <filename>controller.php</filename>	    
+    <folder>models</folder>		    
+    <folder>views</folder>        
+	<folder>controllers</folder>        
+    <folder>helper</folder>    
+    <folder>assets</folder>        	
+	<folder>plugins</folder>        	
+	<folder>emailtemplates</folder>  
+  </files>
+  <administration>
+    <menu>OS Membership</menu>
+    <submenu>
+		<menu link="option=com_osmembership&amp;view=configuration">Configuration</menu>
+		<menu link="option=com_osmembership&amp;view=categories">Categories</menu>      	
+		<menu link="option=com_osmembership&amp;view=plans">Subscription Plans</menu>      		
+		<menu link="option=com_osmembership&amp;view=subscribers">Subscribers</menu>	  	 		
+		<menu link="option=com_osmembership&amp;view=rules">Upgrade Rules</menu>
+		<menu link="option=com_osmembership&amp;view=fields">Custom Fields</menu>
+		<menu link="option=com_osmembership&amp;view=coupons">Coupons</menu>	
+		<menu link="option=com_osmembership&amp;view=plugins">Payment Plugins</menu>
+		<menu link="option=com_osmembership&amp;view=language">Translation</menu>
+    </submenu>    
+    <languages>
+	<language tag="en-GB">admin/languages/en-GB/en-GB.com_osmembership.sys.ini</language>      
+	<language tag="en-GB">admin/languages/en-GB/en-GB.com_osmembership.ini</language>
+  </languages>
+    <files folder="admin">
+	<filename>index.html</filename>
+	<filename>osmembership.php</filename>
+	<filename>controller.php</filename>                	
+	<folder>legacy</folder>	
+	<folder>assets</folder>	
+	<folder>models</folder>
+	<folder>views</folder>	  
+	<folder>controllers</folder>	
+	<folder>libraries</folder>	
+	<folder>elements</folder>	
+	<folder>tables</folder>			
+	<folder>sql</folder>
+    </files>    
+  </administration>  
+</extension>
