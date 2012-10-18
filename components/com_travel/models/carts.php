@@ -63,6 +63,7 @@ class TravelModelCarts extends TravelModelList
 
 
 		parent::__construct($config);
+                $this->setState('limit', 0);
 
 
 	}
@@ -151,10 +152,12 @@ class TravelModelCarts extends TravelModelList
 	{
 
 		$query = ' SELECT a.*'
+					.	' , _package_id_.title AS `_package_id_title`'
 
 			. $this->_buildQuerySelect()
 
 			. ' FROM `#__travel_carts` AS a '
+					.	' LEFT JOIN `#__travel_packages` AS _package_id_ ON _package_id_.id = a.package_id'
 
 			. $this->_buildQueryJoin() . ' '
 
@@ -227,3 +230,4 @@ class TravelModelCarts extends TravelModelList
 	}
 
 }
+

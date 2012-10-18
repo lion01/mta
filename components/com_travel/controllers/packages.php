@@ -53,178 +53,48 @@ class TravelControllerPackages extends TravelController
 					);
 
 		$app = JFactory::getApplication();
-		$this->registerTask( 'unpublish',  'unpublish' );
-		$this->registerTask( 'apply',  'apply' );
-
-
-
-
-
 
 	}
 
 	function display( )
 	{
+            if (JRequest::getMethod() == 'POST') {
+                $packages_id = isset($_POST['cid']) ? $_POST['cid'] : array();
 
+                $this->_add_to_cart($packages_id);
 
+		$this->setRedirect('index.php?option=com_travel&view=carts');
+		return;
+            }
 
-		parent::display();
-
-		if (!JRequest::getCmd('option',null, 'get'))
-		{
-			//Kill the post and rebuild the url
-			$this->setRedirect(TravelHelper::urlRequest());
-			return;
-		}
-
-	}
-
-	function publish()
-	{
-		if (!$this->can('core.edit.state', JText::_("TRAVEL_JTOOLBAR_PUBLISH")))
-			return;
-
-		// Check for request forgeries
-		JRequest::checkToken() or JRequest::checkToken('get') or jexit( 'Invalid Token' );
-
-        $cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-        if (empty($cid))
-			$cid = JRequest::getVar( 'cid', array(), 'get', 'array' );
-
-        JArrayHelper::toInteger($cid);
-
-		if (count( $cid ) < 1) {
-			JError::raiseWarning(500, JText::sprintf( "TRAVEL_ALERT_PLEASE_MAKE_A_SELECTION_FROM_THE_LIST_TO", strtolower(JText::_("PUBLISH")) ) );
-		}
-		else
-		{
-			$model = $this->getModel('package');
-	        if ($model->publish($cid)){
-				$app = JFactory::getApplication();
-				$app->enqueueMessage(JText::_( 'DONE' ));
-
-			} else
-				JError::raiseWarning( 1000, JText::_("ERROR") );
-		}
-
-		$vars = array();
-		JRequest::setVar( 'view'  , 'packages');
-		JRequest::setVar( 'layout', 'default' );
-		JRequest::setVar( 'cid', null );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
+            parent::display();
 
 	}
 
-	function unpublish()
-	{
-		if (!$this->can('core.edit.state', JText::_("TRAVEL_JTOOLBAR_UNPUBLISH")))
-			return;
+        function _add_to_cart(array $packages_id)
+        {
+            $user = JFactory::getUser();
+            $user_id = $user->get('id');
+            $db = JFactory::getDBO();
 
-		// Check for request forgeries
-		JRequest::checkToken() or JRequest::checkToken('get') or jexit( 'Invalid Token' );
+            $cart = $this->getModel('cart');
 
-        $cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-        if (empty($cid))
-			$cid = JRequest::getVar( 'cid', array(), 'get', 'array' );
+            foreach ($packages_id as $package_id) {
+                $query = "SELECT id, quantity FROM #__travel_carts WHERE package_id = $package_id AND user_id = $user_id LIMIT 1";
+                $db->setQuery($query);
 
-        JArrayHelper::toInteger($cid);
-
-		if (count( $cid ) < 1) {
-			JError::raiseWarning(500, JText::sprintf( "TRAVEL_ALERT_PLEASE_MAKE_A_SELECTION_FROM_THE_LIST_TO", strtolower(JText::_("UNPUBLISH")) ) );
-		}
-		else
-		{
-			$model = $this->getModel('package');
-			if ($model->publish($cid, 0)){
-				$app = JFactory::getApplication();
-				$app->enqueueMessage(JText::_( 'DONE' ));
-
-			} else
-				JError::raiseWarning( 1000, JText::_("ERROR") );
-
-		}
-
-		$vars = array();
-		JRequest::setVar( 'view'  , 'packages');
-		JRequest::setVar( 'layout', 'default' );
-		JRequest::setVar( 'cid', null );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
-
-	}
-
-	function orderup()
-	{
-		if (!$this->can('core.edit.state', JText::_("TRAVEL_JTOOLBAR_CHANGE_ORDER")))
-			return;
-
-		// Check for request forgeries
-		JRequest::checkToken() or JRequest::checkToken('get') or jexit( 'Invalid Token' );
-
-
-		$model = $this->getModel('package');
-		$item = $model->getItem();	//Set the Id from request
-		$model->move(-1);
-
-		$vars = array();
-		JRequest::setVar( 'view'  , 'packages');
-		JRequest::setVar( 'layout', 'default' );
-		JRequest::setVar( 'cid', null );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
-	}
-
-	function orderdown()
-	{
-		if (!$this->can('core.edit.state', JText::_("TRAVEL_JTOOLBAR_CHANGE_ORDER")))
-			return;
-
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-
-
-		$model = $this->getModel('package');
-		$item = $model->getItem();	//Set the Id from request
-		$model->move(1);
-
-		$vars = array();
-		JRequest::setVar( 'view'  , 'packages');
-		JRequest::setVar( 'layout', 'default' );
-		JRequest::setVar( 'cid', null );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
-	}
-
-	function saveorder()
-	{
-		if (!$this->can('core.edit.state', JText::_("TRAVEL_JTOOLBAR_CHANGE_ORDER")))
-			return;
-
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-
-
-		$cid 	= JRequest::getVar( 'cid', array(), 'post', 'array' );
-		$order 	= JRequest::getVar( 'order', array(), 'post', 'array' );
-		JArrayHelper::toInteger($cid);
-		JArrayHelper::toInteger($order);
-
-		$model = $this->getModel('package');
-		$model->saveorder($cid, $order);
-
-
-		$vars = array();
-		JRequest::setVar( 'view'  , 'packages');
-		JRequest::setVar( 'layout', 'default' );
-		JRequest::setVar( 'cid', null );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
-	}
-
-
-
-
-
-
+                $rows = $db->loadObjectList();
+                if (count($rows) > 0) {
+                    $cart->update(array($rows[0]->id), array('quantity' => $rows[0]->quantity + 1));
+                } else {
+                    $cart->save(
+                        array(
+                            'user_id' => $user_id,
+                            'package_id' => $package_id,
+                            'quantity' => 1,
+                        )
+                    );
+                }
+            }
+        }
 }

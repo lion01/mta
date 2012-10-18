@@ -54,11 +54,15 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 
 	<div>
+            <?php if (count($this->items) > 0): ?>
 		<?php echo $this->loadTemplate('grid'); ?>
 		<?php echo JDom::_('html.toolbar', array(
 											"bar" => $this->lists['toolbar']
 											));
-		?>
+                ?>
+            <?php else: ?>
+                <center><b>There are no items in your Cart.</b></center>
+            <?php endif ?>
 	</div>
 
 

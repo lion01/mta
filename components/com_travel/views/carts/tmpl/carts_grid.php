@@ -34,17 +34,13 @@ defined('_JEXEC') or die('Restricted access');
 
 
 <div class="grid_wrapper">
-	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0">
+	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0" width="100%">
 	<thead>
 		<tr>
-			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
             <th width="20">
-				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
 			</th>
-			<?php endif; ?>
-
 			<th style="text-align:left">
-				<?php echo JText::_("TRAVEL_FIELD_PACKAGE_ID"); ?>
+				<?php echo JText::_("TRAVEL_FIELD_PACKAGE_TITLE"); ?>
 			</th>
 
 			<th style="text-align:center">
@@ -70,7 +66,6 @@ defined('_JEXEC') or die('Restricted access');
 
 		<tr class="<?php echo "row$k"; ?>">
 
-			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
 			<td>
 				<?php echo JDom::_('html.grid.checkedout', array(
 										'dataObject' => $row,
@@ -78,11 +73,10 @@ defined('_JEXEC') or die('Restricted access');
 											));
 				?>
 			</td>
-			<?php endif; ?>
 
             <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'package_id',
+												'dataKey' => '_package_id_title',
 												'dataObject' => $row,
 												'route' => array('view' => 'package','layout' => 'package','cid[]' => $row->package_id)
 												));
@@ -112,13 +106,3 @@ defined('_JEXEC') or die('Restricted access');
 
 
 </div>
-
-<?php echo JDom::_('html.pagination', array(
-										'pagination' => $this->pagination,
-										'showLimit' => true,
-										'showCounter' => true,
-
-											));
-?>
-
-

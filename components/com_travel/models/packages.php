@@ -62,6 +62,7 @@ class TravelModelPackages extends TravelModelList
 
 		parent::__construct($config);
 		$this->_modes = array_merge($this->_modes, array('publish'));
+                $this->setState('limit', 0);
 
 
 	}
