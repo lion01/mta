@@ -62,7 +62,7 @@
     text-align: center;
     text-shadow: 0px 0px 5px rgba(0,0,0,1);
 }
-	
+
 .menutop li.root > .item:hover,
 .menutop li.root.active > .item,
 .menutop li.root.f-mainparent-itemfocus > .item {background: #070707;}
@@ -100,7 +100,7 @@
 
 /**/
 
-.menutop li.root > span.item{cursor:default;}	
+.menutop li.root > span.item{cursor:default;}
 
 .menutop li.root > .item span {display: block;margin: 0;outline: none;padding: 0 15px;width: auto;line-height: 204px;}
 .menutop li.root > .item em {font-size: 10px;display: block;text-transform: lowercase;line-height: 0.3em;}
@@ -112,9 +112,8 @@
 
 /* Dropdown Surrounds */
 .menutop ul {
-    width: 100px !important;
-    padding: 0; 
-    margin: 0px; 
+    padding: 0;
+    margin: 0px;
     float: left;
 }
 .menutop .drop-bot {height: 1px;overflow: hidden;clear: both;}
@@ -141,7 +140,7 @@
     width: auto !important;
     position: relative;
 }
-	
+
 .menutop ul li > .item:hover,
 .menutop ul li.active > .item,
 .menutop ul li.f-menuparent-itemfocus > .item {}

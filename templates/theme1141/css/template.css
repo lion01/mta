@@ -153,6 +153,8 @@ ul.menu-phone li:first-child + li span {}
 }
 #splash .component-content {
     padding: 0;
+    background: none;
+    min-height: auto !important;
 }
 #rt-mainbody {
     padding: 128px 0 166px;
@@ -161,6 +163,7 @@ ul.menu-phone li:first-child + li span {}
     background: url(../images/template/content.png) 0 0 repeat;
     box-shadow: 0 0 4px #484848;
     padding: 43px 60px;
+    min-height: 400px;
 }
 
 /*
