@@ -51,6 +51,9 @@ class TravelModelPackages extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
+				'title', 'a.title',
+				'price', 'a.price',
+				'value', 'a.value',
 
 			);
 		}

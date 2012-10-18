@@ -86,6 +86,21 @@ class TravelControllerPackages extends TravelController
 			return;
 
 		$vars = array();
+		//Predefine fields depending on filters values
+		$app = JFactory::getApplication();
+		//Title
+		$filter_title = $app->getUserState( $this->context . ".filter.title");
+		if ($filter_title) $vars["filter_title"] = $filter_title;
+
+		//Creation Date
+		$filter_creation_date = $app->getUserState( $this->context . ".filter.creation_date");
+		if ($filter_creation_date) $vars["filter_creation_date"] = $filter_creation_date;
+
+		//Published
+		$filter_published = $app->getUserState( $this->context . ".filter.published");
+		if ($filter_published) $vars["filter_published"] = $filter_published;
+
+
 
 		JRequest::setVar( 'cid', 0 );
 		JRequest::setVar( 'view'  , 'package');
@@ -409,6 +424,33 @@ class TravelControllerPackages extends TravelController
 
 		$this->setRedirect(TravelHelper::urlRequest($vars));
 	}
+	function toggle_published()
+	{
+		// Check for request forgeries
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+
+		if (!$this->can(array('core.edit', 'core.edit.own'), JText::_("JTOOLBAR_EDIT")))
+			return;
+
+
+		$model = $this->getModel('Package');
+		$package = $model->getItem();
+
+
+		if ($package->id == 0)
+		{
+			$msg = JText::_( 'ERROR' );
+			$this->setRedirect(TravelHelper::urlRequest(), $msg);
+			return;
+		}
+
+		$data = array("published" => is_null($package->published)?1:!$package->published);
+        $this->_save($data);
+
+		$this->setRedirect(TravelHelper::urlRequest());
+
+	}
+
 
 
 

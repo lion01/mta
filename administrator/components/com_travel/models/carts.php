@@ -57,7 +57,7 @@ class TravelModelCarts extends TravelModelList
 
 		//Define the filterable fields
 		$this->set('filter_vars', array(
-			'package' => 'int'
+			'package_id' => 'int'
 				));
 
 
@@ -157,8 +157,8 @@ class TravelModelCarts extends TravelModelList
 
 		if (isset($this->_active['filter']) && $this->_active['filter'])
 		{
-			$filter_package = $this->getState('filter.package');
-			if ($filter_package != '')		$where[] = "a.package = " . (int)$filter_package . "";
+			$filter_package_id = $this->getState('filter.package_id');
+			if ($filter_package_id != '')		$where[] = "a.package_id = " . (int)$filter_package_id . "";
 
 
 		}
@@ -167,7 +167,7 @@ class TravelModelCarts extends TravelModelList
 		return parent::_buildQueryWhere($where);
 	}
 
-	function _buildQueryOrderBy($order = array(), $pre_order = 'a.package')
+	function _buildQueryOrderBy($order = array(), $pre_order = 'a.package_id')
 	{
 
 		return parent::_buildQueryOrderBy($order, $pre_order);

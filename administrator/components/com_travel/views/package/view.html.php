@@ -96,11 +96,11 @@ class TravelViewPackage extends JView
 		array_unshift($lists['select']['commission_type']->list, array("value"=>"", "text" => JText::_("TRAVEL_FIELD_NULL_COMMISSION_TYPE")));
 		$lists['select']['commission_type']->value = $package->commission_type;
 
-
-
 		//Ordering
 		$orderModel = JModel::getInstance('Packages', 'TravelModel');
 		$lists["ordering"] = $orderModel->getItems();
+
+
 
 		// Toolbar
 		jimport('joomla.html.toolbar');

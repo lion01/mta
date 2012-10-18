@@ -54,7 +54,7 @@ class TableCart extends JTable
 	/**
 	 * @var int
 	 */
-	var $package = null;
+	var $package_id = null;
 	/**
 	 * @var int
 	 */
@@ -62,7 +62,7 @@ class TableCart extends JTable
 	/**
 	 * @var int
 	 */
-	var $user = null;
+	var $user_id = null;
 
 
 
@@ -117,15 +117,35 @@ class TableCart extends JTable
 		$valid = true;
 
 		$filter = new JFilterInput(array(), array(), 0, 0);
-		$this->package = $filter->clean($this->package, 'INT');
+		$this->package_id = $filter->clean($this->package_id, 'INT');
 		$this->quantity = $filter->clean($this->quantity, 'INT');
-		$this->user = $filter->clean($this->user, 'INT');
+		$this->user_id = $filter->clean($this->user_id, 'INT');
+
+
+		if (!empty($this->quantity) && !preg_match("/^[\-\+]?\d+$/", $this->quantity)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_QUANTITY")) );
+			$valid = false;
+		}
 
 
 
 
 
 
+		if (($this->package_id === null) || ($this->package_id === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PACKAGE")));
+			$valid = false;
+		}
+
+		if (($this->quantity === null) || ($this->quantity === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_QUANTITY")));
+			$valid = false;
+		}
+
+		if (($this->user_id === null) || ($this->user_id === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_USER")));
+			$valid = false;
+		}
 
 
 

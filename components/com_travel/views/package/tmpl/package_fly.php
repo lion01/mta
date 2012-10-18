@@ -46,6 +46,20 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td align="right" class="key">
+				<label for="value">
+					<?php echo JText::_( "TRAVEL_FIELD_VALUE" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'value',
+												'dataObject' => $this->package
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
 				<label for="price">
 					<?php echo JText::_( "TRAVEL_FIELD_PRICE" ); ?> :
 				</label>
@@ -67,6 +81,20 @@ defined('_JEXEC') or die('Restricted access');
 			<td>
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'content',
+												'dataObject' => $this->package
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="comisssion_rate">
+					<?php echo JText::_( "TRAVEL_FIELD_COMISSION" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'comisssion_rate',
 												'dataObject' => $this->package
 												));
 				?>

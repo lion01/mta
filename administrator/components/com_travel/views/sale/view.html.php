@@ -86,9 +86,7 @@ class TravelViewSale extends JView
 		}
 
 
-		$lists['enum']['sales.comission_type'] = TravelHelper::enumList('sales', 'comission_type');
-
-		$lists['fk']['agent'] = TravelJUserHelper::userList();
+		$lists['fk']['user_id'] = TravelJUserHelper::userList();
 
 		// Toolbar
 		jimport('joomla.html.toolbar');
@@ -117,8 +115,6 @@ class TravelViewSale extends JView
 
 		parent::display($tpl);
 	}
-
-
 
 
 

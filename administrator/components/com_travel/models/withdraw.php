@@ -71,8 +71,10 @@ class TravelModelWithdraw extends TravelModelItem
 			$data->id = 0;
 			$data->attribs = null;
 			$data->amount = null;
-			$data->agent = null;
+			$data->total_paid = null;
+			$data->user_id = null;
 			$data->creation_date = null;
+			$data->payment_date = null;
 
 			$this->_data = $data;
 
@@ -96,6 +98,9 @@ class TravelModelWithdraw extends TravelModelItem
 		$app = JFactory::getApplication();
 		$session = JFactory::getSession();
 
+		if ($search_search = $app->getUserState($this->context.'.search.search'))
+			$this->setState('search.search', $search_search, null, 'varchar');
+
 
 
 		parent::populateState();
@@ -114,10 +119,27 @@ class TravelModelWithdraw extends TravelModelItem
 		if (isset($this->_active['predefined']))
 		switch($this->_active['predefined'])
 		{
+			case 'withdraw': return $this->_buildQuery_withdraw(); break;
 
 		}
 
 
+
+			$query = 'SELECT a.*'
+					. 	$this->_buildQuerySelect()
+
+					.	' FROM `#__travel_withdraws` AS a'
+					. 	$this->_buildQueryJoin()
+
+					. 	$this->_buildQueryWhere()
+
+					.	'';
+
+		return $query;
+	}
+
+	function _buildQuery_withdraw()
+	{
 
 			$query = 'SELECT a.*'
 					. 	$this->_buildQuerySelect()

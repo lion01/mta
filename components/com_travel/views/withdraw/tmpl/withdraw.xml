@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="TRAVEL_LAYOUT_WITHDRAW">
+		<message><![CDATA[TRAVEL_LAYOUT_SHOW_WITHDRAW_LAYOUT]]></message>
+	</layout>
+
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request"
+			addfieldpath="/administrator/components/com_travel/models/fields">
+
+			<field name="cid" type="modal_itemwithdraw"
+				label="TRAVEL_MENU_SELECT_WITHDRAW"
+				required="false"
+				description="TRAVEL_MENU_SELECT_THE_ITEM_TO_LINK_ON_THIS_MENU"
+			/>
+		</fieldset>
+	</fields>
+
+
+	<state>
+		<name>TRAVEL_LAYOUT_WITHDRAW</name>
+		<description><![CDATA[TRAVEL_LAYOUT_WITHDRAW]]></description>
+	</state>
+
+</metadata>

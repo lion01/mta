@@ -54,15 +54,7 @@ class TableSale extends JTable
 	/**
 	 * @var int
 	 */
-	var $package_id = null;
-	/**
-	 * @var int
-	 */
-	var $quantity = null;
-	/**
-	 * @var int
-	 */
-	var $agent = null;
+	var $user_id = null;
 	/**
 	 * @var float
 	 */
@@ -80,13 +72,17 @@ class TableSale extends JTable
 	 */
 	var $modification_date = null;
 	/**
-	 * @var float
-	 */
-	var $comission_rate = null;
-	/**
 	 * @var string
 	 */
-	var $comission_type = null;
+	var $completion_date = null;
+	/**
+	 * @var float
+	 */
+	var $total_commission = null;
+	/**
+	 * @var float
+	 */
+	var $total_amount = null;
 
 
 
@@ -141,21 +137,15 @@ class TableSale extends JTable
 		$valid = true;
 
 		$filter = new JFilterInput(array(), array(), 0, 0);
-		$this->package_id = $filter->clean($this->package_id, 'INT');
-		$this->quantity = $filter->clean($this->quantity, 'INT');
-		$this->agent = $filter->clean($this->agent, 'INT');
+		$this->user_id = $filter->clean($this->user_id, 'INT');
 		$this->payment = $filter->clean($this->payment, 'FLOAT');
 		$this->completed = $filter->clean($this->completed, 'BOOL');
 		$this->creation_date = $filter->clean($this->creation_date, 'STRING');
 		$this->modification_date = $filter->clean($this->modification_date, 'STRING');
-		$this->comission_rate = $filter->clean($this->comission_rate, 'FLOAT');
-		$this->comission_type = $filter->clean($this->comission_type, 'STRING');
+		$this->completion_date = $filter->clean($this->completion_date, 'STRING');
+		$this->total_commission = $filter->clean($this->total_commission, 'FLOAT');
+		$this->total_amount = $filter->clean($this->total_amount, 'FLOAT');
 
-
-		if (!empty($this->quantity) && !preg_match("/^\d+$/", $this->quantity)){
-			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_QUANTITY")) );
-			$valid = false;
-		}
 
 		if (!empty($this->payment) && !preg_match("/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/", $this->payment)){
 			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PAYMENT")) );
@@ -184,14 +174,23 @@ class TableSale extends JTable
 				$this->modification_date = $modification_date->toMySQL();
 		}
 
+		if (!empty($this->completion_date) && ($this->completion_date != '0000-00-00'))
+		{
+			$completion_date = TravelHelper::getSqlDate($this->completion_date, array('%Y-%m-%d'));
+			if ($completion_date === null){
+				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMPLETION_DATE")));
+				$valid = false;
+			}
+			else
+				$this->completion_date = $completion_date->toMySQL();
+		}
+
 
 
 		if ($this->payment == null)
 			$this->payment = 0;
 		if ($this->completed === null)
 			$this->completed = 0;
-		if ($this->comission_type == null)
-			$this->comission_type = "0";
 
 
 		//Creation date
@@ -202,28 +201,18 @@ class TableSale extends JTable
 		$this->modification_date = JFactory::getDate()->toMySql();
 
 
-		if (($this->package_id === null) || ($this->package_id === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PACKAGE")));
+		if (($this->user_id === null) || ($this->user_id === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_USER")));
 			$valid = false;
 		}
 
-		if (($this->quantity === null) || ($this->quantity === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_QUANTITY")));
+		if (($this->completed === null) || ($this->completed === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMPLETED")));
 			$valid = false;
 		}
 
-		if (($this->agent === null) || ($this->agent === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_AGENT")));
-			$valid = false;
-		}
-
-		if (($this->comission_rate === null) || ($this->comission_rate === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMISSION_RATE")));
-			$valid = false;
-		}
-
-		if (($this->comission_type === null) || ($this->comission_type === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMISSION_TYPE")));
+		if (($this->total_commission === null) || ($this->total_commission === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_COMISSION")));
 			$valid = false;
 		}
 

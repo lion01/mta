@@ -70,7 +70,7 @@ class JDomHtmlGridCheckedout extends JDomHtmlGrid
 		if (property_exists($this->dataObject, $keyChecked))
 			$this->dataValue = $this->dataObject->$keyChecked;
 
-		$isLocked = (!empty($this->dataValue) && ($this->dataValue != JFactory::getApplication()->getUserState('sandbox.userid')));
+		$isLocked = (!empty($this->dataValue) && ($this->dataValue != JFactory::getUser()->get('id')));
 		if ($isLocked)
 			$html .= $this->checkedOut();
 

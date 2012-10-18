@@ -116,6 +116,19 @@ class TravelViewPackages extends JView
 
 
 		//Filters
+		//search : search on Title
+		$this->filters['search'] = new stdClass();
+		$this->filters['search']->value = $model->getState("search.search");
+
+		//creation_date
+		$this->filters['creation_date'] = new stdClass();
+		$this->filters['creation_date']->from = $model->getState("filter.creation_date_from");
+		$this->filters['creation_date']->to = $model->getState("filter.creation_date_to");
+
+		//Published
+		$this->filters['published'] = new stdClass();
+		$this->filters['published']->value = $model->getState("filter.published");
+
 
 
 		$config	= JComponentHelper::getParams( 'com_travel' );
@@ -181,6 +194,19 @@ class TravelViewPackages extends JView
 
 
 		//Filters
+		//search : search on Title
+		$this->filters['search'] = new stdClass();
+		$this->filters['search']->value = $model->getState("search.search");
+
+		//creation_date
+		$this->filters['creation_date'] = new stdClass();
+		$this->filters['creation_date']->from = $model->getState("filter.creation_date_from");
+		$this->filters['creation_date']->to = $model->getState("filter.creation_date_to");
+
+		//Published
+		$this->filters['published'] = new stdClass();
+		$this->filters['published']->value = $model->getState("filter.published");
+
 
 
 		$config	= JComponentHelper::getParams( 'com_travel' );

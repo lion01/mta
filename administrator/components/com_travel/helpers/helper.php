@@ -370,9 +370,9 @@ array(	"\\", "\/", 	"\#",	"\!", 	"\^", "$", "\(", "\)", "\[", "\]", "\{", "\}", 
 		$lists["packages"]["commission_type"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_PACKAGES_COMMISSION_TYPE_PERCENTAGE"));
 
 
-		$lists["sales"]["comission_type"] = array();
-		$lists["sales"]["comission_type"]["0"] = array("value" => "0", "text" => JText::_("TRAVEL_ENUM_SALES_COMISSION_TYPE_FIXED"));
-		$lists["sales"]["comission_type"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_SALES_COMISSION_TYPE_PERCENTAGE"));
+		$lists["saleitems"]["comission_type"] = array();
+		$lists["saleitems"]["comission_type"]["0"] = array("value" => "0", "text" => JText::_("TRAVEL_ENUM_SALEITEMS_COMISSION_TYPE_FIXED"));
+		$lists["saleitems"]["comission_type"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_SALEITEMS_COMISSION_TYPE_PERCENTAGE"));
 
 
 

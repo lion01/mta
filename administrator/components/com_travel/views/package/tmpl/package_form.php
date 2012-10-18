@@ -45,13 +45,31 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 				<?php echo JDom::_('html.form.input.text', array(
 												'dataKey' => 'title',
 												'dataObject' => $this->package,
-												'size' => "32",
+												'size' => "80",
 												'domClass' => "validate[required]",
 												'required' => true
 												));
 				?>
 			</td>
 		</tr>
+		<?php if ($this->access->get('core.edit.state')): ?>
+		<tr>
+			<td align="right" class="key">
+				<label for="published">
+					<?php echo JText::_( "TRAVEL_FIELD_PUBLISHED" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.bool', array(
+												'dataKey' => 'published',
+												'dataObject' => $this->package,
+												'aclAccess' => 'core.edit.state'
+												));
+				?>
+			</td>
+		</tr>
+
+		<?php endif; ?>
 		<tr>
 			<td align="right" class="key">
 				<label for="content">
@@ -64,8 +82,8 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 												'dataObject' => $this->package,
 												'cols' => "80",
 												'rows' => "10",
-												'width' => "",
-												'height' => "px"
+												'width' => "800px",
+												'height' => "300px"
 												));
 				?>
 
@@ -74,15 +92,15 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="commission_rate">
-					<?php echo JText::_( "TRAVEL_FIELD_COMMISSION_RATE" ); ?> :
+				<label for="comisssion_rate">
+					<?php echo JText::_( "TRAVEL_FIELD_COMISSSION_RATE" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.form.input.text', array(
-												'dataKey' => 'commission_rate',
+												'dataKey' => 'comisssion_rate',
 												'dataObject' => $this->package,
-												'size' => "10",
+												'size' => "12",
 												'domClass' => "validate[required,custom[positive_decimal]]",
 												'validatorHandler' => "positive_decimal",
 												'required' => true,
@@ -121,7 +139,7 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 				<?php echo JDom::_('html.form.input.text', array(
 												'dataKey' => 'price',
 												'dataObject' => $this->package,
-												'size' => "10",
+												'size' => "15",
 												'domClass' => "validate[required,custom[positive_decimal]]",
 												'validatorHandler' => "positive_decimal",
 												'required' => true,
@@ -130,26 +148,25 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 				?>
 			</td>
 		</tr>
-		<?php if ($this->access->get('core.edit.state')): ?>
 		<tr>
 			<td align="right" class="key">
-				<label for="published">
-					<?php echo JText::_( "TRAVEL_FIELD_PUBLISHED" ); ?> :
+				<label for="value">
+					<?php echo JText::_( "TRAVEL_FIELD_VALUE" ); ?> :
 				</label>
 			</td>
 			<td>
-				<?php echo JDom::_('html.form.input.bool', array(
-												'dataKey' => 'published',
+				<?php echo JDom::_('html.form.input.text', array(
+												'dataKey' => 'value',
 												'dataObject' => $this->package,
-												'aclAccess' => 'core.edit.state',
-												'domClass' => "validate[custom[numeric]]",
-												'validatorHandler' => "numeric"
+												'size' => "15",
+												'domClass' => "validate[required,custom[positive_decimal]]",
+												'validatorHandler' => "positive_decimal",
+												'required' => true,
+												'validatorRegex' => "/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/"
 												));
 				?>
 			</td>
 		</tr>
-
-		<?php endif; ?>
 
 
 	</table>

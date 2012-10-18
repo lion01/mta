@@ -68,6 +68,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 
 	<div>
+		<?php echo $this->loadTemplate('filters'); ?>
 		<?php echo $this->loadTemplate('grid'); ?>
 	</div>
 

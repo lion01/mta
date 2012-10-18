@@ -35,6 +35,8 @@ class JDomHtmlFormInputFileDefault extends JDomHtmlFormInputFile
 	protected $size;
 	protected $uploadMaxSize;
 	protected $actions;
+	protected $allowedExtensions;
+
 
 	/*
 	 * Constuctor
@@ -58,7 +60,7 @@ class JDomHtmlFormInputFileDefault extends JDomHtmlFormInputFile
 		$this->arg('size'			, null, $args, '32');
 		$this->arg('uploadMaxSize'	, null, $args);
 		$this->arg('actions'		, null, $args);
-
+		$this->arg('allowedExtensions'	, null, $args);
 
 	}
 
@@ -112,6 +114,8 @@ class JDomHtmlFormInputFileDefault extends JDomHtmlFormInputFile
 		$html .='<input type="file" id="<%DOM_ID%>" name="<%INPUT_NAME%>"<%STYLE%><%CLASS%><%SELECTORS%>'
 			.	' value="<%VALUE%>"'
 			.	' size="' . $this->size . '"'
+			.	' data-allowed-ext="' . htmlspecialchars($this->allowedExtensions) . '"'
+
 			.	'/>' .LN;
 
 		if (!$isNew)
@@ -134,6 +138,12 @@ class JDomHtmlFormInputFileDefault extends JDomHtmlFormInputFile
 								));
 		}
 
+
+		if (isset($this->allowedExtensions))
+		{
+			$html .= '<br/>(' . preg_replace("/\|/", ', ', $this->allowedExtensions) . ')';
+
+		}
 
 		$html.= '<%VALIDOR_ICON%>'.LN
 			.	'<%MESSAGE%></div></div>';

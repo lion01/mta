@@ -42,41 +42,41 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 			<?php endif; ?>
 
-			<th>
+			<th style="text-align:left">
 				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_TITLE", 'a.title', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
-			<th>
+			<th style="text-align:right">
 				<?php echo JText::_("TRAVEL_FIELD_PRICE"); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_COMMISSION_RATE"); ?>
+			<th style="text-align:right">
+				<?php echo JText::_("TRAVEL_FIELD_COMISSSION_RATE"); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_COMMISSION_TYPE"); ?>
+			<th style="text-align:left">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMMISSION_TYPE", 'a.commission_type', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
 			<?php if ($this->access->get('core.edit') || $this->access->get('core.edit.state')): ?>
-			<th class="order">
+			<th class="order" style="text-align:center">
 				<?php echo JHTML::_('grid.sort',  'Order', 'a.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 				<?php echo JDom::_('html.grid.header.saveorder', array('list' => $this->items));?>
 			</th>
 			<?php endif; ?>
 
 			<?php if ($this->access->get('core.edit.state') || $this->access->get('core.view.own')): ?>
-			<th>
+			<th style="text-align:center">
 				<?php echo JText::_("TRAVEL_FIELD_PUBLISHED"); ?>
 			</th>
 			<?php endif; ?>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_MODIFICATION_DATE"); ?>
+			<th style="text-align:left">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_CREATION_DATE", 'a.creation_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_CREATION_DATE"); ?>
+			<th style="text-align:left">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_MODIFICATION_DATE", 'a.modification_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
 
@@ -113,7 +113,7 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<?php endif; ?>
 
-            <td>
+            <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'title',
 												'dataObject' => $row,
@@ -122,7 +122,7 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:right">
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'price',
 												'dataObject' => $row
@@ -130,15 +130,15 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:right">
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'commission_rate',
+												'dataKey' => 'comisssion_rate',
 												'dataObject' => $row
 												));
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:left">
 				<?php echo JDom::_('html.fly.enum', array(
 												'dataKey' => 'commission_type',
 												'dataObject' => $row,
@@ -150,7 +150,7 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 
 			<?php if ($this->access->get('core.edit') || $this->access->get('core.edit.state')): ?>
-            <td class="order">
+            <td class="order" style="text-align:center">
 				<?php echo JDom::_('html.grid.ordering', array(
 										'dataKey' => 'ordering',
 										'dataObject' => $row,
@@ -166,7 +166,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php endif; ?>
 
 			<?php if ($this->access->get('core.edit.state') || $this->access->get('core.view.own')): ?>
-            <td>
+            <td style="text-align:center">
 				<?php echo JDom::_('html.grid.publish', array(
 										'dataKey' => 'published',
 										'dataObject' => $row,
@@ -176,18 +176,18 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<?php endif; ?>
 
-            <td>
+            <td style="text-align:left">
 				<?php echo JDom::_('html.grid.datetime', array(
-										'dataKey' => 'modification_date',
+										'dataKey' => 'creation_date',
 										'dataObject' => $row,
 										'dateFormat' => "%Y-%m-%d"
 											));
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:left">
 				<?php echo JDom::_('html.grid.datetime', array(
-										'dataKey' => 'creation_date',
+										'dataKey' => 'modification_date',
 										'dataObject' => $row,
 										'dateFormat' => "%Y-%m-%d"
 											));

@@ -43,12 +43,16 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 			<?php endif; ?>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_TITLE"); ?>
+			<th style="text-align:left">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_TITLE", 'a.title', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_PRICE"); ?>
+			<th style="text-align:right">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_PRICE", 'a.price', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			</th>
+
+			<th style="text-align:right">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_VALUE", 'a.value', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
 
@@ -80,17 +84,26 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<?php endif; ?>
 
-            <td>
+            <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'title',
+												'dataObject' => $row,
+												'route' => array('view' => 'package','layout' => 'package','cid[]' => $row->id)
+												));
+				?>
+			</td>
+
+            <td style="text-align:right">
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'price',
 												'dataObject' => $row
 												));
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:right">
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'price',
+												'dataKey' => 'value',
 												'dataObject' => $row
 												));
 				?>

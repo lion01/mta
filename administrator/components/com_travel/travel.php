@@ -6,7 +6,7 @@
 * --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
 * @version		1.0.0
 * @package		Travel
-* @subpackage	Carts
+* @subpackage	Withdrawitems
 * @copyright	Copyright 2012, All rights reserved
 * @author		Edward Khor - www.enfonius.com - edward@enfonius.com
 * @license		GNU/GPL
@@ -87,14 +87,22 @@ switch ($view)
         	$controllerName = "sales";
 
 		break;
+		case 'withdraws' :
+		case 'withdraw' :
+
+
+
+        	$controllerName = "withdraws";
+
+		break;
 
 		default:
-			$view = 'packages';
+			$view = 'withdraws';
 			$layout = 'default';
 
 			JRequest::setVar( 'view', $view);
 			JRequest::setVar( 'layout', $layout);
-			$controllerName = "packages";
+			$controllerName = "withdraws";
 			break;
 }
 
@@ -103,6 +111,7 @@ if ($mainMenu)
 {
 		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_PACKAGES"), 'index.php?option=com_travel&view=packages', ($view == 'packages'));
 		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_SALES"), 'index.php?option=com_travel&view=sales', ($view == 'sales'));
+		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_WITHDRAWS"), 'index.php?option=com_travel&view=withdraws', ($view == 'withdraws'));
 
 }
 

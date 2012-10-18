@@ -2,7 +2,7 @@
 <extension type="component" version="1.6" method="new">
 	<name><![CDATA[Travel]]></name>
 	<author><![CDATA[Edward Khor]]></author>
-	<creationDate>2012-10-14</creationDate>
+	<creationDate>2012-10-18</creationDate>
 	<copyright><![CDATA[Copyright 2012, All rights reserved]]></copyright>
 	<authorEmail><![CDATA[edward@enfonius.com]]></authorEmail>
 	<authorUrl><![CDATA[www.enfonius.com]]></authorUrl>
@@ -41,6 +41,7 @@
 			
 			<menu img="components/com_travel/images/icon-16-travel_packages.png" link="option=com_travel&amp;view=packages">TRAVEL_MENU_PACKAGES</menu>
 			<menu img="components/com_travel/images/icon-16-travel_sales.png" link="option=com_travel&amp;view=sales">TRAVEL_MENU_SALES</menu>
+			<menu img="components/com_travel/images/icon-16-travel_withdraws.png" link="option=com_travel&amp;view=withdraws">TRAVEL_MENU_WITHDRAWS</menu>
 
             
 		</submenu>

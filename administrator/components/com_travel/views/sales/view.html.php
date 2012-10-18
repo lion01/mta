@@ -59,6 +59,7 @@ class TravelViewSales extends JView
 		switch($layout)
 		{
 			case 'default':
+			case 'modal':
 
 				$fct = "display_" . $layout;
 				$this->$fct($tpl);
@@ -97,7 +98,85 @@ class TravelViewSales extends JView
 		$lists['order'] = $model->getState('list.ordering');
 		$lists['order_Dir'] = $model->getState('list.direction');
 
-		$lists['enum']['sales.comission_type'] = TravelHelper::enumList('sales', 'comission_type');
+		// Toolbar
+		jimport('joomla.html.toolbar');
+		$bar = & JToolBar::getInstance('toolbar');
+		if ($access->get('core.create'))
+			$bar->appendButton( 'Standard', "new", "JTOOLBAR_NEW", "new", false);
+		if ($access->get('core.edit') || $access->get('core.edit.own'))
+			$bar->appendButton( 'Standard', "edit", "JTOOLBAR_EDIT", "edit", true);
+		if ($access->get('core.delete') || $access->get('core.delete.own'))
+			$bar->appendButton( 'Standard', "delete", "JTOOLBAR_DELETE", "delete", true);
+		if ($access->get('core.admin'))
+			$bar->appendButton( 'Popup', 'options', JText::_('JTOOLBAR_OPTIONS'), 'index.php?option=com_config&view=component&component=' . $option . '&path=&tmpl=component');
+
+
+
+		//Filters
+		//search : search on User
+		$this->filters['search'] = new stdClass();
+		$this->filters['search']->value = $model->getState("search.search");
+
+		//creation_date
+		$this->filters['creation_date'] = new stdClass();
+		$this->filters['creation_date']->from = $model->getState("filter.creation_date_from");
+		$this->filters['creation_date']->to = $model->getState("filter.creation_date_to");
+
+		//completion_date
+		$this->filters['completion_date'] = new stdClass();
+		$this->filters['completion_date']->from = $model->getState("filter.completion_date_from");
+		$this->filters['completion_date']->to = $model->getState("filter.completion_date_to");
+
+		//Completed
+		$this->filters['completed'] = new stdClass();
+		$this->filters['completed']->value = $model->getState("filter.completed");
+
+
+
+		$config	= JComponentHelper::getParams( 'com_travel' );
+
+		$this->assignRef('user',		JFactory::getUser());
+		$this->assignRef('access',		$access);
+		$this->assignRef('state',		$state);
+		$this->assignRef('lists',		$lists);
+		$this->assignRef('items',		$items);
+		$this->assignRef('pagination',	$pagination);
+		$this->assignRef('config',		$config);
+
+		parent::display($tpl);
+	}
+
+
+	function display_modal($tpl = null)
+	{
+		$app = JFactory::getApplication();
+		$option	= JRequest::getCmd('option');
+
+		$user 	= JFactory::getUser();
+
+		$access = TravelHelper::getACL();
+		$state		= $this->get('State');
+
+		$document	= &JFactory::getDocument();
+		$document->title = $document->titlePrefix . JText::_("TRAVEL_LAYOUT_SALES") . $document->titleSuffix;
+
+		// Get data from the model
+		$model 		= $this->getModel();
+		$model->activeAll();
+		$model->active('predefined', 'default');
+
+
+
+
+
+		$items		= $model->getItems();
+
+		$total		= $this->get( 'Total');
+		$pagination = $this->get( 'Pagination' );
+
+		// table ordering
+		$lists['order'] = $model->getState('list.ordering');
+		$lists['order_Dir'] = $model->getState('list.direction');
 
 		// Toolbar
 		jimport('joomla.html.toolbar');
@@ -114,6 +193,24 @@ class TravelViewSales extends JView
 
 
 		//Filters
+		//search : search on User
+		$this->filters['search'] = new stdClass();
+		$this->filters['search']->value = $model->getState("search.search");
+
+		//creation_date
+		$this->filters['creation_date'] = new stdClass();
+		$this->filters['creation_date']->from = $model->getState("filter.creation_date_from");
+		$this->filters['creation_date']->to = $model->getState("filter.creation_date_to");
+
+		//completion_date
+		$this->filters['completion_date'] = new stdClass();
+		$this->filters['completion_date']->from = $model->getState("filter.completion_date_from");
+		$this->filters['completion_date']->to = $model->getState("filter.completion_date_to");
+
+		//Completed
+		$this->filters['completed'] = new stdClass();
+		$this->filters['completed']->value = $model->getState("filter.completed");
+
 
 
 		$config	= JComponentHelper::getParams( 'com_travel' );

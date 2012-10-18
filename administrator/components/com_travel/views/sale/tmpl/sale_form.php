@@ -37,13 +37,13 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 
 		<tr>
 			<td align="right" class="key">
-				<label for="package_id">
-					<?php echo JText::_( "TRAVEL_FIELD_PACKAGE_ID" ); ?> :
+				<label for="user_id">
+					<?php echo JText::_( "TRAVEL_FIELD_USER" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.form.input.text', array(
-												'dataKey' => 'package_id',
+												'dataKey' => 'user_id',
 												'dataObject' => $this->sale,
 												'size' => "",
 												'domClass' => "validate[required]",
@@ -54,15 +54,32 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="agent">
-					<?php echo JText::_( "TRAVEL_FIELD_AGENT" ); ?> :
+				<label for="payment">
+					<?php echo JText::_( "TRAVEL_FIELD_PAYMENT" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.form.input.text', array(
-												'dataKey' => 'agent',
+												'dataKey' => 'payment',
 												'dataObject' => $this->sale,
-												'size' => "",
+												'size' => "15",
+												'domClass' => "validate[custom[positive_decimal]]",
+												'validatorHandler' => "positive_decimal",
+												'validatorRegex' => "/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/"
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="completed">
+					<?php echo JText::_( "TRAVEL_FIELD_COMPLETED" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.bool', array(
+												'dataKey' => 'completed',
+												'dataObject' => $this->sale,
 												'domClass' => "validate[required]",
 												'required' => true
 												));
@@ -71,56 +88,33 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="quantity">
-					<?php echo JText::_( "TRAVEL_FIELD_QUANTITY" ); ?> :
+				<label for="total_amount">
+					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_AMOUNT" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.form.input.text', array(
-												'dataKey' => 'quantity',
+												'dataKey' => 'total_amount',
 												'dataObject' => $this->sale,
-												'size' => "10",
-												'domClass' => "validate[required,custom[positive_integer]]",
-												'validatorHandler' => "positive_integer",
-												'required' => true,
-												'validatorRegex' => "/^\d+$/"
+												'size' => "15"
 												));
 				?>
 			</td>
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="creation_date">
-					<?php echo JText::_( "TRAVEL_FIELD_CREATION_DATE" ); ?> :
+				<label for="total_commission">
+					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_COMISSION" ); ?> :
 				</label>
 			</td>
 			<td>
-				<?php echo JDom::_('html.form.input.calendar', array(
-												'dataKey' => 'creation_date',
+				<?php echo JDom::_('html.form.input.text', array(
+												'dataKey' => 'total_commission',
 												'dataObject' => $this->sale,
-												'dateFormat' => "%Y-%m-%d",
-												'domClass' => "validate[custom[timeYYYYmmdd]]",
-												'validatorHandler' => "timeYYYYmmdd"
+												'size' => "15",
+												'domClass' => "validate[required]",
+												'required' => true
 												));
-
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td align="right" class="key">
-				<label for="modification_date">
-					<?php echo JText::_( "TRAVEL_FIELD_MODIFICATION_DATE" ); ?> :
-				</label>
-			</td>
-			<td>
-				<?php echo JDom::_('html.form.input.calendar', array(
-												'dataKey' => 'modification_date',
-												'dataObject' => $this->sale,
-												'dateFormat' => "%Y-%m-%d",
-												'domClass' => "validate[custom[timeYYYYmmdd]]",
-												'validatorHandler' => "timeYYYYmmdd"
-												));
-
 				?>
 			</td>
 		</tr>

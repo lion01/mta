@@ -5,7 +5,7 @@
 * --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
 * @version		1.0.0
 * @package		Travel
-* @subpackage	Carts
+* @subpackage	Withdrawitems
 * @copyright	Copyright 2012, All rights reserved
 * @author		Edward Khor - www.enfonius.com - edward@enfonius.com
 * @license		GNU/GPL
@@ -36,3 +36,5 @@
 .icon-48-travel_sales 		{ background-image: url('../images/icon-48-travel_sales.png'); }
 .icon-48-travel_withdraws 		{ background-image: url('../images/icon-48-travel_withdraws.png'); }
 .icon-48-travel_carts 		{ background-image: url('../images/icon-48-travel_carts.png'); }
+.icon-48-travel_saleitems 		{ background-image: url('../images/icon-48-travel_saleitems.png'); }
+.icon-48-travel_withdrawitems 		{ background-image: url('../images/icon-48-travel_withdrawitems.png'); }

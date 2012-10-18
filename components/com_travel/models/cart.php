@@ -70,9 +70,9 @@ class TravelModelCart extends TravelModelItem
 
 			$data->id = 0;
 			$data->attribs = null;
-			$data->package = JRequest::getInt('filter_package', $this->getState('filter.package'));
+			$data->package_id = JRequest::getInt('filter_package_id', $this->getState('filter.package_id'));
 			$data->quantity = null;
-			$data->user = null;
+			$data->user_id = null;
 
 			$this->_data = $data;
 
@@ -287,6 +287,64 @@ class TravelModelCart extends TravelModelItem
 
 
 	}
+	/**
+	 * Method to reset keys in cart object
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 */
+	function integrityReset($key, $cid = array())
+	{
+		$result = false;
+
+		if (count( $cid ))
+		{
+			JArrayHelper::toInteger($cid);
+			$cids = implode( ',', $cid );
+			$query = "UPDATE #__travel_carts SET `" . $key . "` = 0"
+				. " WHERE `" . $key . "` IN ( " . $cids . " )";
+			$this->_db->setQuery( $query );
+
+			if(!$this->_db->query()) {
+				JError::raiseWarning(1000, $this->_db->getErrorMsg());
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Method to cascad delete carts items
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 */
+	function integrityDelete($key, $cid = array())
+	{
+
+		if (count( $cid ))
+		{
+			JArrayHelper::toInteger($cid);
+			$cids = implode( ',', $cid );
+			$query = 'SELECT id FROM #__travel_carts'
+				. " WHERE `" . $key . "` IN ( " . $cids . " )";
+			$this->_db->setQuery( $query );
+
+			$list = $this->_getList($query);
+
+			$cidsDelete = array();
+			if (count($list) > 0)
+				foreach($list as $item)
+					$cidsDelete[] = $item->id;
+
+			return $this->delete($cidsDelete);
+
+		}
+
+		return true;
+	}
+
 
 
 

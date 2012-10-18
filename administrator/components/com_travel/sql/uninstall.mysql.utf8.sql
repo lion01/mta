@@ -6,3 +6,7 @@ DROP TABLE IF EXISTS `#__travel_withdraws`;
 
 DROP TABLE IF EXISTS `#__travel_carts`;
 
+DROP TABLE IF EXISTS `#__travel_saleitems`;
+
+DROP TABLE IF EXISTS `#__travel_withdrawitems`;
+

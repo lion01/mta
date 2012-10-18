@@ -51,13 +51,21 @@ class TravelModelSales extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
+				'completed', 'a.completed',
+				'creation_date', 'a.creation_date',
+				'completion_date', 'a.completion_date',
 
 			);
 		}
 
 		//Define the filterable fields
 		$this->set('filter_vars', array(
-			'package_id' => 'int'
+			'creation_date_from' => 'date:%Y-%m-%d',
+			'creation_date_to' => 'date:%Y-%m-%d',
+			'completion_date_from' => 'date:%Y-%m-%d',
+			'completion_date_to' => 'date:%Y-%m-%d',
+			'creation_date' => 'string',
+			'completion_date' => 'string'
 				));
 
 
@@ -85,6 +93,8 @@ class TravelModelSales extends TravelModelList
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
+
+
 
 		return parent::getStoreId($id);
 	}
@@ -123,10 +133,32 @@ class TravelModelSales extends TravelModelList
 		if (isset($this->_active['predefined']))
 		switch($this->_active['predefined'])
 		{
+			case 'sales': return $this->_buildQuery_sales(); break;
 
 		}
 
 
+
+		$query = ' SELECT a.*'
+
+			. $this->_buildQuerySelect()
+
+			. ' FROM `#__travel_sales` AS a '
+
+			. $this->_buildQueryJoin() . ' '
+
+			. $this->_buildQueryWhere()
+
+
+			. $this->_buildQueryOrderBy()
+			. $this->_buildQueryExtra()
+		;
+
+		return $query;
+	}
+
+	function _buildQuery_sales()
+	{
 
 		$query = ' SELECT a.*'
 
@@ -157,9 +189,18 @@ class TravelModelSales extends TravelModelList
 
 		if (isset($this->_active['filter']) && $this->_active['filter'])
 		{
-			$filter_package_id = $this->getState('filter.package_id');
-			if ($filter_package_id != '')		$where[] = "a.package_id = " . (int)$filter_package_id . "";
+		// Range : creation_date
+			$filter_creation_date_from = $this->getState('filter.creation_date_from');
+			if ($filter_creation_date_from != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_from) . ") >= 0";
 
+			$filter_creation_date_to = $this->getState('filter.creation_date_to');
+			if ($filter_creation_date_to != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_to) . ") <= 0";
+		// Range : completion_date
+			$filter_completion_date_from = $this->getState('filter.completion_date_from');
+			if ($filter_completion_date_from != '')		$where[] = "DATEDIFF(a.completion_date, " . $db->Quote($filter_completion_date_from) . ") >= 0";
+
+			$filter_completion_date_to = $this->getState('filter.completion_date_to');
+			if ($filter_completion_date_to != '')		$where[] = "DATEDIFF(a.completion_date, " . $db->Quote($filter_completion_date_to) . ") <= 0";
 
 		}
 
@@ -167,7 +208,7 @@ class TravelModelSales extends TravelModelList
 		return parent::_buildQueryWhere($where);
 	}
 
-	function _buildQueryOrderBy($order = array(), $pre_order = 'a.package_id')
+	function _buildQueryOrderBy($order = array(), $pre_order = 'a.user_id')
 	{
 
 		return parent::_buildQueryOrderBy($order, $pre_order);

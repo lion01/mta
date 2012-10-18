@@ -73,14 +73,13 @@ class TravelModelPackage extends TravelModelItem
 			$data->title = null;
 			$data->content = null;
 			$data->commission_type = JRequest::getVar('filter_commission_type', $this->getState('filter.commission_type'));
-			$data->commission_rate = null;
+			$data->comisssion_rate = null;
 			$data->price = null;
 			$data->value = null;
 			$data->ordering = null;
-			$data->checked_out = 0;
-			$data->published = null;
 			$data->creation_date = null;
 			$data->modification_date = null;
+			$data->published = null;
 
 			$this->_data = $data;
 
@@ -103,6 +102,12 @@ class TravelModelPackage extends TravelModelItem
 		// Initialise variables.
 		$app = JFactory::getApplication();
 		$session = JFactory::getSession();
+
+		if ($search_search = $app->getUserState($this->context.'.search.search'))
+			$this->setState('search.search', $search_search, null, 'varchar');
+
+		if ($filter_published = $app->getUserState($this->context.'.filter.published'))
+			$this->setState('filter.published', $filter_published, null, 'cmd');
 
 
 
@@ -286,38 +291,16 @@ class TravelModelPackage extends TravelModelItem
 				return false;
 			}
 
-
-
-		}
-
-		return true;
-	}
-	/**
-	 * Method to (un)publish a package
-	 *
-	 * @access	public
-	 * @return	boolean	True on success
-	 */
-	function publish($cid = array(), $publish = 1)
-	{
-		$user 	= JFactory::getUser();
-
-		if (count( $cid ))
-		{
-			JArrayHelper::toInteger($cid);
-			$cids = implode( ',', $cid );
-
-			$query = 'UPDATE #__travel_packages'
-				. ' SET `published` = '.(int) $publish
-				. ' WHERE id IN ( '.$cids.' )'
-
-
-			;
-			$this->_db->setQuery( $query );
-			if (!$this->_db->query()) {
-				JError::raiseWarning(1000, $this->_db->getErrorMsg());
+			//Integrity : Cascade delete in cart on package_id
+			$model = JModel::getInstance('cart', 'TravelModel');
+			if (!$model->integrityDelete('package_id', $cid))
+			{
+				JError::raiseWarning( 1010, JText::_("TRAVEL_ALERT_ERROR_ON_CASCAD_DELETE") );
 				return false;
 			}
+
+
+
 		}
 
 		return true;
@@ -374,6 +357,36 @@ class TravelModelPackage extends TravelModelItem
 
 		$row->reorder();
 
+
+		return true;
+	}
+	/**
+	 * Method to (un)publish a package
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 */
+	function publish($cid = array(), $publish = 1)
+	{
+		$user 	= JFactory::getUser();
+
+		if (count( $cid ))
+		{
+			JArrayHelper::toInteger($cid);
+			$cids = implode( ',', $cid );
+
+			$query = 'UPDATE #__travel_packages'
+				. ' SET `published` = '.(int) $publish
+				. ' WHERE id IN ( '.$cids.' )'
+
+
+			;
+			$this->_db->setQuery( $query );
+			if (!$this->_db->query()) {
+				JError::raiseWarning(1000, $this->_db->getErrorMsg());
+				return false;
+			}
+		}
 
 		return true;
 	}

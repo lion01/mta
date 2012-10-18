@@ -51,9 +51,21 @@ class TravelModelWithdraws extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
+				'creation_date', 'a.creation_date',
+				'payment_date', 'a.payment_date',
 
 			);
 		}
+
+		//Define the filterable fields
+		$this->set('filter_vars', array(
+			'creation_date_from' => 'date:%Y-%m-%d',
+			'creation_date_to' => 'date:%Y-%m-%d',
+			'payment_date_from' => 'date:%Y-%m-%d',
+			'payment_date_to' => 'date:%Y-%m-%d',
+			'creation_date' => 'string',
+			'payment_date' => 'string'
+				));
 
 
 
@@ -80,6 +92,8 @@ class TravelModelWithdraws extends TravelModelList
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
+
+
 
 		return parent::getStoreId($id);
 	}
@@ -118,10 +132,32 @@ class TravelModelWithdraws extends TravelModelList
 		if (isset($this->_active['predefined']))
 		switch($this->_active['predefined'])
 		{
+			case 'default': return $this->_buildQuery_default(); break;
 
 		}
 
 
+
+		$query = ' SELECT a.*'
+
+			. $this->_buildQuerySelect()
+
+			. ' FROM `#__travel_withdraws` AS a '
+
+			. $this->_buildQueryJoin() . ' '
+
+			. $this->_buildQueryWhere()
+
+
+			. $this->_buildQueryOrderBy()
+			. $this->_buildQueryExtra()
+		;
+
+		return $query;
+	}
+
+	function _buildQuery_default()
+	{
 
 		$query = ' SELECT a.*'
 
@@ -150,6 +186,22 @@ class TravelModelWithdraws extends TravelModelList
 		$acl = TravelHelper::getAcl();
 
 
+		if (isset($this->_active['filter']) && $this->_active['filter'])
+		{
+		// Range : creation_date
+			$filter_creation_date_from = $this->getState('filter.creation_date_from');
+			if ($filter_creation_date_from != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_from) . ") >= 0";
+
+			$filter_creation_date_to = $this->getState('filter.creation_date_to');
+			if ($filter_creation_date_to != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_to) . ") <= 0";
+		// Range : payment_date
+			$filter_payment_date_from = $this->getState('filter.payment_date_from');
+			if ($filter_payment_date_from != '')		$where[] = "DATEDIFF(a.payment_date, " . $db->Quote($filter_payment_date_from) . ") >= 0";
+
+			$filter_payment_date_to = $this->getState('filter.payment_date_to');
+			if ($filter_payment_date_to != '')		$where[] = "DATEDIFF(a.payment_date, " . $db->Quote($filter_payment_date_to) . ") <= 0";
+
+		}
 
 
 		return parent::_buildQueryWhere($where);

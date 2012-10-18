@@ -42,24 +42,32 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 			<?php endif; ?>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_PACKAGE_ID"); ?>
+			<th style="text-align:left">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_USER", 'a.user_id', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_AGENT"); ?>
+			<th style="text-align:right">
+				<?php echo JText::_("TRAVEL_FIELD_PAYMENT"); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_QUANTITY"); ?>
+			<th style="text-align:right">
+				<?php echo JText::_("TRAVEL_FIELD_TOTAL_COMISSION"); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_CREATION_DATE"); ?>
+			<th style="text-align:right">
+				<?php echo JText::_("TRAVEL_FIELD_TOTAL_AMOUNT"); ?>
 			</th>
 
-			<th>
-				<?php echo JText::_("TRAVEL_FIELD_MODIFICATION_DATE"); ?>
+			<th style="text-align:center">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED", 'a.completed', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			</th>
+
+			<th style="text-align:left">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_CREATION_DATE", 'a.creation_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			</th>
+
+			<th style="text-align:left">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED_DATE", 'a.completion_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
 
@@ -96,31 +104,51 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<?php endif; ?>
 
-            <td>
+            <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'package_id',
+												'dataKey' => 'user_id',
+												'dataObject' => $row,
+												'route' => array('view' => 'sale','layout' => 'sale','cid[]' => $row->id)
+												));
+				?>
+			</td>
+
+            <td style="text-align:right">
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'payment',
 												'dataObject' => $row
 												));
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:right">
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'agent',
+												'dataKey' => 'total_commission',
 												'dataObject' => $row
 												));
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:right">
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'quantity',
+												'dataKey' => 'total_amount',
 												'dataObject' => $row
 												));
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:center">
+				<?php echo JDom::_('html.grid.bool', array(
+										'dataKey' => 'completed',
+										'dataObject' => $row,
+										'num' => $i,
+										'togglable' => true,
+										'commandAcl' => ($row->params->get('access-edit')?null:'core.edit')
+											));
+				?>
+			</td>
+
+            <td style="text-align:left">
 				<?php echo JDom::_('html.grid.datetime', array(
 										'dataKey' => 'creation_date',
 										'dataObject' => $row,
@@ -129,9 +157,9 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 			</td>
 
-            <td>
+            <td style="text-align:left">
 				<?php echo JDom::_('html.grid.datetime', array(
-										'dataKey' => 'modification_date',
+										'dataKey' => 'completion_date',
 										'dataObject' => $row,
 										'dateFormat' => "%Y-%m-%d"
 											));

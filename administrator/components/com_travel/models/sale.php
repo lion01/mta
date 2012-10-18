@@ -70,15 +70,14 @@ class TravelModelSale extends TravelModelItem
 
 			$data->id = 0;
 			$data->attribs = null;
-			$data->package_id = JRequest::getInt('filter_package_id', $this->getState('filter.package_id'));
-			$data->quantity = null;
-			$data->agent = null;
+			$data->user_id = null;
 			$data->payment = null;
 			$data->completed = null;
 			$data->creation_date = null;
 			$data->modification_date = null;
-			$data->comission_rate = null;
-			$data->comission_type = JRequest::getVar('filter_comission_type', $this->getState('filter.comission_type'));
+			$data->completion_date = null;
+			$data->total_commission = null;
+			$data->total_amount = null;
 
 			$this->_data = $data;
 
@@ -101,6 +100,12 @@ class TravelModelSale extends TravelModelItem
 		// Initialise variables.
 		$app = JFactory::getApplication();
 		$session = JFactory::getSession();
+
+		if ($search_search = $app->getUserState($this->context.'.search.search'))
+			$this->setState('search.search', $search_search, null, 'varchar');
+
+		if ($filter_completed = $app->getUserState($this->context.'.filter.completed'))
+			$this->setState('filter.completed', $filter_completed, null, 'cmd');
 
 
 

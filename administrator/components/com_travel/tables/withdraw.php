@@ -56,13 +56,21 @@ class TableWithdraw extends JTable
 	 */
 	var $amount = null;
 	/**
+	 * @var float
+	 */
+	var $total_paid = null;
+	/**
 	 * @var int
 	 */
-	var $agent = null;
+	var $user_id = null;
 	/**
 	 * @var string
 	 */
 	var $creation_date = null;
+	/**
+	 * @var string
+	 */
+	var $payment_date = null;
 
 
 
@@ -118,12 +126,19 @@ class TableWithdraw extends JTable
 
 		$filter = new JFilterInput(array(), array(), 0, 0);
 		$this->amount = $filter->clean($this->amount, 'FLOAT');
-		$this->agent = $filter->clean($this->agent, 'INT');
+		$this->total_paid = $filter->clean($this->total_paid, 'FLOAT');
+		$this->user_id = $filter->clean($this->user_id, 'INT');
 		$this->creation_date = $filter->clean($this->creation_date, 'STRING');
+		$this->payment_date = $filter->clean($this->payment_date, 'STRING');
 
 
 		if (!empty($this->amount) && !preg_match("/^-?\d*\.?\d*$/", $this->amount)){
 			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_AMOUNT")) );
+			$valid = false;
+		}
+
+		if (!empty($this->total_paid) && !preg_match("/^\d{0,8}(\.\d{0,2})?$/", $this->total_paid)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_PAID")) );
 			$valid = false;
 		}
 
@@ -138,8 +153,21 @@ class TableWithdraw extends JTable
 				$this->creation_date = $creation_date->toMySQL();
 		}
 
+		if (!empty($this->payment_date) && ($this->payment_date != '0000-00-00'))
+		{
+			$payment_date = TravelHelper::getSqlDate($this->payment_date, array('%Y-%m-%d'));
+			if ($payment_date === null){
+				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PAYMENT_DATE")));
+				$valid = false;
+			}
+			else
+				$this->payment_date = $payment_date->toMySQL();
+		}
 
 
+
+		if ($this->total_paid == null)
+			$this->total_paid = 0;
 
 
 		//Creation date
@@ -152,8 +180,13 @@ class TableWithdraw extends JTable
 			$valid = false;
 		}
 
-		if (($this->agent === null) || ($this->agent === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_AGENT")));
+		if (($this->total_paid === null) || ($this->total_paid === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_PAID")));
+			$valid = false;
+		}
+
+		if (($this->user_id === null) || ($this->user_id === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_USER")));
 			$valid = false;
 		}
 

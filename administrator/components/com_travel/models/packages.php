@@ -52,9 +52,26 @@ class TravelModelPackages extends TravelModelList
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'title', 'a.title',
+				'commission_type', 'a.commission_type',
+				'ordering', 'a.ordering',
+				'creation_date', 'a.creation_date',
+				'modification_date', 'a.modification_date',
 
 			);
 		}
+
+		//Define the filterable fields
+		$this->set('filter_vars', array(
+			'creation_date_from' => 'date:%Y-%m-%d',
+			'creation_date_to' => 'date:%Y-%m-%d',
+			'published' => 'int',
+			'creation_date' => 'string'
+				));
+
+		//Define the filterable fields
+		$this->set('search_vars', array(
+			'search' => 'varchar'
+				));
 
 
 
@@ -82,6 +99,9 @@ class TravelModelPackages extends TravelModelList
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
+
+
+
 
 		return parent::getStoreId($id);
 	}
@@ -174,6 +194,25 @@ class TravelModelPackages extends TravelModelList
 		$acl = TravelHelper::getAcl();
 
 
+		if (isset($this->_active['filter']) && $this->_active['filter'])
+		{
+			//search_search : search on Title
+			$search_search = $this->getState('search.search');
+			$this->_addSearch('search', 'a.title', 'like');
+			if (($search_search != '') && ($search_search_val = $this->_buildSearch('search', $search_search)))
+				$where[] = $search_search_val;
+
+		// Range : creation_date
+			$filter_creation_date_from = $this->getState('filter.creation_date_from');
+			if ($filter_creation_date_from != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_from) . ") >= 0";
+
+			$filter_creation_date_to = $this->getState('filter.creation_date_to');
+			if ($filter_creation_date_to != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_to) . ") <= 0";
+			$filter_published = $this->getState('filter.published');
+			if ($filter_published != '')		$where[] = "a.published = " . $db->Quote($filter_published);
+
+
+		}
 		if (!$acl->get('core.edit.state')
 		&& (!isset($this->_active['publish']) || $this->_active['publish'] !== false))
 				$where[] = "a.published=1";
