@@ -12,20 +12,20 @@ defined('_JEXEC') or die ;
 switch($this->action) {
 	case 'upgrade' :
 		$headerText = JText::_('OSM_SUBSCRIION_UPGRADE_FORM_HEADING');
-		break ;			 
+		break ;
 	case 'renew' :
 		$headerText = JText::_('OSM_SUBSCRIION_RENEW_FORM_HEADING');
 		break ;
 	default :
 		$headerText = JText::_('OSM_SUBSCRIPTION_FORM_HEADING') ;
 		break ;
-}	
+}
 $headerText = str_replace('[PLAN_TITLE]', $this->plan->title, $headerText) ;
 ?>
 	<h1 class="osm_title"><?php echo $headerText; ?></h1>
-<?php    
+<?php
 if (!$this->userId && $this->config->registration_integration && $this->config->show_login_box_on_subscribe_page) {
-	$actionUrl = JRoute::_('index.php?option=com_users&task=user.login');	
+	$actionUrl = JRoute::_('index.php?option=com_users&task=user.login');
 	$returnUrl = JRoute::_('index.php?option=com_osmembership&view=register&id='.$this->planId.'&Itemid='.$this->Itemid);
 ?>
 <form method="post" action="<?php echo $actionUrl ; ?>" name="osm_login_form" id="osm_login_form">
@@ -37,12 +37,12 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 			</tr>
 			<tr>
 				<td class="title_cell">
-					<label for="username"><?php echo JText::_('OSM_USERNAME'); ?></label>					
+					<label for="username"><?php echo JText::_('OSM_USERNAME'); ?></label>
 				</td>
 				<td class="field_cell">
 					<input type="text" name="username" id="username" class="osm_inputbox inputbox" value="" size="15" />
 				</td>
-			</tr>	
+			</tr>
 			<tr>
 				<td class="title_cell">
 					<?php echo JText::_('OSM_PASSWORD'); ?>
@@ -54,59 +54,61 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 			<tr>
 				<td colspan="2" class="title_cell">
 					<input type="submit" value="<?php echo JText::_('OSM_LOGIN'); ?>" class="button btn btn-primary" />
+                                        <br /><br />
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
 					<h2 class="osm_title"><?php echo JText::_('OSM_NEW_USER_REGISTER'); ?></h2>
 				</td>
-			</tr>			
-		</table>	
+			</tr>
+		</table>
 		<input type="hidden" name="remember" value="1" />
 		<input type="hidden" name="return" value="<?php echo base64_encode($returnUrl) ; ?>" />
-		<?php echo JHTML::_( 'form.token' ); ?>			
-</form>	
-<?php	
+		<?php echo JHTML::_( 'form.token' ); ?>
+</form>
+
+<?php
 }
 
-?>			
+?>
 	<form method="post" name="os_form" id="os_form" action="<?php echo JRoute::_('index.php?option=com_osmembership&task=subscription_confirmation&Itemid='.$this->Itemid, false, $this->config->use_https ? true : false); ?>" enctype="multipart/form-data" autocomplete="off">
-<?php												
-		if (strlen($this->message)) {			
-		?>								
-			<div class="msg"><?php echo $this->message ; ?></div>							 															
-		<?php	
+<?php
+		if (strlen($this->message)) {
+		?>
+			<div class="msg"><?php echo $this->message ; ?></div>
+		<?php
 		}
-	?>		
-	<table  class="os_table">																			
-    		<?php			
+	?>
+	<table  class="os_table">
+    		<?php
     		if ($this->enableCoupon) {
     		?>
-    			<tr class="title_cell">			
+    			<tr class="title_cell">
     				<td class="title_cell" width="30%">
-    					<label for="coupon_code"><?php echo  JText::_('OSM_COUPON') ?></label>    					
+    					<label for="coupon_code"><?php echo  JText::_('OSM_COUPON') ?></label>
     				</td>
     				<td class="field_cell">
-    					<input type="text" class="osm_inputbox inputbox" name="coupon_code" id="coupon_code" value="<?php echo $this->couponCode; ?>" size="18" />						
+    					<input type="text" class="osm_inputbox inputbox" name="coupon_code" id="coupon_code" value="<?php echo $this->couponCode; ?>" size="18" />
     					<?php
     						if ($this->errorCoupon) {
     						?>
     							<span class="invalid"><?php echo JText::_('OSM_INVALID_COUPON'); ?></span>
-    						<?php	
+    						<?php
     						}
     					?>
     				</td>
-    			</tr>	
-    		<?php	
-    		}    		
+    			</tr>
+    		<?php
+    		}
     		if (!$this->userId && $this->config->registration_integration) {
     		?>
-	    		<tr>			
+	    		<tr>
 					<td class="title_cell" width="30%">
 						<label for="username1">
 							<?php echo  JText::_('OSM_USERNAME') ?>
-							<span class="required">*</span>		
-						</label>																					
+							<span class="required">*</span>
+						</label>
 					</td>
 					<td class="field_cell">
 						<input type="text" name="username" id="username1" class="osm_inputbox inputbox" value="<?php echo $this->username; ?>" size="15" />
@@ -114,12 +116,12 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 							if ($this->registrationErrorCode == 1 || $this->registrationErrorCode == 3) {
 							?>
 								<span class="invalid"><?php echo JText::_('OSM_INVALID_USERNAME'); ?></span>
-							<?php	
+							<?php
 							}
-						?>																		
+						?>
 					</td>
 				</tr>
-				<tr>			
+				<tr>
 					<td class="title_cell" width="30%">
 						<label for="password1">
 							<?php echo  JText::_('OSM_PASSWORD') ?>
@@ -129,8 +131,8 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 					<td class="field_cell">
 						<input type="password" name="password1" id="password1" class="osm_inputbox inputbox" value="<?php echo $this->password; ?>" size="15" />
 					</td>
-				</tr>		
-				<tr>			
+				</tr>
+				<tr>
 					<td class="title_cell" width="30%">
 						<label for="password2">
 							<?php echo  JText::_('OSM_RETYPE_PASSWORD') ?>
@@ -141,17 +143,17 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 						<input type="password" name="password2" id="password2" class="osm_inputbox inputbox" value="<?php echo $this->password; ?>" size="15" />
 					</td>
 				</tr>
-    		<?php	
+    		<?php
     		}
-    		
-			foreach ($this->fields as $field) {				
+
+			foreach ($this->fields as $field) {
 				switch ($field->field_type) {
 					case FIELD_TYPE_HEADING :
 						?>
 							<tr>
 								<td colspan="2" class="heading"><?php echo JText::_($field->title) ; ?></td>
 							</tr>
-						<?php	
+						<?php
 						break ;
 					case FIELD_TYPE_MESSAGE :
 						?>
@@ -160,7 +162,7 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 									<?php echo $field->description ; ?>
 								</td>
 							</tr>
-						<?php						
+						<?php
 						break ;
 					default:
 					?>
@@ -170,25 +172,25 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 									<?php echo $field->title ; ?>
 									<?php
 										if ($field->required) {
-											echo '<span class="required">*</span>' ;	
-										}																	
+											echo '<span class="required">*</span>' ;
+										}
 									?>
 								</label>
-								<?php 
+								<?php
 									if (strlen(trim($field->description))) {
 									?>
 										<p class="field_description"><?php echo $field->description ; ?></p>
-									<?php	
+									<?php
 									}
 								?>
 							</td>
 							<td class="field_cell">
 								<?php echo $field->output ; ?>
 							</td>
-						</tr>		
-					<?php			
-				}									
-			}			
+						</tr>
+					<?php
+				}
+			}
 			if (count($this->methods) > 1) {
 				?>
 					<tr>
@@ -196,7 +198,7 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 							<label for="payment_method">
 								<?php echo JText::_('OSM_PAYMENT_OPTION'); ?>
 								<span class="required">*</span>
-							</label>													
+							</label>
 						</td>
 						<td class="field_cell">
 							<?php
@@ -206,39 +208,39 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 									if ($paymentMethod->getName() == $this->paymentMethod) {
 										$checked = ' checked="checked" ';
 										$method = $paymentMethod ;
-									}										
-									else 
-										$checked = '';	
+									}
+									else
+										$checked = '';
 								?>
 									<input onclick="changePaymentMethod();" type="radio" name="payment_method" value="<?php echo $paymentMethod->getName(); ?>" <?php echo $checked; ?> /><?php echo JText::_($paymentMethod->title) ; ?> <br />
-								<?php		
-								}	
+								<?php
+								}
 							?>
-						</td>						
-					</tr>				
-				<?php					
+						</td>
+					</tr>
+				<?php
 				} else {
 					$method = $this->methods[0] ;
-				}																			
+				}
 				if ($method->getCreditCard()) {
-					$style = '' ;	
+					$style = '' ;
 				} else {
 					$style = 'style = "display:none"';
-				}			
-				?>			
+				}
+				?>
 				<tr id="tr_card_number" <?php echo $style; ?>>
 					<td class="title_cell"><?php echo  JText::_('AUTH_CARD_NUMBER'); ?><span class="required">*</span></td>
 					<td class="field_cell">
 						<input type="text" name="x_card_num" class="osm_inputbox inputbox" onkeyup="checkNumber(this)" value="<?php echo $this->x_card_num; ?>" size="20" />
-					</td>					
+					</td>
 				</tr>
 				<tr id="tr_exp_date" <?php echo $style; ?>>
 					<td class="title_cell">
 						<?php echo JText::_('AUTH_CARD_EXPIRY_DATE'); ?><span class="required">*</span>
 					</td>
-					<td class="field_cell">					
+					<td class="field_cell">
 						<?php echo $this->lists['exp_month'] .'  /  '.$this->lists['exp_year'] ; ?>
-					</td>					
+					</td>
 				</tr>
 				<tr id="tr_cvv_code" <?php echo $style; ?>>
 					<td class="title_cell">
@@ -246,13 +248,13 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 					</td>
 					<td class="field_cell">
 						<input type="text" name="x_card_code" class="osm_inputbox inputbox" onKeyUp="checkNumber(this)" value="<?php echo $this->x_card_code; ?>" size="20" />
-					</td>					
+					</td>
 				</tr>
 				<?php
 					if ($method->getCardType()) {
 						$style = '' ;
 					} else {
-						$style = ' style = "display:none;" ' ;										
+						$style = ' style = "display:none;" ' ;
 					}
 				?>
 					<tr id="tr_card_type" <?php echo $style; ?>>
@@ -261,13 +263,13 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 						</td>
 						<td class="field_cell">
 							<?php echo $this->lists['card_type'] ; ?>
-						</td>						
-					</tr>					
+						</td>
+					</tr>
 				<?php
 					if ($method->getCardHolderName()) {
 						$style = '' ;
 					} else {
-						$style = ' style = "display:none;" ' ;										
+						$style = ' style = "display:none;" ' ;
 					}
 				?>
 					<tr id="tr_card_holder_name" <?php echo $style; ?>>
@@ -276,11 +278,11 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 						</td>
 						<td class="field_cell">
 							<input type="text" name="card_holder_name" class="osm_inputbox inputbox"  value="<?php echo $this->cardHolderName; ?>" size="40" />
-						</td>						
+						</td>
 					</tr>
-				<?php									
+				<?php
 					if ($method->getName() == 'os_echeck') {
-						$style = '';												
+						$style = '';
 					} else {
 						$style = ' style = "display:none;" ' ;
 					}
@@ -304,14 +306,14 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 				    <tr id="tr_bank_account_holder" <?php echo $style; ?>>
 				      <td class="title_cell"><?php echo JText::_('OSM_ACCOUNT_HOLDER_NAME'); ?><span class="required">*</span></td>
 				      <td class="field_cell"><input type="text" name="x_bank_acct_name" class="osm_inputbox inputbox"  value="<?php echo $this->x_bank_acct_name; ?>" size="40" /></td>
-				    </tr>	
-				<?php			
+				    </tr>
+				<?php
 				if ($this->idealEnabled) {
 			        if ($method->getName() == 'os_ideal') {
 						$style = '' ;
 					} else {
 						$style = ' style = "display:none;" ' ;
-					}	
+					}
 				?>
 					<tr id="tr_bank_list" <?php echo $style; ?>>
 						<td class="title_cell">
@@ -321,8 +323,8 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 							<?php echo $this->lists['bank_id'] ; ?>
 						</td>
 					</tr>
-				<?php	
-			    }						        			
+				<?php
+			    }
 				if ($this->config->accept_term ==1) {
 					$articleId = $this->config->article_id ;
 					$db = & JFactory::getDbo() ;
@@ -334,49 +336,49 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 					require_once JPATH_ROOT.'/components/com_content/helpers/route.php' ;
 					if (@$this->config->fix_term_and_condition_popup) {
 					    $termLink = ContentHelperRoute::getArticleRoute($articleId, $catId, $sectionId).'&format=html' ;
-					    $extra = ' target="_blank" ';   
+					    $extra = ' target="_blank" ';
 					} else {
 					    $termLink = ContentHelperRoute::getArticleRoute($articleId, $catId, $sectionId).'&tmpl=component&format=html' ;
 					    $extra = ' class="modal" ' ;
-					}								    				   
+					}
 				?>
 					<tr>
 						<td colspan="2">
 							<input type="checkbox" name="accept_term" value="1" class="osm_inputbox inputbox" />
 							<strong><?php echo JText::_('OSM_ACCEPT'); ?>&nbsp;<a href="<?php echo JRoute::_($termLink); ?>" <?php echo $extra ; ?>><?php echo JText::_('OSM_TERM_AND_CONDITION'); ?></a></strong>
-						</td>						
+						</td>
 					</tr>
-				<?php	
+				<?php
 				}
-			?>									
+			?>
 		<tr>
 			<td colspan="2" align="left">
-				<input type="button" class="button btn btn-primary" name="btnSubmit" value="<?php echo  JText::_('OSM_SUBSCRIBE_CONFIRMATION') ;?>" onclick="checkData();">				
-			</td>			
-		</tr>										
-	</table>					
+				<input type="button" class="button btn btn-primary" name="btnSubmit" value="<?php echo  JText::_('OSM_SUBSCRIBE_CONFIRMATION') ;?>" onclick="checkData();">
+			</td>
+		</tr>
+	</table>
 	<?php
 		if (count($this->methods) == 1) {
 		?>
 			<input type="hidden" name="payment_method" value="<?php echo $this->methods[0]->getName(); ?>" />
-		<?php	
-		}		
+		<?php
+		}
 	?>
 	<input type="hidden" name="Itemid" value="<?php echo $this->Itemid; ?>" />
 	<input type="hidden" name="plan_id" value="<?php echo $this->plan->id ; ?>" />
 	<input type="hidden" name="option" value="com_osmembership" />
 	<input type="hidden" name="act" value="<?php echo $this->action ; ?>" />
-	<input type="hidden" name="from_subscription_id" value="<?php echo $this->fromSubscriptionId ; ?>" />	
+	<input type="hidden" name="from_subscription_id" value="<?php echo $this->fromSubscriptionId ; ?>" />
 	<input type="hidden" name="renew_option_id" value="<?php echo $this->renewOptionId ; ?>" />
 	<input type="hidden" name="upgrade_option_id" value="<?php echo $this->upgradeOptionId ; ?>" />
-	
-					
+
+
 	<script language="javascript">
 		<?php
 			os_payments::writeJavascriptObjects();
 		?>
 		function checkData() {
-			var form = document.os_form ;			
+			var form = document.os_form ;
 			<?php
 				if (!$this->userId && $this->config->registration_integration) {
 				//Username and password validation
@@ -396,12 +398,12 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 						form.password1.focus();
 						return ;
 					}
-				<?php					
-				}								
-				echo $this->validations ;				
-			?>																	
+				<?php
+				}
+				echo $this->validations ;
+			?>
 			var paymentMethod = "";
-			<?php				
+			<?php
 				if (count($this->methods) > 1) {
 				?>
 					var paymentValid = false;
@@ -412,26 +414,26 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 							break;
 						}
 					}
-					
+
 					if (!paymentValid) {
 						alert("<?php echo JText::_('OSM_REQUIRE_PAYMENT_OPTION'); ?>");
 						return;
-					}		
-				<?php	
+					}
+				<?php
 				} else {
 				?>
 					paymentMethod = "<?php echo $this->methods[0]->getName(); ?>";
-				<?php	
-				}				
+				<?php
+				}
 				?>
-				method = methods.Find(paymentMethod);				
+				method = methods.Find(paymentMethod);
 				//Check payment method page
 				if (method.getCreditCard()) {
 					if (form.x_card_num.value == "") {
 						alert("<?php echo  JText::_('OSM_ENTER_CARD_NUMBER'); ?>");
 						form.x_card_num.focus();
-						return;					
-					}					
+						return;
+					}
 					if (form.x_card_code.value == "") {
 						alert("<?php echo JText::_('OSM_ENTER_CARD_CODE'); ?>");
 						form.x_card_code.focus();
@@ -444,32 +446,32 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 						form.card_holde_name.focus();
 						return ;
 					}
-				}		
+				}
 				//Need to add validation here
-				/**This check is only used for echeck payment gateway**/			
+				/**This check is only used for echeck payment gateway**/
 				if (paymentMethod == 'os_echeck') {
 					if (form.x_bank_aba_code.value == '') {
 						alert("<?php echo JText::_('OSM_BANK_ROUTING_NUMBER_REQUIRE') ?>");
 						form.x_bank_aba_code.focus();
 						return ;
-					}				
+					}
 					if (form.x_bank_acct_num.value == '') {
 						alert("<?php echo JText::_('OSM_BANK_ACCOUNT_NUMBER_REQUIRE') ?>");
 						form.x_bank_aba_code.focus();
 						return ;
-					}				
+					}
 					if (form.x_bank_name.value == '') {
 						alert("<?php echo JText::_('OSM_BANK_NAME_REQUIRE') ?>");
 						form.x_bank_name.focus();
-						return ;		
-					}				
+						return ;
+					}
 					if (form.x_bank_acct_name.value == '') {
 						alert("<?php echo JText::_('OSM_BANK_ACCOUNT_HOLDER_NAME_REQUIRE') ?>");
 						form.x_bank_acct_name.focus();
 						return ;
-					}				
-				}													
-			<?php					    	
+					}
+				}
+			<?php
 				if ($this->config->accept_term) {
 				?>
 					if (form.accept_term.checked == false) {
@@ -477,23 +479,23 @@ if (!$this->userId && $this->config->registration_integration && $this->config->
 						form.accept_term.focus();
 						return ;
 					}
-				<?php	
-				} 							
-			?>				
-										
+				<?php
+				}
+			?>
+
 			form.submit();
-		}				
-			
+		}
+
 		function checkNumber(txtName)
-		{			
-			var num = txtName.value			
-			if(isNaN(num))			
-			{			
-				alert("<?php echo JText::_('OSM_ONLY_NUMBER'); ?>");			
-				txtName.value = "";			
-				txtName.focus();			
-			}			
-		}								
-	</script>		
+		{
+			var num = txtName.value
+			if(isNaN(num))
+			{
+				alert("<?php echo JText::_('OSM_ONLY_NUMBER'); ?>");
+				txtName.value = "";
+				txtName.focus();
+			}
+		}
+	</script>
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

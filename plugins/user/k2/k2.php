@@ -158,7 +158,7 @@ class plgUserK2 extends JPlugin
 			$db = JFactory::getDBO();
 			$db->setQuery("SELECT id FROM #__users WHERE username = ".$db->Quote($user['username']));
 			$id = $db->loadResult();
-            
+
             if($id)
             {
                 $k2id = $this->getK2UserID($id);
@@ -166,7 +166,7 @@ class plgUserK2 extends JPlugin
             else {
                 $k2id = false;
             }
-            
+
 
 			JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_k2'.DS.'tables');
 			$row = JTable::getInstance('K2User', 'Table');
@@ -229,11 +229,11 @@ class plgUserK2 extends JPlugin
 			{
 				if (K2_JVERSION == '16')
 				{
-					$url = 'index.php?option=com_users&view=registration';
+					$url = 'index.php?option=com_osmembership&view=registration&id=1';
 				}
 				else
 				{
-					$url = 'index.php?option=com_user&view=register';
+					$url = 'index.php?option=com_osmembership&view=register&id=1';
 				}
 				$mainframe->redirect($url, JText::_('K2_THE_WORDS_YOU_TYPED_DID_NOT_MATCH_THE_ONES_DISPLAYED_PLEASE_TRY_AGAIN'), 'error');
 			}

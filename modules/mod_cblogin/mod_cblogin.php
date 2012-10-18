@@ -190,21 +190,21 @@ if ( $_CB_framework->myId() ) {
 	if ($show_avatar == 0) {
 		if ($greeting) echo '<span id="mod_login_greeting'.$id_sfx.'">'.$cbUser->replaceUserVars(sprintf( _UE_HI_NAME, $name )).'</span>'.($horizontal ? "&nbsp;" : "");
 	} else {
-		
+
 		if (($avatar_position=="default") and ($greeting)) echo '<span id="mod_login_greeting'.$id_sfx.'">'.$cbUser->replaceUserVars(sprintf( _UE_HI_NAME, $name )).'</span>';
 
 		$oValue		=	$cbUser->avatarFilePath( $show_avatar );
 		if ($oValue) {
 			if ($avatar_position=="default") echo '<div style="text-align:center; margin-left:auto; margin-right:auto;">';
 			else echo '<div style="float:'.$avatar_position.'; margin: 3px 0px 4px 0px; ">';
-			echo '<a href="' . $_CB_framework->userProfileUrl() . '" class="mod_login'.$class_sfx.'">';		
+			echo '<a href="' . $_CB_framework->userProfileUrl() . '" class="mod_login'.$class_sfx.'">';
 			echo '<img src="' . htmlspecialchars( $oValue ) . '" style="margin: 0px 1px 3px 1px; border-width:0px;" alt="'.$name
 				 . '" title="'. _UE_MENU_VIEWMYPROFILE_DESC . '" class="mod_login'.$class_sfx.'" id="mod_login_avatar'.$id_sfx.'" />';
 			echo "</a></div>\n";
 			$avatarDisplayed = true;
 		}
 	}
-	
+
 	if ( trim( $text_show_profile ) ) {
 		if ( ! ( ( $compact && ( $show_remind_register_icons == 2 ) ) || $horizontal ) ) {
 			if ($avatar_position=="default") {
@@ -213,7 +213,7 @@ if ( $_CB_framework->myId() ) {
 				echo '<div style="float:'.$avatar_position.'; margin: 3px 0px 4px 0px; ">';
 			}
 		}
-		echo '<a href="' . $_CB_framework->userProfileUrl() . '" class="mod_login'.$class_sfx.'">';		
+		echo '<a href="' . $_CB_framework->userProfileUrl() . '" class="mod_login'.$class_sfx.'">';
 		echo '<span title="' . _UE_MENU_VIEWMYPROFILE_DESC . '" class="mod_login_showprofile'.$class_sfx.'">';
 		if ( $show_remind_register_icons >= 1 ) {
 			echo '<img src="' . $urlImgPath . 'username.png" alt="' . _UE_MENU_VIEWMYPROFILE_DESC . '" width="25px" height="20px" style="border-width:0px;cursor:pointer;" /> ';
@@ -240,7 +240,7 @@ if ( $_CB_framework->myId() ) {
 				echo '<div style="float:'.$avatar_position.'; margin: 3px 0px 4px 0px; ">';
 			}
 		}
-		echo '<a href="' . $_CB_framework->userProfileEditUrl() . '" class="mod_login'.$class_sfx.'">';		
+		echo '<a href="' . $_CB_framework->userProfileEditUrl() . '" class="mod_login'.$class_sfx.'">';
 		echo '<span title="' . _UE_EDIT_TITLE . '" class="mod_login_editprofile'.$class_sfx.'">';
 		if ( $show_remind_register_icons >= 1 ) {
 			echo '<img src="' . $urlImgPath . 'edit_profile.png" alt="' . _UE_EDIT_TITLE . '" width="25px" height="20px" style="border-width:0px;cursor:pointer;" /> ';
@@ -265,7 +265,7 @@ if ( $_CB_framework->myId() ) {
 				. '<div style="display:table; margin:auto; align:center;';
 		$postDiv = "</div></div></div>\n";
 	}
-	
+
 	if ( $show_avatar and ($avatar_position!="default") and ($greeting) ) {
 		if ($avatarDisplayed && ( ! $horizontal ) ) {
 			echo $preDiv . '" id="mod_login_greeting'.$id_sfx.'">';
@@ -276,7 +276,7 @@ if ( $_CB_framework->myId() ) {
 			echo '<span id="mod_login_greeting'.$id_sfx.'">'.$cbUser->replaceUserVars(sprintf( _UE_HI_NAME, $name )).'</span>';
 		}
 	}
-	
+
 	$pms = 0;
 	if($show_pms != 0) {
 		$pms = $pms_type;		// RC2 quick fix
@@ -302,7 +302,7 @@ if ( $_CB_framework->myId() ) {
 					$query_pms_count = "SELECT count(id) FROM #__".$pmsnameprefix."pms WHERE username=" . $_CB_database->Quote( $_CB_framework->myUsername() ) . " AND readstate=0";
 					$_CB_database->setQuery( $query_pms_count );
 					$total_pms = $_CB_database->loadResult();
-		
+
 					$query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_".$pmsnameprefix."pms%'" . $cleanedANDpubAccess;
 					$_CB_database->setQuery( $query_pms_link );
 					$pms_link_id = $_CB_database->loadResult();
@@ -313,7 +313,7 @@ if ( $_CB_framework->myId() ) {
 					$query_pms_count = "SELECT count(id) FROM #__".$pmsnameprefix."pms WHERE username=" . $_CB_database->Quote( $_CB_framework->myUsername() ) . " AND readstate=0";
 					$_CB_database->setQuery( $query_pms_count );
 					$total_pms = $_CB_database->loadResult();
-		
+
 					$query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_".$pmsnameprefix."pms%'" . $cleanedANDpubAccess;
 					$_CB_database->setQuery( $query_pms_link );
 					$pms_link_id = $_CB_database->loadResult();
@@ -322,7 +322,7 @@ if ( $_CB_framework->myId() ) {
 				case 3:
 					$query_pms_count="SELECT count(u.id) FROM #__uddeim AS u WHERE u.totrash=0 AND u.toread=0 AND u.toid=" . (int) $_CB_framework->myId();
 					$_CB_database->setQuery($query_pms_count);
-					$total_pms = $_CB_database->loadResult();	
+					$total_pms = $_CB_database->loadResult();
 
 					$query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_uddeim%'" . $cleanedANDpubAccess;
 					$_CB_database->setQuery( $query_pms_link );
@@ -334,7 +334,7 @@ if ( $_CB_framework->myId() ) {
 					$query_pms_count = "SELECT count(id) FROM #__".$pmsnameprefix."pms WHERE username=" . $_CB_database->Quote( $_CB_framework->myUsername() ) . " AND readstate=0 AND inbox=1";
 					$_CB_database->setQuery( $query_pms_count );
 					$total_pms = $_CB_database->loadResult();
-		
+
 					$query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_".$pmsnameprefix."pms%'" . $cleanedANDpubAccess;
 					$_CB_database->setQuery( $query_pms_link );
 					$pms_link_id = $_CB_database->loadResult();
@@ -345,7 +345,7 @@ if ( $_CB_framework->myId() ) {
 					$query_pms_count = "SELECT count(id) FROM #__".$pmsnameprefix."pms WHERE userid='" . (int) $_CB_framework->myId() . "' AND readstate=0";
 					$_CB_database->setQuery( $query_pms_count );
 					$total_pms = $_CB_database->loadResult();
-		
+
 					$query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_".$pmsnameprefix."pms%'" . $cleanedANDpubAccess;
 					$_CB_database->setQuery( $query_pms_link );
 					$pms_link_id = $_CB_database->loadResult();
@@ -356,7 +356,7 @@ if ( $_CB_framework->myId() ) {
 					$query_pms_count = "SELECT count(id) FROM #__".$pmsnameprefix."pms WHERE recip_id=" . (int) $_CB_framework->myId() . " AND readstate%2=0 AND inbox=1";
 					$_CB_database->setQuery( $query_pms_count );
 					$total_pms = $_CB_database->loadResult();
-		
+
 					$query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_".$pmsnameprefix."pms%'" . $cleanedANDpubAccess;
 					$_CB_database->setQuery( $query_pms_link );
 					$pms_link_id = $_CB_database->loadResult();
@@ -367,7 +367,7 @@ if ( $_CB_framework->myId() ) {
                     $query_pms_count = "SELECT COUNT(*) FROM #__missus AS m JOIN #__missus_receipt AS r WHERE m.id=r.id AND r.receptorid='" . (int) $_CB_framework->myId() . "' AND r.rptr_rstate=0 AND r.rptr_tstate=0 AND r.rptr_dstate=0 AND m.is_draft=0";
                     $_CB_database->setQuery( $query_pms_count );
                     $total_pms = $_CB_database->loadResult();
-                    
+
                     $query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_".$pmsnameprefix."%'" . $cleanedANDpubAccess;
                     $_CB_database->setQuery( $query_pms_link );
                     $pms_link_id = $_CB_database->loadResult();
@@ -389,7 +389,7 @@ if ( $_CB_framework->myId() ) {
 					$query_pms_count = "SELECT COUNT(*) FROM #__primezilla_inbox WHERE userid=" . (int) $_CB_framework->myId() . " AND flag_read=0 AND flag_deleted=0";
 					$_CB_database->setQuery( $query_pms_count );
 					$total_pms = intval($_CB_database->loadResult());
-					
+
 					$query_pms_link = "SELECT id FROM #__menu WHERE link LIKE '%com_".$pmsnameprefix."%'" . $cleanedANDpubAccess;
 					$_CB_database->setQuery( $query_pms_link );
 					$pms_link_id = $_CB_database->loadResult();
@@ -650,7 +650,7 @@ if ( $_CB_framework->myId() ) {
 	}
 
 	if ($compact) {
-		$txtLostLogin		=	_UE_LOST_USERNAME_PASSWORD;	
+		$txtLostLogin		=	_UE_LOST_USERNAME_PASSWORD;
 	} else {
 		$txtLostLogin		=	( ( $jVersion == -1 ) ? _UE_USERNAME_PASSWORD_REMINDER : _UE_LOST_USERNAME_PASSWORD );
 	}
@@ -718,7 +718,7 @@ if ( $_CB_framework->myId() ) {
 					$pluginDisplays['beforeButton'][]	=	$pR;
 				}
 			}
-			
+
 		}
 		foreach ( $pluginDisplays as $pK => $pV ) {
 			$divHtml				=	( $horizontal ? '<span' : '<div' ) . ' class="mod_login_plugin'.$class_sfx.' mod_login_plugin_' . $pK . '">';
@@ -890,7 +890,7 @@ if ( $_CB_framework->myId() ) {
 		echo '</a>';
 
 		if ( $show_remind_register_icons == 2 ) {
-			echo "&nbsp;\n"; 
+			echo "&nbsp;\n";
 		} elseif ($horizontal) {
 			if ($compact) {
 				echo '&nbsp;';
@@ -898,7 +898,7 @@ if ( $_CB_framework->myId() ) {
 					echo '|';
 				}
 			} else {
-				echo "&nbsp;\n"; 
+				echo "&nbsp;\n";
 			}
 		} elseif ( $jVersion != 2 ) {
 			echo "</td></tr>\n";

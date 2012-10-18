@@ -17,9 +17,9 @@ body{}
 
 div.component-content div.contact,
 div.itemListView {
-    background: url(../images/template/content.png) 0 0 repeat;
+    /*background: url(../images/template/content.png) 0 0 repeat;
     box-shadow: 0 0 4px #484848;
-    padding: 43px 60px;
+    padding: 43px 60px;*/
 }
 
 	/*Category block*/
@@ -211,9 +211,9 @@ div.itemView.error {
 }
 
 div.itemView {
-    background: url(../images/template/content.png) 0 0 repeat;
+/*    background: url(../images/template/content.png) 0 0 repeat;
     box-shadow: 0 0 4px #484848;
-    padding: 43px 60px;
+    padding: 43px 60px;*/
 }
 	div.itemHeader {
 	   overflow: hidden;
@@ -624,7 +624,7 @@ div.rt-block{position: relative;}
 		border:1px solid #ff0000 !important;
 		box-shadow: none !important;}
 
-	input[type="checkbox"], input[type="radio"]{position: relative; top:1px;}
+	input[type="checkbox"], input[type="radio"]{position: relative; top:1px;height: auto !important; padding: 0; width: auto !important;}
 	label{line-height: 1.5em;}
 	legend{color:inherit;}
 

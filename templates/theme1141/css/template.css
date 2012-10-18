@@ -158,9 +158,9 @@ ul.menu-phone li:first-child + li span {}
     padding: 128px 0 166px;
 }
 .component-content {
-    /*background: url(../images/template/content.png) 0 0 repeat;
+    background: url(../images/template/content.png) 0 0 repeat;
     box-shadow: 0 0 4px #484848;
-    padding: 43px 60px;*/
+    padding: 43px 60px;
 }
 
 /*

@@ -46,7 +46,7 @@ class GantryFeatureUserLogin extends GantryFeature {
 		?>
 		<!--<span class="or"><?php /*echo JText::_('TPL_OR');*/ ?></span>-->
 
-		<!--<a href="index.php?option=com_users&view=registration"><?php /*echo JText::_('SIGH_UP');*/ ?></a>-->
+		<!--<a href="index.php?option=com_osmembership&view=register&id=1"><?php /*echo JText::_('SIGH_UP');*/ ?></a>-->
 		</div>
 		<div class="clear"></div>
     </div>

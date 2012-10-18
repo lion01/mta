@@ -8,12 +8,12 @@
  * @license		GNU/GPL, see LICENSE.php
  */
 
-defined('_JEXEC') or die ; 
+defined('_JEXEC') or die ;
 $itemId = OSMembershipHelper::getItemid();
 ?>
 <h1 class="osm_title"><?php echo JText::_('OSM_SUBSCRIPTION_DETAIL'); ?></h1>
 <form method="post" name="os_form" id="os_form" action="index.php">
-	<table class="os_table">				
+	<table class="os_table">
 		<tr>
 			<td class="title_cell" width="30%">
 				<?php echo JText::_('OSM_PLAN'); ?>
@@ -21,8 +21,8 @@ $itemId = OSMembershipHelper::getItemid();
 			<td class="field_cell">
 				<?php echo $this->item->plan_title ; ?>
 			</td>
-		</tr>		
-		<?php 
+		</tr>
+		<?php
 			if ($this->config->auto_generate_membership_id && $this->item->membership_id) {
 			?>
 			<tr>
@@ -33,7 +33,7 @@ $itemId = OSMembershipHelper::getItemid();
 					<?php echo $this->item->membership_id ; ?>
 				</td>
 			</tr>
-			<?php	
+			<?php
 			}
 		?>
 		<tr>
@@ -52,7 +52,7 @@ $itemId = OSMembershipHelper::getItemid();
 				<?php echo $this->item->last_name ; ?>
 			</td>
 		</tr>
-		
+
 		<?php
 			if (in_array('organization', $this->coreFields)) {
 			?>
@@ -63,8 +63,8 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->organization ; ?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if (in_array('address', $this->coreFields)) {
 			?>
@@ -75,10 +75,10 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->address ; ?>
 					</td>
-				</tr>	
-			<?php	
-			}		
-			if (in_array('address2', $this->coreFields)) {	
+				</tr>
+			<?php
+			}
+			if (in_array('address2', $this->coreFields)) {
 			?>
 				<tr>
 					<td class="title_cell">
@@ -87,8 +87,8 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->address2 ; ?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if (in_array('city', $this->coreFields)) {
 			?>
@@ -99,8 +99,8 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->city ; ?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if (in_array('state', $this->coreFields)) {
 			?>
@@ -111,8 +111,8 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->state ; ?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if (in_array('zip', $this->coreFields)) {
 			?>
@@ -123,8 +123,8 @@ $itemId = OSMembershipHelper::getItemid();
 					<td>
 						<?php echo $this->item->zip ; ?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if (in_array('country', $this->coreFields)) {
 			?>
@@ -135,8 +135,8 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->country ; ?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if (in_array('phone', $this->coreFields)) {
 			?>
@@ -147,8 +147,8 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->phone ; ?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if (in_array('fax', $this->coreFields)) {
 			?>
@@ -159,10 +159,10 @@ $itemId = OSMembershipHelper::getItemid();
 					<td class="field_cell">
 						<?php echo $this->item->fax ; ?>
 					</td>
-				</tr>	
-			<?php	
-			}					
-		?>	
+				</tr>
+			<?php
+			}
+		?>
 		<tr>
 			<td class="title_cell">
 				<?php echo  JText::_('OSM_EMAIL'); ?>
@@ -170,7 +170,7 @@ $itemId = OSMembershipHelper::getItemid();
 			<td class="field_cell">
 				<?php echo $this->item->email ; ?>
 			</td>
-		</tr>			
+		</tr>
 		<?php
 		if (in_array('comment', $this->coreFields)) {
 			?>
@@ -181,27 +181,27 @@ $itemId = OSMembershipHelper::getItemid();
 					<td>
 						<?php echo $this->item->comment;?>
 					</td>
-				</tr>	
-			<?php	
+				</tr>
+			<?php
 			}
 			if ($this->customField) {
 				echo $this->fields ;
 			}
-		?>						
+		?>
 		<tr>
 			<td class="title_cell">
 				<?php echo  JText::_('OSM_CREATED_DATE'); ?>
 			</td>
 			<td class="field_cell">
-				<?php echo JHTML::_('date', $this->item->created_date, $this->config->date_format) ; ?>				
+				<?php echo JHTML::_('date', $this->item->created_date, $this->config->date_format) ; ?>
 			</td>
-		</tr>				
+		</tr>
 		<tr>
 			<td class="title_cell">
 				<?php echo  JText::_('OSM_SUBSCRIPTION_START_DATE'); ?>
 			</td>
 			<td class="field_cell">
-				<?php echo JHTML::_('date', $this->item->from_date, $this->config->date_format) ; ?>				
+				<?php echo JHTML::_('date', $this->item->from_date, $this->config->date_format) ; ?>
 			</td>
 		</tr>
 		<tr>
@@ -209,7 +209,7 @@ $itemId = OSMembershipHelper::getItemid();
 				<?php echo  JText::_('OSM_SUBSCRIPTION_END_DATE'); ?>
 			</td>
 			<td class="field_cell">
-				<?php echo JHTML::_('date', $this->item->to_date, $this->config->date_format) ; ?>				
+				<?php echo JHTML::_('date', $this->item->to_date, $this->config->date_format) ; ?>
 			</td>
 		</tr>
 		<tr>
@@ -217,7 +217,7 @@ $itemId = OSMembershipHelper::getItemid();
 				<?php echo  JText::_('OSM_NET_AMOUNT'); ?>
 			</td>
 			<td class="field_cell">
-				<?php echo $this->config->currency_symbol.($this->item->amount > 0 ? number_format($this->item->amount, 2) : ""); ?>				
+				<?php echo $this->config->currency_symbol.($this->item->amount > 0 ? number_format($this->item->amount, 2) : ""); ?>
 			</td>
 		</tr>
 		<?php
@@ -228,12 +228,12 @@ $itemId = OSMembershipHelper::getItemid();
         				<?php echo  JText::_('OSM_DISCOUNT_AMOUNT'); ?>
         			</td>
         			<td class="field_cell">
-        				<?php echo $this->config->currency_symbol ;  ?><?php echo $this->item->discount_amount > 0 ? number_format($this->item->discount_amount, 2) : ""; ?>				
+        				<?php echo $this->config->currency_symbol ;  ?><?php echo $this->item->discount_amount > 0 ? number_format($this->item->discount_amount, 2) : ""; ?>
         			</td>
-        		</tr>  	
-            <?php    
+        		</tr>
+            <?php
             }
-            
+
             if ($this->item->tax_amount > 0 || !$this->item->id) {
             ?>
                  <tr>
@@ -241,28 +241,28 @@ $itemId = OSMembershipHelper::getItemid();
                     			<?php echo  JText::_('OSM_TAX_AMOUNT'); ?>
                     	</td>
                     	<td class="field_cell">
-                    			<?php echo $this->config->currency_symbol ;  ?><?php echo $this->item->tax_amount > 0 ? number_format($this->item->tax_amount, 2) : ""; ?>				
+                    			<?php echo $this->config->currency_symbol ;  ?><?php echo $this->item->tax_amount > 0 ? number_format($this->item->tax_amount, 2) : ""; ?>
                     	</td>
-                 </tr>  	
-            <?php    
-            }            
+                 </tr>
+            <?php
+            }
             ?>
             <tr>
                      <td class="title_cell">
                            <?php echo  JText::_('OSM_GROSS_AMOUNT'); ?>
                      </td>
                      <td class="field_cell">
-                           <?php echo $this->config->currency_symbol ;  ?><?php echo $this->item->gross_amount > 0 ? number_format($this->item->gross_amount, 2) : ""; ?>				
+                           <?php echo $this->config->currency_symbol ;  ?><?php echo $this->item->gross_amount > 0 ? number_format($this->item->gross_amount, 2) : ""; ?>
                      </td>
-            </tr>  	              	
+            </tr>
 		<tr>
 			<td class="title_cell">
-				<?php echo JText::_('OSM_PAYMENT_METHOD') ?>					
+				<?php echo JText::_('OSM_PAYMENT_METHOD') ?>
 			</td>
 			<td class="field_cell">
 				<?php echo $this->item->payment_method ; ?>
 			</td>
-		</tr>		
+		</tr>
 		<tr>
 			<td class="title_cell">
 				<?php echo JText::_('OSM_TRANSACTION_ID'); ?>
@@ -293,12 +293,12 @@ $itemId = OSMembershipHelper::getItemid();
 					case 4 :
 						echo JText::_('OSM_CANCELLED_REFUNDED');
 						break ;
-				}	
-				?>	
+				}
+				?>
 			</td>
-		</tr>			
-		
-		
+		</tr>
+
+
 		<?php
 			if ($this->renewOption || $this->upgradeOption) {
 			?>
@@ -318,7 +318,7 @@ $itemId = OSMembershipHelper::getItemid();
 							<input type="button" class="button btn btn-primary" value="<?php echo JText::_('OSM_PROCESS_RENEW'); ?>" onclick="checkMembershipRenew();" />
 						</td>
 					</tr>
-				<?php	
+				<?php
 				}
 				if ($this->upgradeOption) {
 				?>
@@ -330,27 +330,27 @@ $itemId = OSMembershipHelper::getItemid();
 							<input type="button" class="button btn btn-primary" value="<?php echo JText::_('OSM_PROCESS_UPGRADE'); ?>" onclick="checkMembershipUpgrade();" />
 						</td>
 					</tr>
-				<?php	
+				<?php
 				}
 				?>
-			<?php	
-			}			
-		?>				
+			<?php
+			}
+		?>
 	</table>
-		
+
 	<script type="text/javascript" language="javascript">
-		function checkMembershipRenew() {				
-			var form = document.os_form ;			
+		function checkMembershipRenew() {
+			var form = document.os_form ;
 			if (form.renew_option_id.value == 0) {
 				alert("<?php echo JText::_('OSM_CHOOSE_RENEW_OPTION'); ?>");
 				form.renew_option_id.focus();
 				return ;
 			}
-			var renewUrl = '<?php echo JRoute::_('index.php?option=com_osmembership&task=renew_membership&from_subscription_id='.$this->item->id.'&Itemid='.$itemId.'&renew_option_id=', false); ?>' + form.renew_option_id.value ;						
-			location.href = renewUrl ;										
+			var renewUrl = '<?php echo JRoute::_('index.php?option=com_osmembership&task=renew_membership&from_subscription_id='.$this->item->id.'&Itemid='.$itemId.'&renew_option_id=', false); ?>' + form.renew_option_id.value ;
+			location.href = renewUrl ;
 		}
 
-		
+
 		function checkMembershipUpgrade() {
 			var form = document.os_form ;
 			if (form.upgrade_option_id.value == 0) {
@@ -360,6 +360,6 @@ $itemId = OSMembershipHelper::getItemid();
 			}
 			var upgradeUrl = '<?php echo JRoute::_('index.php?option=com_osmembership&task=upgrade_membership&from_subscription_id='.$this->item->id.'&Itemid='.$itemId.'&upgrade_option_id=', false); ?>' + form.upgrade_option_id.value ;
 			location.href = upgradeUrl ;
-		}				
-	</script>			
+		}
+	</script>
 </form>

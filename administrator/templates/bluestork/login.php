@@ -53,6 +53,7 @@ JHtml::_('behavior.noframes');
 	<div id="content-box">
 			<div id="element-box" class="login">
 				<div class="m wbg">
+                                        <h1><?php echo JText::_('Administrator Login'); ?></h1>
 					<jdoc:include type="message" />
 					<jdoc:include type="component" />
 					<p><?php echo JText::_('COM_LOGIN_VALID') ?></p>
