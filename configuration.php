@@ -55,7 +55,7 @@ class JConfig {
 	public $feed_limit = '10';
 	public $log_path = '/home/edward/project/mta/logs';
 	public $tmp_path = '/home/edward/project/mta/tmp';
-	public $lifetime = '15';
+	public $lifetime = '30';
 	public $session_handler = 'database';
 	public $MetaRights = '';
 	public $sitename_pagetitles = '0';
