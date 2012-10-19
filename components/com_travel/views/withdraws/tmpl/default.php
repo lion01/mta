@@ -54,10 +54,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 
 	<div>
-		<?php echo JDom::_('html.toolbar', array(
-											"bar" => $this->lists['toolbar']
-											));
-		?>
 		<?php echo $this->loadTemplate('filters'); ?>
 		<?php echo $this->loadTemplate('grid'); ?>
 	</div>

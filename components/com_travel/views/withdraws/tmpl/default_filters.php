@@ -69,10 +69,6 @@ function resetFilters()
 
 
 <fieldset id="filters" class="filters">
-	<legend><?php echo JText::_( "JSEARCH_FILTER_LABEL" ); ?></legend>
-
-
-
 	<div style="float:right;">
 		<div style="float:left">
 				<div class="filter filter_buttons">
@@ -81,13 +77,15 @@ function resetFilters()
 				</div>
 		</div>
 	</div>
+        <div class="clear"></div>
+        <br />
 
 	<div>
 		<div style="float:left">
 			<!-- RANGE : Creation Date  -->
 
 				<div class='filter range filter_creation_date'>
-		
+
 
 					<?php echo JDom::_('html.form.input.range', array(
 												'rangeNameSpace' => 'html.form.input.calendar',
@@ -111,7 +109,7 @@ function resetFilters()
 			<!-- RANGE : Payment Date  -->
 
 				<div class='filter range filter_payment_date'>
-		
+
 
 					<?php echo JDom::_('html.form.input.range', array(
 												'rangeNameSpace' => 'html.form.input.calendar',

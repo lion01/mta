@@ -34,7 +34,7 @@ defined('_JEXEC') or die('Restricted access');
 
 
 <div class="grid_wrapper">
-	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0">
+	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0" width="100%">
 	<thead>
 		<tr>
 			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
@@ -137,6 +137,7 @@ defined('_JEXEC') or die('Restricted access');
 
 
 </div>
+<br />
 
 <?php echo JDom::_('html.pagination', array(
 										'pagination' => $this->pagination,
