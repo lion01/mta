@@ -3,3 +3,7 @@ table tr td {
     border: 1px solid #ccc;
     padding: 2px 5px;
 }
+
+table tr td ul li {
+    list-style: none;
+}
