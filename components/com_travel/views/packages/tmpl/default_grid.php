@@ -42,9 +42,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0" width="100%">
 	<thead>
 		<tr>
-	            <?php if ( $this->access->get( 'core.edit.own' ) || $this->access->get( 'core.edit' ) ): ?>
                     <th width="20"></th>
-		    <?php endif; ?>
 		    <th style="text-align:left">
 			<?php echo JHTML::_( 'grid.sort', "TRAVEL_FIELD_TITLE", 'a.title', $this->state->get( 'list.direction' ), $this->state->get( 'list.ordering' ) ); ?>
 		    </th>

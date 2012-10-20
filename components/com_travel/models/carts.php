@@ -152,7 +152,7 @@ class TravelModelCarts extends TravelModelList
 	{
 
 		$query = ' SELECT a.*'
-					.	' , _package_id_.title AS `_package_id_title`'
+					.	' , _package_id_.title AS `_package_id_title`, _package_id_.price AS `_package_id_price`'
 
 			. $this->_buildQuerySelect()
 
@@ -167,6 +167,7 @@ class TravelModelCarts extends TravelModelList
 			. $this->_buildQueryOrderBy()
 			. $this->_buildQueryExtra()
 		;
+
 
 		return $query;
 	}
@@ -188,6 +189,9 @@ class TravelModelCarts extends TravelModelList
 
 		}
 
+                $user = JFactory::getUser();
+                $user_id = $user->get('id');
+                $where[] = "a.user_id = ".$user_id;
 
 		return parent::_buildQueryWhere($where);
 	}

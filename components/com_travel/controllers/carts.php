@@ -119,10 +119,14 @@ class TravelControllerCarts extends TravelController
 
 	}
 
+        function order()
+        {
+	    $model = $this->getModel('carts');
+            $model->activeAll();
+            $model->active('predefined', 'carts');
 
+            $items = $model->getItems();
 
-
-
-
-
+            $this->setRedirect(TravelHelper::urlRequest());
+        }
 }

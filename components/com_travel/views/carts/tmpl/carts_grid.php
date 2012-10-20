@@ -46,9 +46,9 @@ defined('_JEXEC') or die('Restricted access');
 			<th style="text-align:center">
 				<?php echo JText::_("TRAVEL_FIELD_QUANTITY"); ?>
 			</th>
-
-
-
+                        <th style="text-align:right">
+                                <?php echo JText::_("TRAVEL_FIELD_TOTAL_PRICE"); ?>
+                        </th>
 		</tr>
 	</thead>
 
@@ -90,9 +90,8 @@ defined('_JEXEC') or die('Restricted access');
 												));
 				?>
 			</td>
-
-
-
+                        <td style="text-align:right"><?php echo number_format($row->_package_id_price * $row->quantity, 2); ?>
+			</td>
 		</tr>
 		<?php
 		$k = 1 - $k;

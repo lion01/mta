@@ -63,7 +63,7 @@ class TravelControllerPackages extends TravelController
 
                 $this->_add_to_cart($packages_id);
 
-		$this->setRedirect('index.php?option=com_travel&view=carts');
+		$this->setRedirect('index.php/agent/cart');
 		return;
             }
 
