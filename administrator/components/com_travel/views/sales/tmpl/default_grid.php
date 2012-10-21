@@ -33,7 +33,7 @@ defined('_JEXEC') or die('Restricted access');
 	<thead>
 		<tr>
 			<th width="5">
-				<?php echo JText::_( 'NUM' ); ?>
+				<?php echo JText::_( 'No.' ); ?>
 			</th>
 
 			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
@@ -42,8 +42,8 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 			<?php endif; ?>
 
-			<th style="text-align:left">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_USER", 'a.user_id', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			<th>
+				<?php echo JText::_("TRAVEL_FIELD_USER_NAME"); ?>
 			</th>
 
 			<th style="text-align:right">
@@ -104,11 +104,11 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<?php endif; ?>
 
-            <td style="text-align:left">
+            <td>
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'user_id',
+												'dataKey' => '_user_id_name',
 												'dataObject' => $row,
-												'route' => array('view' => 'sale','layout' => 'sale','cid[]' => $row->id)
+                                                                                                'href' => "javascript:listItemTask('cb". $i ."', 'edit')",
 												));
 				?>
 			</td>
@@ -116,7 +116,7 @@ defined('_JEXEC') or die('Restricted access');
             <td style="text-align:right">
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'payment',
-												'dataObject' => $row
+												'dataObject' => $row,
 												));
 				?>
 			</td>
@@ -142,7 +142,7 @@ defined('_JEXEC') or die('Restricted access');
 										'dataKey' => 'completed',
 										'dataObject' => $row,
 										'num' => $i,
-										'togglable' => true,
+										'togglable' => $row->completed ? FALSE : TRUE,
 										'commandAcl' => ($row->params->get('access-edit')?null:'core.edit')
 											));
 				?>

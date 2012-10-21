@@ -55,6 +55,11 @@ class TravelModelSaleitemsitem extends TravelModelItem
 
 	}
 
+        function id()
+        {
+            return $this->_id;
+        }
+
 	/**
 	 * Method to initialise the saleitemsitem data
 	 *

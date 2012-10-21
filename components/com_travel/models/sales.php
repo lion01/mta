@@ -72,7 +72,6 @@ class TravelModelSales extends TravelModelList
 
 		parent::__construct($config);
 
-
 	}
 
 
@@ -160,6 +159,12 @@ class TravelModelSales extends TravelModelList
 	function _buildQuery_sales()
 	{
 
+		$order = $this->_buildQueryOrderBy();
+
+                if ( ! (substr($order, - strlen($order)) === 'ASC ' || substr($order, - strlen($order)) === 'DESC ')) {
+                    $order .= ' DESC ';
+                }
+
 		$query = ' SELECT a.*'
 
 			. $this->_buildQuerySelect()
@@ -170,8 +175,8 @@ class TravelModelSales extends TravelModelList
 
 			. $this->_buildQueryWhere()
 
+                        . $order
 
-			. $this->_buildQueryOrderBy()
 			. $this->_buildQueryExtra()
 		;
 
@@ -208,9 +213,8 @@ class TravelModelSales extends TravelModelList
 		return parent::_buildQueryWhere($where);
 	}
 
-	function _buildQueryOrderBy($order = array(), $pre_order = 'a.user_id')
+	function _buildQueryOrderBy($order = array(), $pre_order = 'a.creation_date')
 	{
-
 		return parent::_buildQueryOrderBy($order, $pre_order);
 	}
 

@@ -55,6 +55,11 @@ class TravelModelSale extends TravelModelItem
 
 	}
 
+        function id()
+        {
+            return $this->_id;
+        }
+
 	/**
 	 * Method to initialise the sale data
 	 *

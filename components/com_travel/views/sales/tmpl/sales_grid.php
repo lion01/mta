@@ -47,7 +47,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_("TRAVEL_FIELD_PAYMENT"); ?>
 			</th>
 
-			<th style="text-align:right">
+			<th style="text-align:center">
 				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED", 'a.completed', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
@@ -60,7 +60,7 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 
 			<th style="text-align:left">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_CREATION_DATE", 'a.creation_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_ORDER_DATE", 'a.creation_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
 			<th style="text-align:left">

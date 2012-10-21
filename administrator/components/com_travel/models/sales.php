@@ -51,7 +51,6 @@ class TravelModelSales extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
-				'user_id', 'a.user_id',
 				'completed', 'a.completed',
 				'creation_date', 'a.creation_date',
 				'completion_date', 'a.completion_date',
@@ -170,10 +169,12 @@ class TravelModelSales extends TravelModelList
 	{
 
 		$query = ' SELECT a.*'
+					.	' , _user_id_.name AS `_user_id_name`'
 
 			. $this->_buildQuerySelect()
 
 			. ' FROM `#__travel_sales` AS a '
+					.	' LEFT JOIN `#__users` AS _user_id_ ON _user_id_.id = a.user_id'
 
 			. $this->_buildQueryJoin() . ' '
 

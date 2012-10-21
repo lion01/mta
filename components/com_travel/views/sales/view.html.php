@@ -83,9 +83,7 @@ class TravelViewSales extends JView
 		// Get data from the model
 		$model 		= $this->getModel();
 		$model->activeAll();
-		$model->active('predefined', 'sales');
-
-
+                $model->active('predefined', 'sales');
 
 
 

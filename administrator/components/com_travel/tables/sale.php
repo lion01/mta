@@ -174,9 +174,9 @@ class TableSale extends JTable
 				$this->modification_date = $modification_date->toMySQL();
 		}
 
-		if (!empty($this->completion_date) && ($this->completion_date != '0000-00-00'))
+		if (!empty($this->completion_date) && ($this->completion_date != '0000-00-00 00:00:00'))
 		{
-			$completion_date = TravelHelper::getSqlDate($this->completion_date, array('%Y-%m-%d'));
+			$completion_date = TravelHelper::getSqlDate($this->completion_date, array('%Y-%m-%d %H:%M'));
 			if ($completion_date === null){
 				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMPLETION_DATE")));
 				$valid = false;

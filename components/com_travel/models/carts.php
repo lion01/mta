@@ -152,7 +152,7 @@ class TravelModelCarts extends TravelModelList
 	{
 
 		$query = ' SELECT a.*'
-					.	' , _package_id_.title AS `_package_id_title`, _package_id_.price AS `_package_id_price`'
+					.	' , _package_id_.title AS `_package_id_title`, _package_id_.price AS `_package_id_price`, _package_id_.commission_type AS `_package_id_commission_type`, _package_id_.comisssion_rate AS `_package_id_comission_rate`'
 
 			. $this->_buildQuerySelect()
 
