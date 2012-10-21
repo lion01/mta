@@ -71,7 +71,7 @@ gantry_import('core.utilities.gantryjformfieldaccessor');
 		$usersConfig = JComponentHelper::getParams('com_users');
 		if ($usersConfig->get('allowUserRegistration')) : ?>
 		<li>
-			<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
+			<a href="<?php echo JRoute::_('index.php?option=com_osmembership&view=register&id=1'); ?>">
 				<?php echo JText::_('COM_USERS_LOGIN_REGISTER'); ?></a>
 		</li>
 		<?php endif; ?>
