@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+	<name>plg_system_datepicker</name>
+	<creationDate>June 2012</creationDate>
+	<author>Yoshiki Kozaki</author>
+	<authorEmail>info@joomler.net</authorEmail>
+	<authorUrl>http://www.joomler.net</authorUrl>
+	<copyright>(C) 2007 - 2012 Yoshiki Kozaki</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<version>1.0.0</version>
+	<description>PLG_SYSTEM_DATEPICKER_XML_DESCRIPTION</description>
+	<media folder="media">
+		<folder>datepicker</folder>
+	</media>
+	<files>
+		<filename plugin="datepicker">datepicker.php</filename>
+		<filename plugin="datepicker">index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_datepicker.ini</language>
+		<language tag="en-GB">en-GB.plg_system_datepicker.sys.ini</language>
+		<language tag="ja-JP">ja-JP.plg_system_datepicker.ini</language>
+		<language tag="ja-JP">ja-JP.plg_system_datepicker.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					type="list" default="dashboard"
+					name="theme"
+					label="PLG_SYSTEM_DATEPICKER_THEME_LABEL"
+					description="PLG_SYSTEM_DATEPICKER_THEME_DESC" >
+					<option value="default">PLG_SYSTEM_DATEPICKER_OPTION_DEFAULT</option>
+					<option value="jqui">PLG_SYSTEM_DATEPICKER_OPTION_JQUERYUI</option>
+					<option value="vista">PLG_SYSTEM_DATEPICKER_OPTION_VISTA</option>
+					<option value="dashboard">PLG_SYSTEM_DATEPICKER_OPTION_DASHBOARD</option>
+					<option value="custom">PLG_SYSTEM_DATEPICKER_OPTION_CUSTOM</option>
+				</field>
+				<field
+					type="radio" default="1"
+					name="columns"
+					label="PLG_SYSTEM_DATEPICKER_COLUMNS_LABEL"
+					description="PLG_SYSTEM_DATEPICKER_COLUMNS_DESC">
+					<option value="1">PLG_SYSTEM_DATEPICKER_OPTION_ONE</option>
+					<option value="2">PLG_SYSTEM_DATEPICKER_OPTION_TWO</option>
+					<option value="3">PLG_SYSTEM_DATEPICKER_OPTION_THREE</option>
+				</field>
+				<field
+					type="text" size="5" default=""
+					name="offsetx"
+					label="PLG_SYSTEM_DATEPICKER_OFFSETX_LABEL"
+					description="PLG_SYSTEM_DATEPICKER_OFFSETX_DESC" />
+				<field
+					type="text" size="5" default=""
+					name="offsety"
+					label="PLG_SYSTEM_DATEPICKER_OFFSETY_LABEL"
+					description="PLG_SYSTEM_DATEPICKER_OFFSETY_DESC" />
+				<field
+					type="textarea" rows="10" cols="20"
+					name="excludes"
+					label="PLG_SYSTEM_DATEPICKER_EXCLUDES_LABEL"
+					description="PLG_SYSTEM_DATEPICKER_EXCLUDES_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

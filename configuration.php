@@ -4,7 +4,7 @@ class JConfig {
 	public $offline_message = 'This site is down for maintenance.<br /> Please check back again soon.';
 	public $display_offline_message = '1';
 	public $offline_image = '';
-	public $sitename = 'MTA Programme';
+	public $sitename = 'MTA Travel Program';
 	public $editor = 'tinymce';
 	public $captcha = '0';
 	public $list_limit = '20';
@@ -55,7 +55,7 @@ class JConfig {
 	public $feed_limit = '10';
 	public $log_path = '/home/edward/project/mta/logs';
 	public $tmp_path = '/home/edward/project/mta/tmp';
-	public $lifetime = '30';
+	public $lifetime = '3600';
 	public $session_handler = 'database';
 	public $MetaRights = '';
 	public $sitename_pagetitles = '0';
