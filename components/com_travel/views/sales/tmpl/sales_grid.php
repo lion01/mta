@@ -66,6 +66,9 @@ defined('_JEXEC') or die('Restricted access');
 			<th style="text-align:left">
 				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED_DATE", 'a.completion_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
+                        <th style="text-align:center">
+                                <?php echo JText::_('TRAVEL_FIELD_ITEMS'); ?>
+                        </th>
 
 
 
@@ -147,6 +150,7 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 			</td>
 
+                        <td style="text-align:center"><a href="index.php/order?id=<?php echo $row->id; ?>"><?php echo JText::_('TRAVEL_FIELD_ITEMS'); ?></a></td>
 
 
 		</tr>

@@ -161,6 +161,7 @@ class TravelControllerCarts extends TravelController
                     'quantity' => $item->quantity,
                     'comission_rate' => $item->_package_id_comission_rate,
                     'comission_type' => $item->_package_id_commission_type,
+                    'price' => $item->_package_id_price,
                 );
 
                 $saleitem->save($data);
@@ -171,8 +172,6 @@ class TravelControllerCarts extends TravelController
             $cart = $this->getModel('cart');
             $cart->delete($carts_id);
 
-
-
-            $this->setRedirect('index.php/agent/order-history');
+            $this->setRedirect('index.php/order-success');
         }
 }

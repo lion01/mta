@@ -71,6 +71,9 @@ table tr td {
         <div>
             <b>Total Commission Cashout: </b><span class="currency">RM<?php echo number_format($total_paid, 2); ?></span>
         </div>
+        <div>
+            <b>Balance: </b><span class="currency">RM<?php echo number_format($total_commission - $total_paid, 2); ?></span>
+        </div>
     </div>
 
     <table cellpadding="0" cellspacing="0" width="100%">

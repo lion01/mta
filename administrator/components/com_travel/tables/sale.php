@@ -152,9 +152,9 @@ class TableSale extends JTable
 			$valid = false;
 		}
 
-		if (!empty($this->creation_date) && ($this->creation_date != '0000-00-00'))
+		if (!empty($this->creation_date) && ($this->creation_date != '0000-00-00 00:00:00'))
 		{
-			$creation_date = TravelHelper::getSqlDate($this->creation_date, array('%Y-%m-%d'));
+			$creation_date = TravelHelper::getSqlDate($this->creation_date, array('%Y-%m-%d %H:%M'));
 			if ($creation_date === null){
 				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_CREATION_DATE")));
 				$valid = false;
@@ -163,9 +163,9 @@ class TableSale extends JTable
 				$this->creation_date = $creation_date->toMySQL();
 		}
 
-		if (!empty($this->modification_date) && ($this->modification_date != '0000-00-00'))
+		if (!empty($this->modification_date) && ($this->modification_date != '0000-00-00 00:00:00'))
 		{
-			$modification_date = TravelHelper::getSqlDate($this->modification_date, array('%Y-%m-%d'));
+			$modification_date = TravelHelper::getSqlDate($this->modification_date, array('%Y-%m-%d %H:%M'));
 			if ($modification_date === null){
 				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_MODIFICATION_DATE")));
 				$valid = false;

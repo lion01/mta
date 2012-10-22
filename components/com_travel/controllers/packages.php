@@ -77,9 +77,8 @@ class TravelControllerPackages extends TravelController
             $user_id = $user->get('id');
             $db = JFactory::getDBO();
 
-            $cart = $this->getModel('cart');
-
             foreach ($packages_id as $package_id) {
+                $cart = $this->getModel('cart');
                 $query = "SELECT id, quantity FROM #__travel_carts WHERE package_id = $package_id AND user_id = $user_id LIMIT 1";
                 $db->setQuery($query);
 
