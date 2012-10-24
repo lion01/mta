@@ -25,7 +25,6 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-jimport('joomla.utilities.date');
 
 /**
  * Travel Sales Controller
@@ -75,63 +74,6 @@ class TravelControllerSales extends TravelController
 			$this->setRedirect(TravelHelper::urlRequest());
 			return;
 		}
-
-	}
-
-	function delete()
-	{
-		if (!$this->can(array('core.delete', 'core.delete.own'), JText::_("TRAVEL_JTOOLBAR_DELETE")))
-			return;
-
-		// Check for request forgeries
-		JRequest::checkToken() or JRequest::checkToken('get') or jexit( 'Invalid Token' );
-
-
-		$model = $this->getModel('sale');
-		$item = $model->getItem();
-
-		//Check Item ACL
-		if (!$this->can('access-delete', JText::_("TRAVEL_JTOOLBAR_DELETE"), $item->params))
-			return;
-
-
-        $cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
-        if (empty($cid))
-			$cid = JRequest::getVar( 'cid', array(), 'get', 'array' );
-
-		JArrayHelper::toInteger($cid);
-
-		if (count( $cid ) < 1) {
-			JError::raiseWarning(500, JText::sprintf( '_ALERT_PLEASE_MAKE_A_SELECTION_FROM_THE_LIST_TO', strtolower(JText::_("DELETE")) ) );
-			$this->setRedirect(TravelHelper::urlRequest());
-			return;
-		}
-
-		$vars = array();
-		if (parent::_delete($cid))
-		{
-			JRequest::setVar( 'view'  , 'sales');
-			JRequest::setVar( 'layout', 'sales' );
-			JRequest::setVar( 'cid', null );
-
-		}
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
-
-	}
-
-	function cancel()
-	{
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-
-
-		$vars = array();
-		JRequest::setVar( 'view'  , 'sales');
-		JRequest::setVar( 'layout', 'sales' );
-		JRequest::setVar( 'cid', null );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
 
 	}
 

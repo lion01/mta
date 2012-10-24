@@ -86,15 +86,7 @@ class TravelViewPackage extends JView
 		}
 
 
-		$lists['enum']['packages.commission_type'] = TravelHelper::enumList('packages', 'commission_type');
 
-
-
-		//Commission Type
-		$lists['select']['commission_type'] = new stdClass();
-		$lists['select']['commission_type']->list = $lists['enum']['packages.commission_type'];
-		array_unshift($lists['select']['commission_type']->list, array("value"=>"", "text" => JText::_("TRAVEL_FIELD_NULL_COMMISSION_TYPE")));
-		$lists['select']['commission_type']->value = $package->commission_type;
 
 		//Ordering
 		$orderModel = JModel::getInstance('Packages', 'TravelModel');

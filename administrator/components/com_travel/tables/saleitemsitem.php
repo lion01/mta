@@ -66,11 +66,15 @@ class TableSaleitemsitem extends JTable
 	/**
 	 * @var float
 	 */
-	var $comission_rate = null;
+	var $unit = null;
 	/**
-	 * @var string
+	 * @var float
 	 */
-	var $comission_type = null;
+	var $price = null;
+	/**
+	 * @var float
+	 */
+	var $commission_rate = null;
 
 
 
@@ -128,8 +132,9 @@ class TableSaleitemsitem extends JTable
 		$this->package_id = $filter->clean($this->package_id, 'INT');
 		$this->sale_id = $filter->clean($this->sale_id, 'INT');
 		$this->quantity = $filter->clean($this->quantity, 'INT');
-		$this->comission_rate = $filter->clean($this->comission_rate, 'FLOAT');
-		$this->comission_type = $filter->clean($this->comission_type, 'STRING');
+		$this->unit = $filter->clean($this->unit, 'FLOAT');
+		$this->price = $filter->clean($this->price, 'FLOAT');
+		$this->commission_rate = $filter->clean($this->commission_rate, 'FLOAT');
 
 
 		if (!empty($this->quantity) && !preg_match("/^\d+$/", $this->quantity)){
@@ -137,15 +142,23 @@ class TableSaleitemsitem extends JTable
 			$valid = false;
 		}
 
-		if (!empty($this->comission_rate) && !preg_match("/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/", $this->comission_rate)){
-			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMISSION_RATE")) );
+		if (!empty($this->unit) && !preg_match("/^-?\d*\.?\d*$/", $this->unit)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_UNIT")) );
+			$valid = false;
+		}
+
+		if (!empty($this->price) && !preg_match("/^-?\d*\.?\d*$/", $this->price)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PRICE")) );
+			$valid = false;
+		}
+
+		if (!empty($this->commission_rate) && !preg_match("/^-?\d*\.?\d*$/", $this->commission_rate)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMMISSION_RATE")) );
 			$valid = false;
 		}
 
 
 
-		if ($this->comission_type == null)
-			$this->comission_type = "0";
 
 
 
@@ -164,13 +177,18 @@ class TableSaleitemsitem extends JTable
 			$valid = false;
 		}
 
-		if (($this->comission_rate === null) || ($this->comission_rate === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMISSION_RATE")));
+		if (($this->unit === null) || ($this->unit === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_UNIT")));
 			$valid = false;
 		}
 
-		if (($this->comission_type === null) || ($this->comission_type === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMISSION_TYPE")));
+		if (($this->price === null) || ($this->price === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PRICE")));
+			$valid = false;
+		}
+
+		if (($this->commission_rate === null) || ($this->commission_rate === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMMISSION_RATE")));
 			$valid = false;
 		}
 

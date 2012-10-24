@@ -109,9 +109,23 @@ class TravelControllerCarts extends TravelController
 		$vars = array();
 		if (parent::_delete($cid))
 		{
-			JRequest::setVar( 'view'  , 'carts');
-			JRequest::setVar( 'layout', 'carts' );
-			JRequest::setVar( 'cid', null );
+			$layout = JRequest::getVar( 'layout');
+			switch($layout)
+			{
+				case 'carts':
+					JRequest::setVar( 'view'  , 'carts');
+					JRequest::setVar( 'layout', 'carts' );
+					JRequest::setVar( 'cid', null );
+					break;
+
+
+				default:
+					JRequest::setVar( 'view'  , 'carts');
+					JRequest::setVar( 'layout', 'carts' );
+					JRequest::setVar( 'cid', null );
+					break;
+
+			}
 
 		}
 
@@ -119,59 +133,10 @@ class TravelControllerCarts extends TravelController
 
 	}
 
-        function order()
-        {
-            $user = JFactory::getUser();
-            $user_id = $user->get('id');
 
-	    $model = $this->getModel('carts');
-            $model->activeAll();
-            $model->active('predefined', 'carts');
 
-            $items = $model->getItems();
 
-            $total_commission = 0.0;
-            $total_amount = 0.0;
 
-            foreach ($items as $item) {
-                $total_commission += $item->quantity * ($item->_package_id_commission_type == 0 ? $item->_package_id_comission_rate : $item->_package_id_price * ($item->_package_id_comission_rate / 100));
-                $total_amount += $item->quantity * $item->_package_id_price;
-            }
 
-            $sale = $this->getModel('sale');
-            $data = array(
-                'id' => NULL,
-                'user_id' => $user_id,
-                'payment' => 0.0,
-                'completed' => FALSE,
-                'creation_date' => date('Y-m-d H:i:s'),
-                'total_commission' => $total_commission,
-                'total_amount' => $total_amount,
-            );
 
-            $sale->save($data);
-            $carts_id = array();
-
-            foreach ($items as $item) {
-                $saleitem = $this->getModel('saleitemsitem');
-                $data = array(
-                    'id' => NULL,
-                    'sale_id' => $sale->id(),
-                    'package_id' => $item->package_id,
-                    'quantity' => $item->quantity,
-                    'comission_rate' => $item->_package_id_comission_rate,
-                    'comission_type' => $item->_package_id_commission_type,
-                    'price' => $item->_package_id_price,
-                );
-
-                $saleitem->save($data);
-
-                $carts_id[] = $item->id;
-            }
-
-            $cart = $this->getModel('cart');
-            $cart->delete($carts_id);
-
-            $this->setRedirect('index.php/order-success');
-        }
 }

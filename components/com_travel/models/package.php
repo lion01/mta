@@ -72,14 +72,14 @@ class TravelModelPackage extends TravelModelItem
 			$data->attribs = null;
 			$data->title = null;
 			$data->content = null;
-			$data->commission_type = JRequest::getVar('filter_commission_type', $this->getState('filter.commission_type'));
-			$data->comisssion_rate = null;
+			$data->commisssion_rate = null;
 			$data->price = null;
-			$data->value = null;
+			$data->unit = null;
 			$data->ordering = null;
+			$data->published = null;
+			$data->renewable = null;
 			$data->creation_date = null;
 			$data->modification_date = null;
-			$data->published = null;
 
 			$this->_data = $data;
 

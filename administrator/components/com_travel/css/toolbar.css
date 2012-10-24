@@ -5,7 +5,7 @@
 * --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
 * @version		1.0.0
 * @package		Travel
-* @subpackage	Withdrawitems
+* @subpackage	Agents
 * @copyright	Copyright 2012, All rights reserved
 * @author		Edward Khor - www.enfonius.com - edward@enfonius.com
 * @license		GNU/GPL
@@ -24,7 +24,6 @@
 .icon-16-task-new 		{ background-image: url('../images/icon-16-task-new.png'); }
 .icon-16-task-edit 		{ background-image: url('../images/icon-16-task-edit.png'); }
 .icon-16-task-delete 		{ background-image: url('../images/icon-16-task-delete.png'); }
-.icon-16-task-config 		{ background-image: url('../images/icon-16-task-config.png'); }
 .icon-16-task-save 		{ background-image: url('../images/icon-16-task-save.png'); }
 .icon-16-task-apply 		{ background-image: url('../images/icon-16-task-apply.png'); }
 .icon-16-task-cancel 		{ background-image: url('../images/icon-16-task-cancel.png'); }
@@ -34,7 +33,7 @@
 .icon-48-travel 		{ background-image: url('../images/icon-48-travel.png'); }
 .icon-48-travel_packages 		{ background-image: url('../images/icon-48-travel_packages.png'); }
 .icon-48-travel_sales 		{ background-image: url('../images/icon-48-travel_sales.png'); }
-.icon-48-travel_withdraws 		{ background-image: url('../images/icon-48-travel_withdraws.png'); }
 .icon-48-travel_carts 		{ background-image: url('../images/icon-48-travel_carts.png'); }
 .icon-48-travel_saleitems 		{ background-image: url('../images/icon-48-travel_saleitems.png'); }
-.icon-48-travel_withdrawitems 		{ background-image: url('../images/icon-48-travel_withdrawitems.png'); }
+.icon-48-travel_commissions 		{ background-image: url('../images/icon-48-travel_commissions.png'); }
+.icon-48-travel_agents 		{ background-image: url('../images/icon-48-travel_agents.png'); }

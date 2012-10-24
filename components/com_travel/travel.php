@@ -6,7 +6,7 @@
 * --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
 * @version		1.0.0
 * @package		Travel
-* @subpackage	Withdrawitems
+* @subpackage	Agents
 * @copyright	Copyright 2012, All rights reserved
 * @author		Edward Khor - www.enfonius.com - edward@enfonius.com
 * @license		GNU/GPL
@@ -84,14 +84,6 @@ switch ($view)
         	$controllerName = "sales";
 
 		break;
-		case 'withdraws' :
-		case 'withdraw' :
-
-
-
-        	$controllerName = "withdraws";
-
-		break;
 		case 'carts' :
 		case 'cart' :
 
@@ -100,14 +92,22 @@ switch ($view)
         	$controllerName = "carts";
 
 		break;
+		case 'commissions' :
+		case 'commission' :
+
+
+
+        	$controllerName = "commissions";
+
+		break;
 
 		default:
-			$view = 'withdraws';
+			$view = 'packages';
 			$layout = 'default';
 
 			JRequest::setVar( 'view', $view);
 			JRequest::setVar( 'layout', $layout);
-			$controllerName = "withdraws";
+			$controllerName = "packages";
 			break;
 }
 

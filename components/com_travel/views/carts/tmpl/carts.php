@@ -54,14 +54,20 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 
 	<div>
-            <?php if (count($this->items) > 0): ?>
 		<?php echo $this->loadTemplate('grid'); ?>
-                <button onclick="javascript:if (document.adminForm.boxchecked.value == 0) { alert('Please first make a selection from the list'); } else { if (window.confirm('Are you sure to delete this item ?')) { return Joomla.submitform('.delete');}} return false;">Delete</button>
-                <button onclick="javascript:if (window.confirm('Are you sure to order these items ?')) { return Joomla.submitform('.order');} return false;">Complete Order</button>
-            <?php else: ?>
-                <center><b>There are no items in your Cart.</b></center>
-            <?php endif ?>
+		<?php echo JDom::_('html.toolbar', array(
+											"bar" => $this->lists['toolbar']
+											));
+		?>
 	</div>
+
+
+
+
+
+
+
+
 
 	<?php echo JDom::_('html.form.footer', array(
 		'values' => array(

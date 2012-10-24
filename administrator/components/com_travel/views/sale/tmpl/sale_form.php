@@ -38,16 +38,19 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		<tr>
 			<td align="right" class="key">
 				<label for="user_id">
-					<?php echo JText::_( "TRAVEL_FIELD_USER" ); ?> :
+					<?php echo JText::_( "TRAVEL_FIELD_USER_NAME" ); ?> :
 				</label>
 			</td>
 			<td>
-				<?php echo JDom::_('html.form.input.text', array(
+				<?php echo JDom::_('html.form.input.ajax', array(
 												'dataKey' => 'user_id',
 												'dataObject' => $this->sale,
-												'size' => "",
+												'ajaxContext' => 'travel.users.ajax.select1',
 												'domClass' => "validate[required]",
-												'required' => true
+												'required' => true,
+												'ajaxVars' => array('values' => array(
+													$this->sale->user_id
+														))
 												));
 				?>
 			</td>
@@ -55,7 +58,7 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		<tr>
 			<td align="right" class="key">
 				<label for="payment">
-					<?php echo JText::_( "TRAVEL_FIELD_PAYMENT" ); ?> :
+					<?php echo JText::_( "TRAVEL_FIELD_RECEIVED_PAYMENT" ); ?> :
 				</label>
 			</td>
 			<td>
@@ -72,22 +75,6 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="completed">
-					<?php echo JText::_( "TRAVEL_FIELD_COMPLETED" ); ?> :
-				</label>
-			</td>
-			<td>
-				<?php echo JDom::_('html.form.input.bool', array(
-												'dataKey' => 'completed',
-												'dataObject' => $this->sale,
-												'domClass' => "validate[required]",
-												'required' => true
-												));
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td align="right" class="key">
 				<label for="total_amount">
 					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_AMOUNT" ); ?> :
 				</label>
@@ -96,7 +83,11 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 				<?php echo JDom::_('html.form.input.text', array(
 												'dataKey' => 'total_amount',
 												'dataObject' => $this->sale,
-												'size' => "15"
+												'size' => "15",
+												'domClass' => "validate[required,custom[decimal]]",
+												'validatorHandler' => "decimal",
+												'required' => true,
+												'validatorRegex' => "/^-?\d*\.?\d*$/"
 												));
 				?>
 			</td>
@@ -104,7 +95,7 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		<tr>
 			<td align="right" class="key">
 				<label for="total_commission">
-					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_COMISSION" ); ?> :
+					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_COMMISSION" ); ?> :
 				</label>
 			</td>
 			<td>
@@ -112,8 +103,84 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 												'dataKey' => 'total_commission',
 												'dataObject' => $this->sale,
 												'size' => "15",
+												'domClass' => "validate[required,custom[decimal]]",
+												'validatorHandler' => "decimal",
+												'required' => true,
+												'validatorRegex' => "/^-?\d*\.?\d*$/"
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="total_unit">
+					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_UNIT" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.text', array(
+												'dataKey' => 'total_unit',
+												'dataObject' => $this->sale,
+												'size' => "10",
+												'domClass' => "validate[required,custom[decimal]]",
+												'validatorHandler' => "decimal",
+												'required' => true,
+												'validatorRegex' => "/^-?\d*\.?\d*$/"
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="status">
+					<?php echo JText::_( "TRAVEL_FIELD_STATUS" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.select', array(
+												'dataKey' => 'status',
+												'dataObject' => $this->sale,
+												'list' => $this->lists['select']['status']->list,
+												'listKey' => 'value',
+												'labelKey' => 'text',
+												'nullLabel' => "",
 												'domClass' => "validate[required]",
 												'required' => true
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="shipping">
+					<?php echo JText::_( "TRAVEL_FIELD_SHIPPING" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.select', array(
+												'dataKey' => 'shipping',
+												'dataObject' => $this->sale,
+												'list' => $this->lists['select']['shipping']->list,
+												'listKey' => 'value',
+												'labelKey' => 'text',
+												'nullLabel' => "",
+												'domClass' => "validate[required]",
+												'required' => true
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="payment_reference_code">
+					<?php echo JText::_( "TRAVEL_FIELD_PAYMENT_REFERENCE_CODE" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.text', array(
+												'dataKey' => 'payment_reference_code',
+												'dataObject' => $this->sale,
+												'size' => "32"
 												));
 				?>
 			</td>

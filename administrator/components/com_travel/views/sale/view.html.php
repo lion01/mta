@@ -86,7 +86,23 @@ class TravelViewSale extends JView
 		}
 
 
+		$lists['enum']['sales.status'] = TravelHelper::enumList('sales', 'status');
+
+		$lists['enum']['sales.shipping'] = TravelHelper::enumList('sales', 'shipping');
+
 		$lists['fk']['user_id'] = TravelJUserHelper::userList();
+
+		//Status
+		$lists['select']['status'] = new stdClass();
+		$lists['select']['status']->list = $lists['enum']['sales.status'];
+		array_unshift($lists['select']['status']->list, array("value"=>"", "text" => JText::_("TRAVEL_FIELD_NULL_STATUS")));
+		$lists['select']['status']->value = $sale->status;
+
+		//Shipping
+		$lists['select']['shipping'] = new stdClass();
+		$lists['select']['shipping']->list = $lists['enum']['sales.shipping'];
+		array_unshift($lists['select']['shipping']->list, array("value"=>"", "text" => JText::_("TRAVEL_FIELD_NULL_SHIPPING")));
+		$lists['select']['shipping']->value = $sale->shipping;
 
 		// Toolbar
 		jimport('joomla.html.toolbar');

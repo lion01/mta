@@ -33,7 +33,7 @@ defined('_JEXEC') or die('Restricted access');
 	<thead>
 		<tr>
 			<th width="5">
-				<?php echo JText::_( 'No.' ); ?>
+				<?php echo JText::_( 'NUM' ); ?>
 			</th>
 
 			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
@@ -47,27 +47,31 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 
 			<th style="text-align:right">
-				<?php echo JText::_("TRAVEL_FIELD_PAYMENT"); ?>
-			</th>
-
-			<th style="text-align:right">
-				<?php echo JText::_("TRAVEL_FIELD_TOTAL_COMISSION"); ?>
+				<?php echo JText::_("TRAVEL_FIELD_RECEIVED_PAYMENT"); ?>
 			</th>
 
 			<th style="text-align:right">
 				<?php echo JText::_("TRAVEL_FIELD_TOTAL_AMOUNT"); ?>
 			</th>
 
+			<th style="text-align:right">
+				<?php echo JText::_("TRAVEL_FIELD_TOTAL_COMMISSION"); ?>
+			</th>
+
+			<th>
+				<?php echo JText::_("TRAVEL_FIELD_TOTAL_UNIT"); ?>
+			</th>
+
 			<th style="text-align:center">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED", 'a.completed', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_STATUS", 'a.status', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
-			<th style="text-align:left">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_CREATION_DATE", 'a.creation_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			<th style="text-align:center">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_SHIPPING", 'a.shipping', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
-			<th style="text-align:left">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED_DATE", 'a.completion_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			<th style="text-align:center">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_ORDER_DATE", 'a.order_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
 
@@ -107,8 +111,7 @@ defined('_JEXEC') or die('Restricted access');
             <td>
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => '_user_id_name',
-												'dataObject' => $row,
-                                                                                                'href' => "javascript:listItemTask('cb". $i ."', 'edit')",
+												'dataObject' => $row
 												));
 				?>
 			</td>
@@ -117,14 +120,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'payment',
 												'dataObject' => $row,
-												));
-				?>
-			</td>
-
-            <td style="text-align:right">
-				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'total_commission',
-												'dataObject' => $row
+												'href' => "javascript:listItemTask('cb" . $i . "', 'edit')"
 												));
 				?>
 			</td>
@@ -137,31 +133,49 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 			</td>
 
+            <td style="text-align:right">
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'total_commission',
+												'dataObject' => $row
+												));
+				?>
+			</td>
+
+            <td>
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'total_unit',
+												'dataObject' => $row
+												));
+				?>
+			</td>
+
             <td style="text-align:center">
-				<?php echo JDom::_('html.grid.bool', array(
-										'dataKey' => 'completed',
-										'dataObject' => $row,
-										'num' => $i,
-										'togglable' => $row->completed ? FALSE : TRUE,
-										'commandAcl' => ($row->params->get('access-edit')?null:'core.edit')
-											));
+				<?php echo JDom::_('html.fly.enum', array(
+												'dataKey' => 'status',
+												'dataObject' => $row,
+												'list' => $this->lists['enum']['sales.status'],
+												'listKey' => 'value',
+												'labelKey' => 'text'
+												));
 				?>
 			</td>
 
-            <td style="text-align:left">
-				<?php echo JDom::_('html.grid.datetime', array(
-										'dataKey' => 'creation_date',
-										'dataObject' => $row,
-										'dateFormat' => "%Y-%m-%d"
-											));
+            <td style="text-align:center">
+				<?php echo JDom::_('html.fly.enum', array(
+												'dataKey' => 'shipping',
+												'dataObject' => $row,
+												'list' => $this->lists['enum']['sales.shipping'],
+												'listKey' => 'value',
+												'labelKey' => 'text'
+												));
 				?>
 			</td>
 
-            <td style="text-align:left">
+            <td style="text-align:center">
 				<?php echo JDom::_('html.grid.datetime', array(
-										'dataKey' => 'completion_date',
+										'dataKey' => 'order_date',
 										'dataObject' => $row,
-										'dateFormat' => "%Y-%m-%d"
+										'dateFormat' => "%d-%m-%Y"
 											));
 				?>
 			</td>

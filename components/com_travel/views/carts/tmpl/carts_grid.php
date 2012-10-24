@@ -34,21 +34,25 @@ defined('_JEXEC') or die('Restricted access');
 
 
 <div class="grid_wrapper">
-	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0" width="100%">
+	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0">
 	<thead>
 		<tr>
+			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
             <th width="20">
+				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
 			</th>
-			<th style="text-align:left">
+			<?php endif; ?>
+
+			<th>
 				<?php echo JText::_("TRAVEL_FIELD_PACKAGE_TITLE"); ?>
 			</th>
 
 			<th style="text-align:center">
 				<?php echo JText::_("TRAVEL_FIELD_QUANTITY"); ?>
 			</th>
-                        <th style="text-align:right">
-                                <?php echo JText::_("TRAVEL_FIELD_TOTAL_PRICE"); ?>
-                        </th>
+
+
+
 		</tr>
 	</thead>
 
@@ -66,6 +70,7 @@ defined('_JEXEC') or die('Restricted access');
 
 		<tr class="<?php echo "row$k"; ?>">
 
+			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
 			<td>
 				<?php echo JDom::_('html.grid.checkedout', array(
 										'dataObject' => $row,
@@ -73,12 +78,12 @@ defined('_JEXEC') or die('Restricted access');
 											));
 				?>
 			</td>
+			<?php endif; ?>
 
-            <td style="text-align:left">
+            <td>
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => '_package_id_title',
-												'dataObject' => $row,
-												'route' => array('view' => 'package','layout' => 'package','cid[]' => $row->package_id)
+												'dataObject' => $row
 												));
 				?>
 			</td>
@@ -90,8 +95,9 @@ defined('_JEXEC') or die('Restricted access');
 												));
 				?>
 			</td>
-                        <td style="text-align:right"><?php echo number_format($row->_package_id_price * $row->quantity, 2); ?>
-			</td>
+
+
+
 		</tr>
 		<?php
 		$k = 1 - $k;
@@ -105,3 +111,13 @@ defined('_JEXEC') or die('Restricted access');
 
 
 </div>
+
+<?php echo JDom::_('html.pagination', array(
+										'pagination' => $this->pagination,
+										'showLimit' => true,
+										'showCounter' => true,
+
+											));
+?>
+
+

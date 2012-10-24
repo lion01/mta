@@ -46,16 +46,10 @@ function resetFilters()
 //Deprecated
 	if ($('filter_search') != null)
 	    $('filter_search').value='';
-	if ($('filter_creation_date_from') != null)
-		$('filter_creation_date_from').value='';
-	if ($('filter_creation_date_to') != null)
-		$('filter_creation_date_to').value='';
-	if ($('filter_completion_date_from') != null)
-		$('filter_completion_date_from').value='';
-	if ($('filter_completion_date_to') != null)
-		$('filter_completion_date_to').value='';
-	if ($('filter_completed') != null)
-	    $('filter_completed').value='';
+	if ($('filter_order_date_from') != null)
+		$('filter_order_date_from').value='';
+	if ($('filter_order_date_to') != null)
+		$('filter_order_date_to').value='';
 
 
 /* TODO : Uncomment this if you want that the reset action proccess also on sorting values
@@ -79,7 +73,7 @@ function resetFilters()
 
 	<div style="float:right;">
 		<div style="float:left">
-			<!-- SEARCH : filter_search : search on User  -->
+			<!-- SEARCH : filter_search : search on User > Name  -->
 
 				<div class='search filter filter_search'>
 
@@ -106,75 +100,26 @@ function resetFilters()
 
 	<div>
 		<div style="float:left">
-			<!-- RANGE : Creation Date  -->
+			<!-- RANGE : Order Date  -->
 
-				<div class='filter range filter_creation_date'>
+				<div class='filter range filter_order_date'>
 		
 
 					<?php echo JDom::_('html.form.input.range', array(
 												'rangeNameSpace' => 'html.form.input.calendar',
-												'dataKey' => 'filter_creation_date',
-												'dataValueFrom' => $this->filters['creation_date']->from,
-												'dataValueTo' => $this->filters['creation_date']->to,
-												'labelFrom' => "TRAVEL_JSEARCH_ORDER_DATE_FROM",
+												'dataKey' => 'filter_order_date',
+												'dataValueFrom' => $this->filters['order_date']->from,
+												'dataValueTo' => $this->filters['order_date']->to,
+												'labelFrom' => "TRAVEL_JSEARCH_FROM",
 												'labelTo' => "TRAVEL_JSEARCH_TO",
 												'size' => 10,
 												'alignHz' => true,
 												'submitEventName' => 'onchange',
 												'styles' => array('width' => '80px'),
-												'dateFormat' => '%Y-%m-%d'
+												'dateFormat' => '%Y-%m-%d %H:%M'
 													));
 					?>
 				</div>
-
-
-		</div>
-		<div style="float:left">
-			<!-- RANGE : Completion Date  -->
-
-				<div class='filter range filter_completion_date'>
-		
-
-					<?php echo JDom::_('html.form.input.range', array(
-												'rangeNameSpace' => 'html.form.input.calendar',
-												'dataKey' => 'filter_completion_date',
-												'dataValueFrom' => $this->filters['completion_date']->from,
-												'dataValueTo' => $this->filters['completion_date']->to,
-												'labelFrom' => "TRAVEL_JSEARCH_COMPLETED_DATE_FROM",
-												'labelTo' => "TRAVEL_JSEARCH_TO",
-												'size' => 10,
-												'alignHz' => true,
-												'submitEventName' => 'onchange',
-												'styles' => array('width' => '80px'),
-												'dateFormat' => '%Y-%m-%d'
-													));
-					?>
-				</div>
-
-
-		</div>
-		<div style="float:left">
-			<!-- SELECT : Completed  -->
-
-					<div class='filter filter_completed'>
-			
-						<?php
-						$choices = array();
-						$choices[] = array("value" => null, 'text'=>JText::_( "TRAVEL_FILTER_NULL_COMPLETED" ));
-						$choices[] = array("value" => '0', 'text'=>JText::_( "JNO" ));
-						$choices[] = array("value" => '1', 'text'=>JText::_( "JYES" ));
-
-						echo JDom::_('html.form.input.select', array(
-											'dataKey' => 'filter_completed',
-											'dataValue' => $this->filters['completed']->value,
-											'list' => $choices,
-											'listKey' => 'value',
-											'labelKey' => 'text',
-											'submitEventName' => 'onchange'
-												));
-
-						?>
-					</div>
 
 
 		</div>

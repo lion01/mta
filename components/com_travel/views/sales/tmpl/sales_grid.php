@@ -34,7 +34,7 @@ defined('_JEXEC') or die('Restricted access');
 
 
 <div class="grid_wrapper">
-	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0" width="100%">
+	<table id='grid' class='adminlist' cellpadding="0" cellspacing="0">
 	<thead>
 		<tr>
 			<?php if ($this->access->get('core.edit.own') || $this->access->get('core.edit')): ?>
@@ -44,31 +44,28 @@ defined('_JEXEC') or die('Restricted access');
 			<?php endif; ?>
 
 			<th style="text-align:right">
-				<?php echo JText::_("TRAVEL_FIELD_PAYMENT"); ?>
-			</th>
-
-			<th style="text-align:center">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED", 'a.completed', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+				<?php echo JText::_("TRAVEL_FIELD_RECEIVED_PAYMENT"); ?>
 			</th>
 
 			<th style="text-align:right">
-				<?php echo JText::_("TRAVEL_FIELD_TOTAL_COMISSION"); ?>
+				<?php echo JText::_("TRAVEL_FIELD_TOTAL_COMMISSION"); ?>
 			</th>
 
 			<th style="text-align:right">
 				<?php echo JText::_("TRAVEL_FIELD_TOTAL_AMOUNT"); ?>
 			</th>
 
-			<th style="text-align:left">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_ORDER_DATE", 'a.creation_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			<th>
+				<?php echo JText::_("TRAVEL_FIELD_STATUS"); ?>
 			</th>
 
-			<th style="text-align:left">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMPLETED_DATE", 'a.completion_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			<th>
+				<?php echo JText::_("TRAVEL_FIELD_SHIPPING"); ?>
 			</th>
-                        <th style="text-align:center">
-                                <?php echo JText::_('TRAVEL_FIELD_ITEMS'); ?>
-                        </th>
+
+			<th style="text-align:center">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_ORDER_DATE", 'a.order_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			</th>
 
 
 
@@ -108,15 +105,6 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 
             <td style="text-align:right">
-				<?php echo JDom::_('html.grid.bool', array(
-										'dataKey' => 'completed',
-										'dataObject' => $row,
-										'num' => $i
-											));
-				?>
-			</td>
-
-            <td style="text-align:right">
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'total_commission',
 												'dataObject' => $row
@@ -132,25 +120,37 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 			</td>
 
-            <td style="text-align:left">
+            <td>
+				<?php echo JDom::_('html.fly.enum', array(
+												'dataKey' => 'status',
+												'dataObject' => $row,
+												'list' => $this->lists['enum']['sales.status'],
+												'listKey' => 'value',
+												'labelKey' => 'text'
+												));
+				?>
+			</td>
+
+            <td>
+				<?php echo JDom::_('html.fly.enum', array(
+												'dataKey' => 'shipping',
+												'dataObject' => $row,
+												'list' => $this->lists['enum']['sales.shipping'],
+												'listKey' => 'value',
+												'labelKey' => 'text'
+												));
+				?>
+			</td>
+
+            <td style="text-align:center">
 				<?php echo JDom::_('html.grid.datetime', array(
-										'dataKey' => 'creation_date',
+										'dataKey' => 'order_date',
 										'dataObject' => $row,
-										'dateFormat' => "%Y-%m-%d"
+										'dateFormat' => "%d-%m-%Y"
 											));
 				?>
 			</td>
 
-            <td style="text-align:left">
-				<?php echo JDom::_('html.grid.datetime', array(
-										'dataKey' => 'completion_date',
-										'dataObject' => $row,
-										'dateFormat' => "%Y-%m-%d"
-											));
-				?>
-			</td>
-
-                        <td style="text-align:center"><a href="index.php/order?id=<?php echo $row->id; ?>"><?php echo JText::_('TRAVEL_FIELD_ITEMS'); ?></a></td>
 
 
 		</tr>
@@ -167,7 +167,6 @@ defined('_JEXEC') or die('Restricted access');
 
 </div>
 
-<br />
 <?php echo JDom::_('html.pagination', array(
 										'pagination' => $this->pagination,
 										'showLimit' => true,

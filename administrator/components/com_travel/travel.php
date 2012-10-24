@@ -6,7 +6,7 @@
 * --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
 * @version		1.0.0
 * @package		Travel
-* @subpackage	Withdrawitems
+* @subpackage	Agents
 * @copyright	Copyright 2012, All rights reserved
 * @author		Edward Khor - www.enfonius.com - edward@enfonius.com
 * @license		GNU/GPL
@@ -87,22 +87,30 @@ switch ($view)
         	$controllerName = "sales";
 
 		break;
-		case 'withdraws' :
-		case 'withdraw' :
+		case 'commissions' :
+		case 'commission' :
 
 
 
-        	$controllerName = "withdraws";
+        	$controllerName = "commissions";
+
+		break;
+		case 'agents' :
+		case 'agent' :
+
+
+
+        	$controllerName = "agents";
 
 		break;
 
 		default:
-			$view = 'withdraws';
+			$view = 'packages';
 			$layout = 'default';
 
 			JRequest::setVar( 'view', $view);
 			JRequest::setVar( 'layout', $layout);
-			$controllerName = "withdraws";
+			$controllerName = "packages";
 			break;
 }
 
@@ -111,7 +119,8 @@ if ($mainMenu)
 {
 		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_PACKAGES"), 'index.php?option=com_travel&view=packages', ($view == 'packages'));
 		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_SALES"), 'index.php?option=com_travel&view=sales', ($view == 'sales'));
-		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_WITHDRAWS"), 'index.php?option=com_travel&view=withdraws', ($view == 'withdraws'));
+		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_COMMISSIONS"), 'index.php?option=com_travel&view=commissions', ($view == 'commissions'));
+		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_AGENTS"), 'index.php?option=com_travel&view=agents', ($view == 'agents'));
 
 }
 

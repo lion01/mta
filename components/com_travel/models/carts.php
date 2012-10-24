@@ -63,7 +63,6 @@ class TravelModelCarts extends TravelModelList
 
 
 		parent::__construct($config);
-                $this->setState('limit', 0);
 
 
 	}
@@ -152,7 +151,7 @@ class TravelModelCarts extends TravelModelList
 	{
 
 		$query = ' SELECT a.*'
-					.	' , _package_id_.title AS `_package_id_title`, _package_id_.price AS `_package_id_price`, _package_id_.commission_type AS `_package_id_commission_type`, _package_id_.comisssion_rate AS `_package_id_comission_rate`'
+					.	' , _package_id_.title AS `_package_id_title`'
 
 			. $this->_buildQuerySelect()
 
@@ -167,7 +166,6 @@ class TravelModelCarts extends TravelModelList
 			. $this->_buildQueryOrderBy()
 			. $this->_buildQueryExtra()
 		;
-
 
 		return $query;
 	}
@@ -189,9 +187,6 @@ class TravelModelCarts extends TravelModelList
 
 		}
 
-                $user = JFactory::getUser();
-                $user_id = $user->get('id');
-                $where[] = "a.user_id = ".$user_id;
 
 		return parent::_buildQueryWhere($where);
 	}
@@ -234,4 +229,3 @@ class TravelModelCarts extends TravelModelList
 	}
 
 }
-

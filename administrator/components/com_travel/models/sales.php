@@ -51,22 +51,18 @@ class TravelModelSales extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
-				'completed', 'a.completed',
-				'creation_date', 'a.creation_date',
-				'completion_date', 'a.completion_date',
+				'status', 'a.status',
+				'shipping', 'a.shipping',
+				'order_date', 'a.order_date',
 
 			);
 		}
 
 		//Define the filterable fields
 		$this->set('filter_vars', array(
-			'creation_date_from' => 'date:%Y-%m-%d',
-			'creation_date_to' => 'date:%Y-%m-%d',
-			'completion_date_from' => 'date:%Y-%m-%d',
-			'completion_date_to' => 'date:%Y-%m-%d',
-			'completed' => 'bool',
-			'creation_date' => 'string',
-			'completion_date' => 'string'
+			'order_date_from' => 'cmd',
+			'order_date_to' => 'cmd',
+			'order_date' => 'string'
 				));
 
 		//Define the filterable fields
@@ -99,8 +95,6 @@ class TravelModelSales extends TravelModelList
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
-
-
 
 
 
@@ -199,27 +193,18 @@ class TravelModelSales extends TravelModelList
 
 		if (isset($this->_active['filter']) && $this->_active['filter'])
 		{
-			//search_search : search on User
+			//search_search : search on User > Name
 			$search_search = $this->getState('search.search');
-			$this->_addSearch('search', 'a.user_id', 'like');
+			$this->_addSearch('search', '_user_id_.name', 'like');
 			if (($search_search != '') && ($search_search_val = $this->_buildSearch('search', $search_search)))
 				$where[] = $search_search_val;
 
-		// Range : creation_date
-			$filter_creation_date_from = $this->getState('filter.creation_date_from');
-			if ($filter_creation_date_from != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_from) . ") >= 0";
+		// Range : order_date
+			$filter_order_date_from = $this->getState('filter.order_date_from');
+			if ($filter_order_date_from != '')		$where[] = "a.order_date >= " . $db->Quote($filter_order_date_from);
 
-			$filter_creation_date_to = $this->getState('filter.creation_date_to');
-			if ($filter_creation_date_to != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_to) . ") <= 0";
-		// Range : completion_date
-			$filter_completion_date_from = $this->getState('filter.completion_date_from');
-			if ($filter_completion_date_from != '')		$where[] = "DATEDIFF(a.completion_date, " . $db->Quote($filter_completion_date_from) . ") >= 0";
-
-			$filter_completion_date_to = $this->getState('filter.completion_date_to');
-			if ($filter_completion_date_to != '')		$where[] = "DATEDIFF(a.completion_date, " . $db->Quote($filter_completion_date_to) . ") <= 0";
-			$filter_completed = $this->getState('filter.completed');
-			if ($filter_completed != '')		$where[] = "a.completed = " . $db->Quote($filter_completed);
-
+			$filter_order_date_to = $this->getState('filter.order_date_to');
+			if ($filter_order_date_to != '')		$where[] = "a.order_date <= " . $db->Quote($filter_order_date_to);
 
 		}
 

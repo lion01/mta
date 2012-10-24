@@ -52,7 +52,6 @@ class TravelModelPackages extends TravelModelList
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'title', 'a.title',
-				'commission_type', 'a.commission_type',
 				'ordering', 'a.ordering',
 				'creation_date', 'a.creation_date',
 				'modification_date', 'a.modification_date',

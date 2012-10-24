@@ -5,6 +5,9 @@
 		label="TRAVEL_CONFIG_CONFIGURATION"
 		description="TRAVEL_CONFIG_COMPONENT_CONFIGURATION"
 		>
+		<field name="upload_maxsize" type="text" default="2" label="TRAVEL_PARAMS_UPLOAD_MAX_SIZE" size="30" description="TRAVEL_PARAMS_FILE_UPLOAD_MAX_SIZE_MB" />
+		<field name="trash_dir" type="text" default="[COM_ADMIN]/images/trash" label="TRAVEL_PARAMS_TRASH_DIR" size="30" description="TRAVEL_PARAMS_TRASH_DIR_INFORMATION" />
+		<field name="upload_dir_commissions_attachment" type="text" default="[COM_SITE]/files/commissions_attachment" label="TRAVEL_PARAMS_UPLOAD_DIR_COMMISSIONS_ATTACHMENT" size="30" description="TRAVEL_PARAMS_UPLOAD_DIR_INFORMATION" />
 
 	</fieldset>
 

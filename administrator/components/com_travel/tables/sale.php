@@ -60,22 +60,6 @@ class TableSale extends JTable
 	 */
 	var $payment = null;
 	/**
-	 * @var bool
-	 */
-	var $completed = null;
-	/**
-	 * @var string
-	 */
-	var $creation_date = null;
-	/**
-	 * @var string
-	 */
-	var $modification_date = null;
-	/**
-	 * @var string
-	 */
-	var $completion_date = null;
-	/**
 	 * @var float
 	 */
 	var $total_commission = null;
@@ -83,6 +67,30 @@ class TableSale extends JTable
 	 * @var float
 	 */
 	var $total_amount = null;
+	/**
+	 * @var float
+	 */
+	var $total_unit = null;
+	/**
+	 * @var string
+	 */
+	var $status = null;
+	/**
+	 * @var string
+	 */
+	var $shipping = null;
+	/**
+	 * @var string
+	 */
+	var $order_date = null;
+	/**
+	 * @var string
+	 */
+	var $modification_date = null;
+	/**
+	 * @var string
+	 */
+	var $payment_reference_code = null;
 
 
 
@@ -139,28 +147,45 @@ class TableSale extends JTable
 		$filter = new JFilterInput(array(), array(), 0, 0);
 		$this->user_id = $filter->clean($this->user_id, 'INT');
 		$this->payment = $filter->clean($this->payment, 'FLOAT');
-		$this->completed = $filter->clean($this->completed, 'BOOL');
-		$this->creation_date = $filter->clean($this->creation_date, 'STRING');
-		$this->modification_date = $filter->clean($this->modification_date, 'STRING');
-		$this->completion_date = $filter->clean($this->completion_date, 'STRING');
 		$this->total_commission = $filter->clean($this->total_commission, 'FLOAT');
 		$this->total_amount = $filter->clean($this->total_amount, 'FLOAT');
+		$this->total_unit = $filter->clean($this->total_unit, 'FLOAT');
+		$this->status = $filter->clean($this->status, 'STRING');
+		$this->shipping = $filter->clean($this->shipping, 'STRING');
+		$this->order_date = $filter->clean($this->order_date, 'STRING');
+		$this->modification_date = $filter->clean($this->modification_date, 'STRING');
+		$this->payment_reference_code = $filter->clean($this->payment_reference_code, 'STRING');
 
 
 		if (!empty($this->payment) && !preg_match("/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/", $this->payment)){
-			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PAYMENT")) );
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_RECEIVED_PAYMENT")) );
 			$valid = false;
 		}
 
-		if (!empty($this->creation_date) && ($this->creation_date != '0000-00-00 00:00:00'))
+		if (!empty($this->total_commission) && !preg_match("/^-?\d*\.?\d*$/", $this->total_commission)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_COMMISSION")) );
+			$valid = false;
+		}
+
+		if (!empty($this->total_amount) && !preg_match("/^-?\d*\.?\d*$/", $this->total_amount)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_AMOUNT")) );
+			$valid = false;
+		}
+
+		if (!empty($this->total_unit) && !preg_match("/^-?\d*\.?\d*$/", $this->total_unit)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_UNIT")) );
+			$valid = false;
+		}
+
+		if (!empty($this->order_date) && ($this->order_date != '0000-00-00 00:00:00'))
 		{
-			$creation_date = TravelHelper::getSqlDate($this->creation_date, array('%Y-%m-%d %H:%M'));
-			if ($creation_date === null){
-				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_CREATION_DATE")));
+			$order_date = TravelHelper::getSqlDate($this->order_date, array('%Y-%m-%d %H:%M'));
+			if ($order_date === null){
+				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_ORDER_DATE")));
 				$valid = false;
 			}
 			else
-				$this->creation_date = $creation_date->toMySQL();
+				$this->order_date = $order_date->toMySQL();
 		}
 
 		if (!empty($this->modification_date) && ($this->modification_date != '0000-00-00 00:00:00'))
@@ -174,28 +199,25 @@ class TableSale extends JTable
 				$this->modification_date = $modification_date->toMySQL();
 		}
 
-		if (!empty($this->completion_date) && ($this->completion_date != '0000-00-00 00:00:00'))
-		{
-			$completion_date = TravelHelper::getSqlDate($this->completion_date, array('%Y-%m-%d %H:%M'));
-			if ($completion_date === null){
-				JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_WRONG_DATETIME_FORMAT_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMPLETION_DATE")));
-				$valid = false;
-			}
-			else
-				$this->completion_date = $completion_date->toMySQL();
-		}
-
 
 
 		if ($this->payment == null)
 			$this->payment = 0;
-		if ($this->completed === null)
-			$this->completed = 0;
+		if ($this->total_commission == null)
+			$this->total_commission = 0;
+		if ($this->total_amount == null)
+			$this->total_amount = 0;
+		if ($this->total_unit == null)
+			$this->total_unit = 0;
+		if ($this->status == null)
+			$this->status = "1";
+		if ($this->shipping == null)
+			$this->shipping = "1";
 
 
 		//Creation date
-		if (!trim($this->creation_date))
-			$this->creation_date = JFactory::getDate()->toMySql();
+		if (!trim($this->order_date))
+			$this->order_date = JFactory::getDate()->toMySql();
 
 		//Modification date
 		$this->modification_date = JFactory::getDate()->toMySql();
@@ -206,13 +228,28 @@ class TableSale extends JTable
 			$valid = false;
 		}
 
-		if (($this->completed === null) || ($this->completed === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMPLETED")));
+		if (($this->total_commission === null) || ($this->total_commission === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_COMMISSION")));
 			$valid = false;
 		}
 
-		if (($this->total_commission === null) || ($this->total_commission === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_COMISSION")));
+		if (($this->total_amount === null) || ($this->total_amount === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_AMOUNT")));
+			$valid = false;
+		}
+
+		if (($this->total_unit === null) || ($this->total_unit === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TOTAL_UNIT")));
+			$valid = false;
+		}
+
+		if (($this->status === null) || ($this->status === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_STATUS")));
+			$valid = false;
+		}
+
+		if (($this->shipping === null) || ($this->shipping === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_SHIPPING")));
 			$valid = false;
 		}
 

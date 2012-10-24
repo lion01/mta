@@ -83,7 +83,9 @@ class TravelViewSales extends JView
 		// Get data from the model
 		$model 		= $this->getModel();
 		$model->activeAll();
-                $model->active('predefined', 'sales');
+		$model->active('predefined', 'sales');
+
+
 
 
 
@@ -96,17 +98,22 @@ class TravelViewSales extends JView
 		$lists['order'] = $model->getState('list.ordering');
 		$lists['order_Dir'] = $model->getState('list.direction');
 
+		$lists['enum']['sales.status'] = TravelHelper::enumList('sales', 'status');
+
+		$lists['enum']['sales.shipping'] = TravelHelper::enumList('sales', 'shipping');
+
 
 		//Filters
-		//creation_date
-		$this->filters['creation_date'] = new stdClass();
-		$this->filters['creation_date']->from = $model->getState("filter.creation_date_from");
-		$this->filters['creation_date']->to = $model->getState("filter.creation_date_to");
+		//order_date
+		$this->filters['order_date'] = new stdClass();
+		$this->filters['order_date']->from = $model->getState("filter.order_date_from");
+		$this->filters['order_date']->to = $model->getState("filter.order_date_to");
 
-		//completion_date
-		$this->filters['completion_date'] = new stdClass();
-		$this->filters['completion_date']->from = $model->getState("filter.completion_date_from");
-		$this->filters['completion_date']->to = $model->getState("filter.completion_date_to");
+		//Status
+		$this->filters['status'] = new stdClass();
+		$this->filters['status']->list = $lists['enum']['sales.status'];
+		array_unshift($this->filters['status']->list, array("value"=>"", "text" => JText::_("TRAVEL_FILTER_NULL_STATUS")));
+		$this->filters['status']->value = $model->getState("filter.status");
 
 
 

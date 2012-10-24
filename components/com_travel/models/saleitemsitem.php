@@ -55,11 +55,6 @@ class TravelModelSaleitemsitem extends TravelModelItem
 
 	}
 
-        function id()
-        {
-            return $this->_id;
-        }
-
 	/**
 	 * Method to initialise the saleitemsitem data
 	 *
@@ -78,8 +73,9 @@ class TravelModelSaleitemsitem extends TravelModelItem
 			$data->package_id = JRequest::getInt('filter_package_id', $this->getState('filter.package_id'));
 			$data->sale_id = JRequest::getInt('filter_sale_id', $this->getState('filter.sale_id'));
 			$data->quantity = null;
-			$data->comission_rate = null;
-			$data->comission_type = JRequest::getVar('filter_comission_type', $this->getState('filter.comission_type'));
+			$data->unit = null;
+			$data->price = null;
+			$data->commission_rate = null;
 
 			$this->_data = $data;
 

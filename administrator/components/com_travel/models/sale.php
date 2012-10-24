@@ -72,12 +72,14 @@ class TravelModelSale extends TravelModelItem
 			$data->attribs = null;
 			$data->user_id = null;
 			$data->payment = null;
-			$data->completed = null;
-			$data->creation_date = null;
-			$data->modification_date = null;
-			$data->completion_date = null;
 			$data->total_commission = null;
 			$data->total_amount = null;
+			$data->total_unit = null;
+			$data->status = JRequest::getVar('filter_status', $this->getState('filter.status'));
+			$data->shipping = JRequest::getVar('filter_shipping', $this->getState('filter.shipping'));
+			$data->order_date = null;
+			$data->modification_date = null;
+			$data->payment_reference_code = null;
 
 			$this->_data = $data;
 
@@ -103,9 +105,6 @@ class TravelModelSale extends TravelModelItem
 
 		if ($search_search = $app->getUserState($this->context.'.search.search'))
 			$this->setState('search.search', $search_search, null, 'varchar');
-
-		if ($filter_completed = $app->getUserState($this->context.'.filter.completed'))
-			$this->setState('filter.completed', $filter_completed, null, 'cmd');
 
 
 
@@ -148,9 +147,12 @@ class TravelModelSale extends TravelModelItem
 	{
 
 			$query = 'SELECT a.*'
+					.	' , _user_id_.name AS `_user_id_name`'
+					.	' , _user_id_.name AS `_user_id_name`'
 					. 	$this->_buildQuerySelect()
 
 					.	' FROM `#__travel_sales` AS a'
+					.	' LEFT JOIN `#__users` AS _user_id_ ON _user_id_.id = a.user_id'
 					. 	$this->_buildQueryJoin()
 
 					. 	$this->_buildQueryWhere()

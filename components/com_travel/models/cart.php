@@ -345,4 +345,8 @@ class TravelModelCart extends TravelModelItem
 		return true;
 	}
 
+
+
+
+
 }

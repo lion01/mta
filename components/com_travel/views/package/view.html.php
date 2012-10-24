@@ -87,8 +87,6 @@ class TravelViewPackage extends JView
 
 
 
-		$lists['enum']['packages.commission_type'] = TravelHelper::enumList('packages', 'commission_type');
-
 
 
 		$config	= JComponentHelper::getParams( 'com_travel' );

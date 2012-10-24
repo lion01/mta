@@ -365,14 +365,15 @@ array(	"\\", "\/", 	"\#",	"\!", 	"\^", "$", "\(", "\)", "\[", "\]", "\{", "\}", 
 	{
 		$lists = array();
 
-		$lists["packages"]["commission_type"] = array();
-		$lists["packages"]["commission_type"]["0"] = array("value" => "0", "text" => JText::_("TRAVEL_ENUM_PACKAGES_COMMISSION_TYPE_FIXED"));
-		$lists["packages"]["commission_type"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_PACKAGES_COMMISSION_TYPE_PERCENTAGE"));
+		$lists["sales"]["status"] = array();
+		$lists["sales"]["status"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_SALES_STATUS_AWAITING_PAYMENT"));
+		$lists["sales"]["status"]["2"] = array("value" => "2", "text" => JText::_("TRAVEL_ENUM_SALES_STATUS_COMPLETED"));
+		$lists["sales"]["status"]["3"] = array("value" => "3", "text" => JText::_("TRAVEL_ENUM_SALES_STATUS_CANCEL"));
 
 
-		$lists["saleitems"]["comission_type"] = array();
-		$lists["saleitems"]["comission_type"]["0"] = array("value" => "0", "text" => JText::_("TRAVEL_ENUM_SALEITEMS_COMISSION_TYPE_FIXED"));
-		$lists["saleitems"]["comission_type"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_SALEITEMS_COMISSION_TYPE_PERCENTAGE"));
+		$lists["sales"]["shipping"] = array();
+		$lists["sales"]["shipping"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_SALES_SHIPPING_PICKUP"));
+		$lists["sales"]["shipping"]["2"] = array("value" => "2", "text" => JText::_("TRAVEL_ENUM_SALES_SHIPPING_DELIVERY"));
 
 
 

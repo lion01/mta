@@ -25,7 +25,6 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-jimport('joomla.utilities.date');
 
 /**
  * Travel Sales Controller
@@ -87,21 +86,17 @@ class TravelControllerSales extends TravelController
 		$vars = array();
 		//Predefine fields depending on filters values
 		$app = JFactory::getApplication();
-		//User
+		//User > Name
 		$filter_user_id = $app->getUserState( $this->context . ".filter.user_id");
 		if ($filter_user_id) $vars["filter_user_id"] = $filter_user_id;
 
-		//Creation Date
-		$filter_creation_date = $app->getUserState( $this->context . ".filter.creation_date");
-		if ($filter_creation_date) $vars["filter_creation_date"] = $filter_creation_date;
+		//Order Date
+		$filter_order_date = $app->getUserState( $this->context . ".filter.order_date");
+		if ($filter_order_date) $vars["filter_order_date"] = $filter_order_date;
 
-		//Completion Date
-		$filter_completion_date = $app->getUserState( $this->context . ".filter.completion_date");
-		if ($filter_completion_date) $vars["filter_completion_date"] = $filter_completion_date;
-
-		//Completed
-		$filter_completed = $app->getUserState( $this->context . ".filter.completed");
-		if ($filter_completed) $vars["filter_completed"] = $filter_completed;
+		//Status
+		$filter_status = $app->getUserState( $this->context . ".filter.status");
+		if ($filter_status) $vars["filter_status"] = $filter_status;
 
 
 
@@ -203,9 +198,7 @@ class TravelControllerSales extends TravelController
 		$post	= JRequest::get('post');
 		$post['id'] = $model->getId();
 
-                if (isset($post['completed']) && $post['completed'] == TRUE) {
-                    $post['completion_date'] = date('Y-m-d H:i:s');
-                }
+
 
 		if ($cid = parent::_save($post))
 		{
@@ -282,40 +275,6 @@ class TravelControllerSales extends TravelController
 		JRequest::setVar( 'cid', null );
 
 		$this->setRedirect(TravelHelper::urlRequest($vars));
-
-	}
-
-	function toggle_completed()
-	{
-		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
-
-		if (!$this->can(array('core.edit', 'core.edit.own'), JText::_("JTOOLBAR_EDIT")))
-			return;
-
-
-		$model = $this->getModel('Sale');
-		$sale = $model->getItem();
-
-
-		if ($sale->id == 0)
-		{
-			$msg = JText::_( 'ERROR' );
-			$this->setRedirect(TravelHelper::urlRequest(), $msg);
-			return;
-		}
-
-                $data = array(
-                    "completed" => is_null($sale->completed)?1:!$sale->completed,
-                );
-
-                if ( ! $sale->completed) {
-                    $data['completion_date'] = date('Y-m-d H:i:s');
-                }
-
-                $this->_save($data);
-
-		$this->setRedirect(TravelHelper::urlRequest());
 
 	}
 

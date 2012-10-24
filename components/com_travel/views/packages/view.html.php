@@ -99,8 +99,6 @@ class TravelViewPackages extends JView
 		$lists['order'] = $model->getState('list.ordering');
 		$lists['order_Dir'] = $model->getState('list.direction');
 
-		$lists['enum']['packages.commission_type'] = TravelHelper::enumList('packages', 'commission_type');
-
 
 
 		$config	= JComponentHelper::getParams( 'com_travel' );

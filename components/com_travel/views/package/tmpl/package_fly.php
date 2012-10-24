@@ -46,20 +46,6 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="value">
-					<?php echo JText::_( "TRAVEL_FIELD_VALUE" ); ?> :
-				</label>
-			</td>
-			<td>
-				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'value',
-												'dataObject' => $this->package
-												));
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td align="right" class="key">
 				<label for="price">
 					<?php echo JText::_( "TRAVEL_FIELD_PRICE" ); ?> :
 				</label>
@@ -74,13 +60,13 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="content">
-					<?php echo JText::_( "TRAVEL_FIELD_CONTENT" ); ?> :
+				<label for="unit">
+					<?php echo JText::_( "TRAVEL_FIELD_UNIT" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'content',
+												'dataKey' => 'unit',
 												'dataObject' => $this->package
 												));
 				?>
@@ -88,13 +74,41 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="comisssion_rate">
-					<?php echo JText::_( "TRAVEL_FIELD_COMISSION" ); ?> :
+				<label for="commisssion_rate">
+					<?php echo JText::_( "TRAVEL_FIELD_COMMISSION" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'comisssion_rate',
+												'dataKey' => 'commisssion_rate',
+												'dataObject' => $this->package
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="renewable">
+					<?php echo JText::_( "TRAVEL_FIELD_RENEWABLE" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.fly.bool', array(
+												'dataKey' => 'renewable',
+												'dataObject' => $this->package
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="content">
+					<?php echo JText::_( "TRAVEL_FIELD_CONTENT" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'content',
 												'dataObject' => $this->package
 												));
 				?>

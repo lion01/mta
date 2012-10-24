@@ -51,26 +51,23 @@ class TravelModelSales extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
-				'completed', 'a.completed',
-				'creation_date', 'a.creation_date',
-				'completion_date', 'a.completion_date',
+				'order_date', 'a.order_date',
 
 			);
 		}
 
 		//Define the filterable fields
 		$this->set('filter_vars', array(
-			'creation_date_from' => 'date:%Y-%m-%d',
-			'creation_date_to' => 'date:%Y-%m-%d',
-			'completion_date_from' => 'date:%Y-%m-%d',
-			'completion_date_to' => 'date:%Y-%m-%d',
-			'creation_date' => 'string',
-			'completion_date' => 'string'
+			'order_date_from' => 'cmd',
+			'order_date_to' => 'cmd',
+			'status' => 'string',
+			'order_date' => 'string'
 				));
 
 
 
 		parent::__construct($config);
+
 
 	}
 
@@ -159,12 +156,6 @@ class TravelModelSales extends TravelModelList
 	function _buildQuery_sales()
 	{
 
-		$order = $this->_buildQueryOrderBy();
-
-                if ( ! (substr($order, - strlen($order)) === 'ASC ' || substr($order, - strlen($order)) === 'DESC ')) {
-                    $order .= ' DESC ';
-                }
-
 		$query = ' SELECT a.*'
 
 			. $this->_buildQuerySelect()
@@ -175,8 +166,8 @@ class TravelModelSales extends TravelModelList
 
 			. $this->_buildQueryWhere()
 
-                        . $order
 
+			. $this->_buildQueryOrderBy()
 			. $this->_buildQueryExtra()
 		;
 
@@ -194,18 +185,15 @@ class TravelModelSales extends TravelModelList
 
 		if (isset($this->_active['filter']) && $this->_active['filter'])
 		{
-		// Range : creation_date
-			$filter_creation_date_from = $this->getState('filter.creation_date_from');
-			if ($filter_creation_date_from != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_from) . ") >= 0";
+		// Range : order_date
+			$filter_order_date_from = $this->getState('filter.order_date_from');
+			if ($filter_order_date_from != '')		$where[] = "a.order_date >= " . $db->Quote($filter_order_date_from);
 
-			$filter_creation_date_to = $this->getState('filter.creation_date_to');
-			if ($filter_creation_date_to != '')		$where[] = "DATEDIFF(a.creation_date, " . $db->Quote($filter_creation_date_to) . ") <= 0";
-		// Range : completion_date
-			$filter_completion_date_from = $this->getState('filter.completion_date_from');
-			if ($filter_completion_date_from != '')		$where[] = "DATEDIFF(a.completion_date, " . $db->Quote($filter_completion_date_from) . ") >= 0";
+			$filter_order_date_to = $this->getState('filter.order_date_to');
+			if ($filter_order_date_to != '')		$where[] = "a.order_date <= " . $db->Quote($filter_order_date_to);
+			$filter_status = $this->getState('filter.status');
+			if ($filter_status != '')		$where[] = "a.status = " . $db->Quote($filter_status);
 
-			$filter_completion_date_to = $this->getState('filter.completion_date_to');
-			if ($filter_completion_date_to != '')		$where[] = "DATEDIFF(a.completion_date, " . $db->Quote($filter_completion_date_to) . ") <= 0";
 
 		}
 
@@ -213,8 +201,9 @@ class TravelModelSales extends TravelModelList
 		return parent::_buildQueryWhere($where);
 	}
 
-	function _buildQueryOrderBy($order = array(), $pre_order = 'a.creation_date')
+	function _buildQueryOrderBy($order = array(), $pre_order = 'a.user_id')
 	{
+
 		return parent::_buildQueryOrderBy($order, $pre_order);
 	}
 

@@ -99,8 +99,6 @@ class TravelViewPackages extends JView
 		$lists['order'] = $model->getState('list.ordering');
 		$lists['order_Dir'] = $model->getState('list.direction');
 
-		$lists['enum']['packages.commission_type'] = TravelHelper::enumList('packages', 'commission_type');
-
 		// Toolbar
 		jimport('joomla.html.toolbar');
 		$bar = & JToolBar::getInstance('toolbar');
@@ -110,8 +108,6 @@ class TravelViewPackages extends JView
 			$bar->appendButton( 'Standard', "edit", "JTOOLBAR_EDIT", "edit", true);
 		if ($access->get('core.delete') || $access->get('core.delete.own'))
 			$bar->appendButton( 'Standard', "delete", "JTOOLBAR_DELETE", "delete", true);
-		if ($access->get('core.admin'))
-			$bar->appendButton( 'Popup', 'options', JText::_('JTOOLBAR_OPTIONS'), 'index.php?option=com_config&view=component&component=' . $option . '&path=&tmpl=component');
 
 
 
@@ -177,8 +173,6 @@ class TravelViewPackages extends JView
 		$lists['order'] = $model->getState('list.ordering');
 		$lists['order_Dir'] = $model->getState('list.direction');
 
-		$lists['enum']['packages.commission_type'] = TravelHelper::enumList('packages', 'commission_type');
-
 		// Toolbar
 		jimport('joomla.html.toolbar');
 		$bar = & JToolBar::getInstance('toolbar');
@@ -188,8 +182,6 @@ class TravelViewPackages extends JView
 			$bar->appendButton( 'Standard', "edit", "JTOOLBAR_EDIT", "edit", true);
 		if ($access->get('core.delete') || $access->get('core.delete.own'))
 			$bar->appendButton( 'Standard', "delete", "JTOOLBAR_DELETE", "delete", true);
-		if ($access->get('core.admin'))
-			$bar->appendButton( 'Popup', 'options', JText::_('JTOOLBAR_OPTIONS'), 'index.php?option=com_config&view=component&component=' . $option . '&path=&tmpl=component');
 
 
 

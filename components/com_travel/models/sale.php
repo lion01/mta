@@ -55,11 +55,6 @@ class TravelModelSale extends TravelModelItem
 
 	}
 
-        function id()
-        {
-            return $this->_id;
-        }
-
 	/**
 	 * Method to initialise the sale data
 	 *
@@ -77,12 +72,14 @@ class TravelModelSale extends TravelModelItem
 			$data->attribs = null;
 			$data->user_id = null;
 			$data->payment = null;
-			$data->completed = null;
-			$data->creation_date = null;
-			$data->modification_date = null;
-			$data->completion_date = null;
 			$data->total_commission = null;
 			$data->total_amount = null;
+			$data->total_unit = null;
+			$data->status = JRequest::getVar('filter_status', $this->getState('filter.status'));
+			$data->shipping = JRequest::getVar('filter_shipping', $this->getState('filter.shipping'));
+			$data->order_date = null;
+			$data->modification_date = null;
+			$data->payment_reference_code = null;
 
 			$this->_data = $data;
 
@@ -106,6 +103,9 @@ class TravelModelSale extends TravelModelItem
 		$app = JFactory::getApplication();
 		$session = JFactory::getSession();
 
+		if ($filter_status = $app->getUserState($this->context.'.filter.status'))
+			$this->setState('filter.status', $filter_status, null, 'varchar');
+
 
 
 		parent::populateState();
@@ -124,27 +124,10 @@ class TravelModelSale extends TravelModelItem
 		if (isset($this->_active['predefined']))
 		switch($this->_active['predefined'])
 		{
-			case 'sale': return $this->_buildQuery_sale(); break;
 
 		}
 
 
-
-			$query = 'SELECT a.*'
-					. 	$this->_buildQuerySelect()
-
-					.	' FROM `#__travel_sales` AS a'
-					. 	$this->_buildQueryJoin()
-
-					. 	$this->_buildQueryWhere()
-
-					.	'';
-
-		return $query;
-	}
-
-	function _buildQuery_sale()
-	{
 
 			$query = 'SELECT a.*'
 					. 	$this->_buildQuerySelect()

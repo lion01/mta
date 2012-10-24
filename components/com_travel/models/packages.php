@@ -53,7 +53,7 @@ class TravelModelPackages extends TravelModelList
 			$config['filter_fields'] = array(
 				'title', 'a.title',
 				'price', 'a.price',
-				'value', 'a.value',
+				'commisssion_rate', 'a.commisssion_rate',
 
 			);
 		}
@@ -62,7 +62,6 @@ class TravelModelPackages extends TravelModelList
 
 		parent::__construct($config);
 		$this->_modes = array_merge($this->_modes, array('publish'));
-                $this->setState('limit', 0);
 
 
 	}
