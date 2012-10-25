@@ -172,6 +172,7 @@ class TravelModelPackages extends TravelModelList
 	function _buildQueryWhere($where = array())
 	{
 		$app = JFactory::getApplication();
+                $user = JFactory::getUser();
 		$db= JFactory::getDBO();
 		$acl = TravelHelper::getAcl();
 
@@ -180,6 +181,9 @@ class TravelModelPackages extends TravelModelList
 		&& (!isset($this->_active['publish']) || $this->_active['publish'] !== false))
 				$where[] = "a.published=1";
 
+                if ($user->guest) {
+                    $where[] = "a.renewable=1";
+                }
 
 		return parent::_buildQueryWhere($where);
 	}

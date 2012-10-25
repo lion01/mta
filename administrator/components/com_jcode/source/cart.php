@@ -7,23 +7,26 @@ $packages = array();
 
 if (JRequest::getMethod() == 'POST') {
 
-    if (isset($_POST['update-only']) && $_POST['update-only'] == 1) {
-        $packages_id = array_keys($cart);
+    $packages_id = array_keys($cart);
 
-        foreach ($packages_id as $package_id) {
-            if (isset($_POST['quantity_id_'.$package_id])) {
-                $quantity = intval($_POST['quantity_id_'.$package_id]);
+    foreach ($packages_id as $package_id) {
+        if (isset($_POST['quantity_id_'.$package_id])) {
+            $quantity = intval($_POST['quantity_id_'.$package_id]);
 
-                if ($quantity <= 0) {
-                    unset($cart[$package_id]);
-                } else {
-                    $cart[$package_id] = $quantity;
-                }
+            if ($quantity <= 0) {
+                unset($cart[$package_id]);
+            } else {
+                $cart[$package_id] = $quantity;
             }
         }
+    }
 
-        JFactory::getSession()->set('cart', $cart);
+    JFactory::getSession()->set('cart', $cart);
+
+    if (isset($_POST['update-only']) && $_POST['update-only'] == 1) {
         JFactory::getApplication()->redirect(JURI::current());
+    } else {
+        JFactory::getApplication()->redirect('/index.php/travel-packages/cart/checkout');
     }
 }
 
@@ -80,6 +83,7 @@ input.integer {
 
 <h1 class='componenetheading'><?php echo JText::_('Shopping Cart'); ?></h1>
 
+<?php if ( ! empty($cart)): ?>
 <form method='POST'>
     <input type="hidden" id="id_update-only" name="update-only" value="0" />
     <table cellpadding='0' cellspacing='0' width='100%'>
@@ -103,11 +107,11 @@ input.integer {
                         <?php $total += $quantity * $packages[$package_id]['price']; ?>
                     </tr>
                 <?php endif ?>
-                <tr class="lastrow">
-                    <td colspan="3" align="right">Total</td>
-                    <td class="summary" align="right"><?php echo number_format($total, 2); ?></td>
-                </tr>
             <?php endforeach; ?>
+            <tr class="lastrow">
+                <td colspan="3" align="right">Total</td>
+                <td class="summary" align="right"><?php echo number_format($total, 2); ?></td>
+            </tr>
         </tbody>
     </table>
 
@@ -117,3 +121,7 @@ input.integer {
         <button name="checkout">Checkout</button>
     </div>
 </form>
+
+<?php else: ?>
+    <center><b>There is no items in your Cart.</b></center>
+<?php endif ?>
