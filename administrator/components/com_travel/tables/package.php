@@ -62,7 +62,7 @@ class TablePackage extends JTable
 	/**
 	 * @var float
 	 */
-	var $commisssion_rate = null;
+	var $commission_rate = null;
 	/**
 	 * @var float
 	 */
@@ -146,7 +146,7 @@ class TablePackage extends JTable
 
 		$filter = new JFilterInput(array(), array(), 0, 0);
 		$this->title = $filter->clean($this->title, 'STRING');
-		$this->commisssion_rate = $filter->clean($this->commisssion_rate, 'FLOAT');
+		$this->commission_rate = $filter->clean($this->commission_rate, 'FLOAT');
 		$this->price = $filter->clean($this->price, 'FLOAT');
 		$this->unit = $filter->clean($this->unit, 'FLOAT');
 		$this->ordering = $filter->clean($this->ordering, 'INT');
@@ -156,7 +156,7 @@ class TablePackage extends JTable
 		$this->modification_date = $filter->clean($this->modification_date, 'STRING');
 
 
-		if (!empty($this->commisssion_rate) && !preg_match("/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/", $this->commisssion_rate)){
+		if (!empty($this->commission_rate) && !preg_match("/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/", $this->commission_rate)){
 			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMMISSSION_RATE")) );
 			$valid = false;
 		}
@@ -228,7 +228,7 @@ class TablePackage extends JTable
 			$valid = false;
 		}
 
-		if (($this->commisssion_rate === null) || ($this->commisssion_rate === '')){
+		if (($this->commission_rate === null) || ($this->commission_rate === '')){
 			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMMISSSION_RATE")));
 			$valid = false;
 		}

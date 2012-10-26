@@ -1,25 +1,29 @@
 <?php defined('_JEXEC') or die('Restricted access');
 
 $cart = JFactory::getSession()->get('cart', array());
+$items = isset($cart['items']) ? $cart['items'] : array();
+
+$user = JFactory::getUser();
 
 $db = JFactory::getDBO();
 $packages = array();
 
 if (JRequest::getMethod() == 'POST') {
-
-    $packages_id = array_keys($cart);
+    $packages_id = array_keys($items);
 
     foreach ($packages_id as $package_id) {
         if (isset($_POST['quantity_id_'.$package_id])) {
             $quantity = intval($_POST['quantity_id_'.$package_id]);
 
             if ($quantity <= 0) {
-                unset($cart[$package_id]);
+                unset($items[$package_id]);
             } else {
-                $cart[$package_id] = $quantity;
+                $items[$package_id] = $quantity;
             }
         }
     }
+
+    $cart['items'] = $items;
 
     JFactory::getSession()->set('cart', $cart);
 
@@ -30,8 +34,8 @@ if (JRequest::getMethod() == 'POST') {
     }
 }
 
-if ( ! empty($cart)) {
-    $query = 'SELECT id, title, price FROM #__travel_packages WHERE id IN ('.implode(',', array_keys($cart)).')';
+if ( ! empty($items)) {
+    $query = 'SELECT id, title, price FROM #__travel_packages WHERE id IN ('.implode(',', array_keys($items)).')';
     $db->setQuery($query);
     $rows = $db->loadObjectList();
 
@@ -83,7 +87,7 @@ input.integer {
 
 <h1 class='componenetheading'><?php echo JText::_('Shopping Cart'); ?></h1>
 
-<?php if ( ! empty($cart)): ?>
+<?php if ( ! empty($items)): ?>
 <form method='POST'>
     <input type="hidden" id="id_update-only" name="update-only" value="0" />
     <table cellpadding='0' cellspacing='0' width='100%'>
@@ -97,7 +101,7 @@ input.integer {
         </thead>
         <tbody>
             <?php $total = 0.0; ?>
-            <?php foreach ($cart as $package_id => $quantity): ?>
+            <?php foreach ($items as $package_id => $quantity): ?>
                 <?php if (isset($packages[$package_id])): ?>
                     <tr>
                         <td align="center"><input type='checkbox' class="selector" name='cid[]' value='<?php echo $package_id; ?>' /></td>

@@ -86,7 +86,15 @@ class TravelViewCommission extends JView
 		}
 
 
+		$lists['enum']['commissions.type'] = TravelHelper::enumList('commissions', 'type');
+
 		$lists['fk']['user_id'] = TravelJUserHelper::userList();
+
+		//Type
+		$lists['select']['type'] = new stdClass();
+		$lists['select']['type']->list = $lists['enum']['commissions.type'];
+		array_unshift($lists['select']['type']->list, array("value"=>"", "text" => JText::_("TRAVEL_FIELD_NULL_TYPE")));
+		$lists['select']['type']->value = $commission->type;
 
 		// Toolbar
 		jimport('joomla.html.toolbar');

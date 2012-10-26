@@ -51,7 +51,7 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 
 			<th style="text-align:left">
-				<?php echo JText::_("TRAVEL_FIELD_BANK_ACCOUNT"); ?>
+				<?php echo JText::_("TRAVEL_FIELD_BANK_ACCOUNT_NUMBER"); ?>
 			</th>
 
 			<th style="text-align:center">
@@ -118,7 +118,7 @@ defined('_JEXEC') or die('Restricted access');
 
             <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'bank_account',
+												'dataKey' => 'bank_account_number',
 												'dataObject' => $row
 												));
 				?>

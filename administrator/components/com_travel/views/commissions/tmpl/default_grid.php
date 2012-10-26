@@ -51,6 +51,10 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 
 			<th style="text-align:center">
+				<?php echo JText::_("TRAVEL_FIELD_TYPE"); ?>
+			</th>
+
+			<th style="text-align:center">
 				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_PAYMENT_DATE", 'a.payment_date', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
 
@@ -105,6 +109,17 @@ defined('_JEXEC') or die('Restricted access');
 												'dataKey' => 'amount',
 												'dataObject' => $row,
 												'href' => "javascript:listItemTask('cb" . $i . "', 'edit')"
+												));
+				?>
+			</td>
+
+            <td style="text-align:center">
+				<?php echo JDom::_('html.fly.enum', array(
+												'dataKey' => 'type',
+												'dataObject' => $row,
+												'list' => $this->lists['enum']['commissions.type'],
+												'listKey' => 'value',
+												'labelKey' => 'text'
 												));
 				?>
 			</td>

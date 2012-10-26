@@ -52,7 +52,7 @@ $user = JFactory::getUser();
 
             <?php if ( ! $user->guest): ?>
                 <th style="text-align:right">
-                    <?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMISSION", 'a.commisssion_rate', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+                    <?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_COMISSION", 'a.commission_rate', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
                 </th>
 
                 <th style="text-align:center">
@@ -107,7 +107,7 @@ $user = JFactory::getUser();
             <?php if ( ! $user->guest): ?>
                 <td style="text-align:right">
                     <?php echo JDom::_('html.fly', array(
-                                                    'dataKey' => 'commisssion_rate',
+                                                    'dataKey' => 'commission_rate',
                                                     'dataObject' => $row
                                                     ));
                     ?>

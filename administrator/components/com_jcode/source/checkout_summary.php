@@ -4,7 +4,6 @@ if (JRequest::getMethod() != 'POST') {
     JFactory::getApplication()->redirect('/index.php/travel-packages/cart/checkout');
 }
 
-if (isset($_POST['renewal'])) {
-    echo $_POST['renewal'];
+if (isset($_POST['renewable'])) {
 }
 ?>

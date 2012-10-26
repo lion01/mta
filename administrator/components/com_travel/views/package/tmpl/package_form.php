@@ -109,13 +109,13 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="commisssion_rate">
+				<label for="commission_rate">
 					<?php echo JText::_( "TRAVEL_FIELD_COMMISSSION_RATE" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.form.input.text', array(
-												'dataKey' => 'commisssion_rate',
+												'dataKey' => 'commission_rate',
 												'dataObject' => $this->package,
 												'size' => "12",
 												'domClass' => "validate[required,custom[positive_decimal]]",

@@ -701,7 +701,8 @@ input.system-openid, input.com-system-openid { background: url(http://openid.net
 #system-debug {color: #ccc;background-color: #fff;padding: 10px;margin: 10px;}
 #system-debug div {font-size: 11px;}
 
-.hide.f-submenu-item {
+.hide.f-submenu-item,
+.hide.f-parent-item {
     display: none;
 }
 

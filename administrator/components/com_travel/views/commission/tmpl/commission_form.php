@@ -90,7 +90,7 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 												'dataKey' => 'attachment',
 												'dataObject' => $this->commission,
 												'size' => "",
-												'domClass' => "validate[custom[file_1203]]",
+												'domClass' => "validate[custom[file_3139]]",
 												'validatorHandler' => "file"
 												));
 				?>
@@ -112,6 +112,26 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 												'required' => true
 												));
 
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
+				<label for="type">
+					<?php echo JText::_( "TRAVEL_FIELD_TYPE" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.select', array(
+												'dataKey' => 'type',
+												'dataObject' => $this->commission,
+												'list' => $this->lists['select']['type']->list,
+												'listKey' => 'value',
+												'labelKey' => 'text',
+												'nullLabel' => "",
+												'domClass' => "validate[required]",
+												'required' => true
+												));
 				?>
 			</td>
 		</tr>

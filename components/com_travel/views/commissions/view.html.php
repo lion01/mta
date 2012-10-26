@@ -98,6 +98,8 @@ class TravelViewCommissions extends JView
 		$lists['order'] = $model->getState('list.ordering');
 		$lists['order_Dir'] = $model->getState('list.direction');
 
+		$lists['enum']['commissions.type'] = TravelHelper::enumList('commissions', 'type');
+
 
 		//Filters
 		//payment_date

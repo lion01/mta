@@ -72,7 +72,7 @@ class TravelModelPackage extends TravelModelItem
 			$data->attribs = null;
 			$data->title = null;
 			$data->content = null;
-			$data->commisssion_rate = null;
+			$data->commission_rate = null;
 			$data->price = null;
 			$data->unit = null;
 			$data->ordering = null;

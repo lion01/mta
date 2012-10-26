@@ -75,6 +75,7 @@ class TravelModelCommission extends TravelModelItem
 			$data->attachment = null;
 			$data->payment_date = null;
 			$data->created_date = null;
+			$data->type = JRequest::getVar('filter_type', $this->getState('filter.type'));
 
 			$this->_data = $data;
 

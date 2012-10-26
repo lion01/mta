@@ -71,14 +71,17 @@ class TravelControllerPackages extends TravelController
             $packages_id = isset($_POST['cid']) ? $_POST['cid'] : array();
 
             $cart = JFactory::getSession()->get('cart', array());
+            $items = isset($cart['items']) ? $cart['items'] : array();
 
             foreach ($packages_id as $package_id) {
                 if (isset($cart[$package_id])) {
-                    $cart[$package_id] += 1;
+                    $items[$package_id] += 1;
                 } else {
-                    $cart[$package_id] = 1;
+                    $items[$package_id] = 1;
                 }
             }
+
+            $cart['items'] = $items;
 
             JFactory::getSession()->set('cart', $cart);
 

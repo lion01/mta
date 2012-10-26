@@ -74,13 +74,13 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="commisssion_rate">
+				<label for="commission_rate">
 					<?php echo JText::_( "TRAVEL_FIELD_COMMISSION" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.fly', array(
-												'dataKey' => 'commisssion_rate',
+												'dataKey' => 'commission_rate',
 												'dataObject' => $this->package
 												));
 				?>

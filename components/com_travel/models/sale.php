@@ -175,6 +175,11 @@ class TravelModelSale extends TravelModelItem
 		return true;
 	}
 
+        function id()
+        {
+            return $this->_id;
+        }
+
 	/**
 	 * Method to save the sale
 	 *

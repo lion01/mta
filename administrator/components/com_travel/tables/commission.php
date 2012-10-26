@@ -71,6 +71,10 @@ class TableCommission extends JTable
 	 * @var string
 	 */
 	var $created_date = null;
+	/**
+	 * @var string
+	 */
+	var $type = null;
 
 
 
@@ -130,6 +134,7 @@ class TableCommission extends JTable
 		$this->attachment = $filter->clean($this->attachment, 'STRING');
 		$this->payment_date = $filter->clean($this->payment_date, 'STRING');
 		$this->created_date = $filter->clean($this->created_date, 'STRING');
+		$this->type = $filter->clean($this->type, 'STRING');
 
 
 		if (!empty($this->amount) && !preg_match("/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/", $this->amount)){
@@ -168,6 +173,8 @@ class TableCommission extends JTable
 
 		if ($this->amount == null)
 			$this->amount = 0;
+		if ($this->type == null)
+			$this->type = "1";
 
 
 		//Creation date
@@ -182,6 +189,11 @@ class TableCommission extends JTable
 
 		if (($this->payment_date === null) || ($this->payment_date === '')){
 			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PAYMENT_DATE")));
+			$valid = false;
+		}
+
+		if (($this->type === null) || ($this->type === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TYPE")));
 			$valid = false;
 		}
 
