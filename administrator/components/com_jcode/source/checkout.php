@@ -108,6 +108,7 @@ if (JRequest::getMethod() == 'POST') {
 
         if ($renewable != NULL && $renewable == $package_id) {
             $data['commission_rate'] = 0.0;
+            $date['renewal'] = 1;
             $renewable = NULL;
         }
 

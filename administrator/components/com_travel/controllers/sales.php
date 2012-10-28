@@ -193,11 +193,7 @@ class TravelControllerSales extends TravelController
             if (!$this->can('access-edit', JText::_("JTOOLBAR_SAVE"), $item->params))
                 return;
 
-            if (isset($_POST['status']) && $_POST['status'] == 2) {
-                if ($_POST['payment'] <= 0.00) {
-                    $_POST['payment'] = $_POST['total_amount'];
-                }
-            }
+            $this->complete_order($model);
         }
 
 
@@ -245,11 +241,7 @@ class TravelControllerSales extends TravelController
             if (!$this->can('access-edit', JText::_("JTOOLBAR_APPLY"), $item->params))
                 return;
 
-            if (isset($_POST['status']) && $_POST['status'] == 2) {
-                if ($_POST['payment'] <= 0.00) {
-                    $_POST['payment'] = $_POST['total_amount'];
-                }
-            }
+            $this->complete_order($model);
         }
 
 
@@ -290,10 +282,38 @@ class TravelControllerSales extends TravelController
 
     }
 
+    function complete_order($model)
+    {
+        if ($model->status != 2 && isset($_POST['status']) && $_POST['status'] == 2) {
+            if ($_POST['payment'] <= 0.00) {
+                $_POST['payment'] = $_POST['total_amount'];
+            }
 
+            $db = JFactory::getDBO();
 
+            $query = 'SELECT id FROM #__travel_saleitems WHERE sale_id = '.$model->id.' AND renewal = 1';
+            $db->setQuery($query);
+            $rows = $db->loadObjectList();
 
+            $renewal_count = 0;
+            $renewal_items_id = array();
 
+            foreach ($rows as $row) {
+                $renewal_count ++;
+                $renewal_items_id[] = $row->id;
+            }
 
+            if ( ! empty($renwal_items_id)) {
+                $query = 'UPDATE #__travel_saleitems SET renewal = 2 WHERE id IN ('.implode(',', $renewal_items_id).')';
+                $db->setQuery($query);
+                $db->query();
+            }
 
+            if ($renewal_count > 0) {
+                $query = 'UPDATE #__travel_agents SET expired_date = DATE_ADD(expired_date, INTERVAL '.($renewal_count * 6).' MONTH) WHERE user_id = '.$model->user_id;
+                $db->setQuery($query);
+                $db->query();
+            }
+        }
+    }
 }
