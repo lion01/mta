@@ -66,10 +66,6 @@ class TableAgent extends JTable
 	/**
 	 * @var string
 	 */
-	var $bank_account_name = null;
-	/**
-	 * @var string
-	 */
 	var $bank_account_number = null;
 	/**
 	 * @var string
@@ -164,7 +160,6 @@ class TableAgent extends JTable
 		$this->user_id = $filter->clean($this->user_id, 'INT');
 		$this->parent = $filter->clean($this->parent, 'INT');
 		$this->bank = $filter->clean($this->bank, 'STRING');
-		$this->bank_account_name = $filter->clean($this->bank_account_name, 'STRING');
 		$this->bank_account_number = $filter->clean($this->bank_account_number, 'STRING');
 		$this->organization = $filter->clean($this->organization, 'STRING');
 		$this->street_address = $filter->clean($this->street_address, 'STRING');
@@ -212,11 +207,6 @@ class TableAgent extends JTable
 
 		if (($this->bank === null) || ($this->bank === '')){
 			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_BANK")));
-			$valid = false;
-		}
-
-		if (($this->bank_account_name === null) || ($this->bank_account_name === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_BANK_ACCOUNT_NAME")));
 			$valid = false;
 		}
 

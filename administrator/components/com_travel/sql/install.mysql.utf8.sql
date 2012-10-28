@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `#__travel_saleitems` (
 	`unit` FLOAT(10,2 ) NOT NULL ,
 	`price` DECIMAL(10,2 ) NOT NULL ,
 	`commission_rate` DECIMAL(10,2 ) NOT NULL ,
+	`renewal` TINYINT NOT NULL DEFAULT 0 ,
 
 	PRIMARY KEY  (`id`)
 );
@@ -74,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `#__travel_agents` (
 	`user_id` INT(11) NOT NULL ,
 	`parent` INT(11) ,
 	`bank` VARCHAR(255) NOT NULL ,
-	`bank_account_name` VARCHAR(255) NOT NULL ,
 	`bank_account_number` VARCHAR(255) NOT NULL ,
 	`organization` VARCHAR(255) ,
 	`street_address` VARCHAR(255) NOT NULL ,

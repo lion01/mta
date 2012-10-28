@@ -376,6 +376,12 @@ array(	"\\", "\/", 	"\#",	"\!", 	"\^", "$", "\(", "\)", "\[", "\]", "\{", "\}", 
 		$lists["sales"]["shipping"]["2"] = array("value" => "2", "text" => JText::_("TRAVEL_ENUM_SALES_SHIPPING_DELIVERY"));
 
 
+		$lists["commissions"]["type"] = array();
+		$lists["commissions"]["type"]["1"] = array("value" => "1", "text" => JText::_("TRAVEL_ENUM_COMMISSIONS_TYPE_PERSONAL_COMMISSION"));
+		$lists["commissions"]["type"]["2"] = array("value" => "2", "text" => JText::_("TRAVEL_ENUM_COMMISSIONS_TYPE_GROUP_COMMISSION"));
+		$lists["commissions"]["type"]["3"] = array("value" => "3", "text" => JText::_("TRAVEL_ENUM_COMMISSIONS_TYPE_ANNUAL_INCENTIVE"));
+
+
 
 
 		return $lists[$ctrl][$fieldName];

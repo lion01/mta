@@ -163,6 +163,7 @@ class TravelModelAgents extends TravelModelList
 
 		$query = ' SELECT a.*'
 					.	' , _user_id_.name AS `_user_id_name`'
+					.	' , _user_id_.username AS `_user_id_username`'
 					.	' , _parent_.name AS `_parent_name`'
 
 			. $this->_buildQuerySelect()

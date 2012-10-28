@@ -75,6 +75,10 @@ class TableSaleitemsitem extends JTable
 	 * @var float
 	 */
 	var $commission_rate = null;
+	/**
+	 * @var bool
+	 */
+	var $renewal = null;
 
 
 
@@ -135,6 +139,7 @@ class TableSaleitemsitem extends JTable
 		$this->unit = $filter->clean($this->unit, 'FLOAT');
 		$this->price = $filter->clean($this->price, 'FLOAT');
 		$this->commission_rate = $filter->clean($this->commission_rate, 'FLOAT');
+		$this->renewal = $filter->clean($this->renewal, 'BOOL');
 
 
 		if (!empty($this->quantity) && !preg_match("/^\d+$/", $this->quantity)){
@@ -159,6 +164,8 @@ class TableSaleitemsitem extends JTable
 
 
 
+		if ($this->renewal === null)
+			$this->renewal = 0;
 
 
 
@@ -189,6 +196,11 @@ class TableSaleitemsitem extends JTable
 
 		if (($this->commission_rate === null) || ($this->commission_rate === '')){
 			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMMISSION_RATE")));
+			$valid = false;
+		}
+
+		if (($this->renewal === null) || ($this->renewal === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_RENEWAL")));
 			$valid = false;
 		}
 

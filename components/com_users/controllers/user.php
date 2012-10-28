@@ -29,6 +29,7 @@ class UsersControllerUser extends UsersController
 		JSession::checkToken('post') or jexit(JText::_('JInvalid_Token'));
 
 		$app = JFactory::getApplication();
+                $db = JFactory::getDBO();
 
 		// Populate the data array:
 		$data = array();
@@ -54,16 +55,24 @@ class UsersControllerUser extends UsersController
 		$credentials['username'] = $data['username'];
 		$credentials['password'] = $data['password'];
 
+                $query = 'SELECT expired_date FROM #__travel_agents a INNER JOIN #__users u ON a.user_id = u.id WHERE u.username = "'.$data['username'].'"';
+                $db->setQuery($query);
+                $rows = $db->loadObjectList();
+
+                $expired = count($rows[0]) == 1 ? strtotime($rows[0]->expired_date) < strtotime(date('Y-m-d')) : true;
+
+
 		// Perform the log in.
-		if (true === $app->login($credentials, $options)) {
+		if ( ! $expired && true === $app->login($credentials, $options)) {
 			// Success
 			$app->setUserState('users.login.form.data', array());
 			$app->redirect(JRoute::_($app->getUserState('users.login.form.return'), false));
 		} else {
 			// Login failed !
+                        $message = $expired ? 'You account is expired!' : NULL;
 			$data['remember'] = (int)$options['remember'];
 			$app->setUserState('users.login.form.data', $data);
-			$app->redirect(JRoute::_('index.php?option=com_users&view=login', false));
+			$app->redirect(JRoute::_('index.php?option=com_users&view=login', false), $message);
 		}
 	}
 

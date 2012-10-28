@@ -87,6 +87,14 @@ switch ($view)
         	$controllerName = "sales";
 
 		break;
+		case 'saleitems' :
+		case 'saleitemsitem' :
+
+
+
+        	$controllerName = "saleitems";
+
+		break;
 		case 'commissions' :
 		case 'commission' :
 

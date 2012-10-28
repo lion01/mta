@@ -46,6 +46,10 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_("TRAVEL_FIELD_USER_NAME"); ?>
 			</th>
 
+			<th>
+				<?php echo JText::_("TRAVEL_FIELD_USER_USERNAME"); ?>
+			</th>
+
 			<th style="text-align:center">
 				<?php echo JText::_("TRAVEL_FIELD_PARENT_NAME"); ?>
 			</th>
@@ -103,6 +107,15 @@ defined('_JEXEC') or die('Restricted access');
             <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => '_user_id_name',
+												'dataObject' => $row,
+												'href' => "javascript:listItemTask('cb" . $i . "', 'edit')"
+												));
+				?>
+			</td>
+
+            <td>
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => '_user_id_username',
 												'dataObject' => $row
 												));
 				?>
@@ -119,7 +132,7 @@ defined('_JEXEC') or die('Restricted access');
             <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(
 												'dataKey' => 'bank_account_number',
-												'dataObject' => $row
+												'dataObject' => $row,
 												));
 				?>
 			</td>

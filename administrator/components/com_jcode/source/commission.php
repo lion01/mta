@@ -1,30 +1,57 @@
 <?php
+
+function calculate_commission($total_unit) {
+    if ($total_unit >= 10 && $total_unit < 20) {
+        return $total_unit * 20;
+    } elseif ($total_unit >= 20 && $total_unit < 25) {
+        return $total_unit * 25;
+    } elseif ($total_unit >= 25 && $total_unit < 30) {
+        return $total_unit * 28;
+    } elseif ($total_unit >= 30 && $total_unit < 35) {
+        return ($total_unit * 33) + 10;
+    } elseif ($total_unit >= 35 && $total_unit < 40) {
+        return ($total_unit * 42) + 30;
+    } elseif ($total_unit >= 40 && $total_unit < 45) {
+        return $total_unit * 50;
+    } elseif ($total_unit >= 45 && $total_unit < 50) {
+        return ($total_unit * 55) + 25;
+    } elseif ($total_unit > 50) {
+        return $total_unit * 60;
+    }
+}
 $user = JFactory::getUser();
 $db = JFactory::getDBO();
 
 $today = date('Y-m-d');
 // Personal
-$date = isset($_GET['personal-date']) ? date('Y-m-d', strtotime($_GET['personal-date'])) : date('Y-m-d');
+$personal_date = isset($_GET['personal-date']) ? date('Y-m-d', strtotime($_GET['personal-date'])) : $today;
 
-$query = 'SELECT SUM(total_commission) as total_commission FROM #__travel_sales WHERE status = 2 AND DATE_FORMAT(order_date, "%Y-%m") = "'.date('Y-m', strtotime($date)).'"';
-
-$db->setQuery($query);
-$rows = $db->loadObjectList();
-
-$total_commission = count($rows) == 1 ? $rows[0]->total_commission : 0.00;
-
-$query = 'SELECT SUM(amount) as total_paid FROM #__travel_commissions WHERE DATE_FORMAT(payment_date, "%Y-%m") = "'.date('Y-m', strtotime($date)).'"';
+$query = 'SELECT SUM(total_commission) as total_commission FROM #__travel_sales WHERE status = 2 AND DATE_FORMAT(order_date, "%Y-%m") = "'.date('Y-m', strtotime($personal_date)).'"';
 
 $db->setQuery($query);
 $rows = $db->loadObjectList();
 
-$total_paid = count($rows) == 1 ? $rows[0]->total_paid : 0.00;
+$personal_commission = count($rows) == 1 ? $rows[0]->total_commission : 0.00;
 
-$query = 'SELECT * FROM #__travel_sales WHERE DATE_FORMAT(order_date, "%Y-%m") = "'.date('Y-m', strtotime($date)).'" AND user_id = '.$user->get('id').' AND status = 2';
+$query = 'SELECT SUM(amount) as total_paid FROM #__travel_commissions WHERE DATE_FORMAT(payment_date, "%Y-%m") = "'.date('Y-m', strtotime($personal_date)).'" AND type = 1';
+
+$db->setQuery($query);
+$rows = $db->loadObjectList();
+
+$personal_paid = count($rows) == 1 ? $rows[0]->total_paid : 0.00;
+
+$query = 'SELECT * FROM #__travel_sales WHERE DATE_FORMAT(order_date, "%Y-%m") = "'.date('Y-m', strtotime($personal_date)).'" AND user_id = '.$user->get('id').' AND status = 2';
 $db->setQuery($query);
 $sales = $db->loadObjectList();
 // End of personal info
 // Group commission
+$group_date = isset($_GET['group-date']) ? date('Y-m-d', strtotime($_GET['group-date'])) : $today;
+$total_unit = 0.0;
+$total_commission = 0.0;
+$percentage_commission_count = 0;
+$percentage_commission_total = 0;
+$percentage_commission_total_unit = 0;
+
 $query = 'SELECT u.id AS id, u.name AS name, a.expired_date AS expired_date FROM #__travel_agents a INNER JOIN #__users u ON a.user_id = u.id WHERE parent = '.$user->get('id');
 $db->setQuery($query);
 $rows = $db->loadObjectList();
@@ -35,20 +62,79 @@ foreach ($rows as $row) {
         'name' => $row->name,
         'expired_date' => $row->expired_date,
         'unit' => 0,
+        'commission' => 0.0,
     );
 }
 
+$query = 'SELECT SUM(amount) as total_paid FROM #__travel_commissions WHERE DATE_FORMAT(payment_date, "%Y-%m") = "'.date('Y-m', strtotime($group_date)).'" AND user_id = '.$user->get('id').' ABD type = 2';
+$db->setQuery($query);
+$rows = $db->loadObjectList();
+
+$group_paid = count($rows) == 1 ? $rows[0]->total_paid : 0.00;
+
 if ( ! empty($downlines)) {
-    $query = 'SELECT SUM(total_unit) AS total_unit, user_id FROM #__travel_sales WHERE DATE_FORMAT(order_date, "%Y-%m") = "'.date('Y-m', strtotime($date)).'" AND user_id IN ('.implode(',', array_keys($downlines)).') GROUP BY user_id';
+    $query = 'SELECT SUM(total_unit) AS total_unit, user_id FROM #__travel_sales WHERE DATE_FORMAT(order_date, "%Y-%m") = "'.date('Y-m', strtotime($group_date)).'" AND user_id IN ('.implode(',', array_keys($downlines)).') GROUP BY user_id';
     $db->setQuery($query);
     $rows = $db->loadObjectList();
 
     foreach ($rows as $row) {
         if (isset($downlines[$row->user_id])) {
             $downlines[$row->user_id]['unit'] = $row->total_unit;
+            $downlines[$row->user_id]['commission'] = calculate_commission($row->total_unit);
+            $total_unit += $row->total_unit;
+
+            if ($row->total_unit >= 20) {
+                $total_commission += $downlines[$row->user_id]['commission'];
+            }
+
+            if ($row->total_unit > 50) {
+                $percentage_commission_count ++;
+                $percentage_commission_total += $downlines[$row->user_id]['commission'];
+                $percentage_commission_total_unit += $row->total_unit;
+            }
         }
     }
 }
+
+if ($percentage_commission_count > 1) {
+    $group_commission = ($percentage_commission_total_unit * 798) * (1 / 100);
+} else {
+    $group_commission = calculate_commission($total_unit);
+    $group_commission -= $total_commission;
+}
+
+// end of group commission
+// yearly incentive
+$yearly_date = isset($_GET['yearly-date']) ? date('Y-m-d', strtotime($_GET['yearly-date'])) : $today;
+$total_unit = 0.0;
+$monthly_sales = array(
+    '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0, '8' => 0, '9' => 0, '10' => 0, '11' => 0, '12' => 0,
+);
+
+$query = 'SELECT SUM(total_unit) AS total_unit, DATE_FORMAT(order_date, "%m") AS month FROM #__travel_sales WHERE DATE_FORMAT(order_date, "%Y") = "'.date('Y', strtotime($yearly_date)).'" AND user_id = '.$user->get('id').' GROUP BY DATE_FORMAT(order_date, "%m")';
+$db->setQuery($query);
+$rows = $db->loadObjectList();
+
+foreach ($rows as $row) {
+    $monthly_sales[$row->month] = $row->total_unit;
+    $total_unit += $row->total_unit;
+}
+
+$yearly_commission = 0.0;
+$total_sales_per_day = $total_unit / 264;
+
+if ($total_sales_per_day == 2) {
+    $yearly_commission = 15000;
+} elseif ($total_sales_per_day >= 1) {
+    $yearly_commission = $total_sales_per_day * 10000;
+}
+
+$query = 'SELECT SUM(amount) as total_paid FROM #__travel_commissions WHERE DATE_FORMAT(payment_date, "%Y") = "'.date('Y', strtotime($yearly_date)).'" AND user_id = '.$user->get('id').' ABD type = 3';
+$db->setQuery($query);
+$rows = $db->loadObjectList();
+
+$yearly_paid = count($rows) == 1 ? $rows[0]->total_paid : 0.00;
+// end of yearly incentive
 
 plgSystemDatePicker::calendarJs();
 ?>
@@ -69,18 +155,44 @@ table tr td {
 .summary {
     margin-bottom: 12px;
 }
+
+.group-content {
+    display: none;
+}
+
+#<?php echo isset($_GET['tab']) ? $_GET['tab'] : 'personal' ?> {
+    display: block;
+}
 </style>
 
 <script type="text/javascript">
     window.addEvent('domready', function() {
-        picker = new Picker.Date($$('#id_date'), {
+        personal_picker = new Picker.Date($$('#id_personal_date'), {
             pickOnly: 'months',
             pickerClass: 'datepicker_dashboard',
             format: '%B, %Y',
             canAlwaysGoUp: false
         });
-        var date = Date.parse('<?php echo $date; ?>');
-        picker.select(date);
+
+        group_picker = new Picker.Date($$('#id_group_date'), {
+            pickOnly: 'months',
+            pickerClass: 'datepicker_dashboard',
+            format: '%B, %Y',
+            canAlwaysGoUp: false
+        });
+        yearly_picker = new Picker.Date($$('#id_yearly_date'), {
+            pickOnly: 'years',
+            pickerClass: 'datepicker_dashboard',
+            format: '%Y',
+            canAlwaysGoUp: false
+        });
+        var date = Date.parse('<?php echo $personal_date; ?>');
+        personal_picker.select(date);
+        date = Date.parse('<?php echo $group_date; ?>');
+        group_picker.select(date);
+        date = Date.parse('<?php echo $yearly_date; ?>');
+        yearly_picker.select(date);
+
     });
 
     jQuery(function() {
@@ -107,21 +219,23 @@ table tr td {
     <a id="personal-link" href="#">Personal Commission</a> | <a id="group-link" href="#">Group Commission</a> | <a id="yearly-link" href="#">Yearly Incentive</a>
 
     <div id="personal" class="group-content">
+        <h1>Personal Commission</h1>
         <div class="filter">
             <form method="GET">
-                <label for="id_date">Month</label> : <input type="text" name="personal-date" id="id_date" />
+                <input type="hidden" name="tab" value="personal" />
+                <label for="id_personal_date">Month</label> : <input type="text" name="personal-date" id="id_personal_date" />
                 <button>View</button>
             </form>
         </div>
         <div class="summary">
             <div>
-                <b>Current Month Total Commission: </b><span class="currency">RM<?php echo number_format($total_commission, 2); ?></span>
+                <b>Current Month Total Commission: </b><span class="currency">RM<?php echo number_format($personal_commission, 2); ?></span>
             </div>
             <div>
-                <b>Total Commission Cashout: </b><span class="currency">RM<?php echo number_format($total_paid, 2); ?></span>
+                <b>Total Commission Cashout: </b><span class="currency">RM<?php echo number_format($personal_paid, 2); ?></span>
             </div>
             <div>
-                <b>Balance: </b><span class="currency">RM<?php echo number_format($total_commission - $total_paid, 2); ?></span>
+                <b>Balance: </b><span class="currency">RM<?php echo number_format($personal_commission - $personal_paid, 2); ?></span>
             </div>
         </div>
 
@@ -151,6 +265,25 @@ table tr td {
         </table>
     </div>
     <div id="group" class="group-content">
+        <h1>Group Commission</h1>
+        <div class="filter">
+            <form method="GET">
+                <input type="hidden" name="tab" value="group" />
+                <label for="id_group_date">Month</label> : <input type="text" name="group-date" id="id_group_date" />
+                <button>View</button>
+            </form>
+        </div>
+        <div class="summary">
+            <div>
+                <b>Current Month Total Commission: </b><span class="currency">RM<?php echo number_format($group_commission, 2); ?></span>
+            </div>
+            <div>
+                <b>Total Commission Cashout: </b><span class="currency">RM<?php echo number_format($group_paid, 2); ?></span>
+            </div>
+            <div>
+                <b>Balance: </b><span class="currency">RM<?php echo number_format($group_commission - $group_paid, 2); ?></span>
+            </div>
+        </div>
         <table cellpadding="0" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -175,5 +308,46 @@ table tr td {
         </table>
     </div>
     <div id="yearly" class="group-content">
+        <h1>Yearly Incentive</h1>
+        <div class="filter">
+            <form method="GET">
+                <input type="hidden" name="tab" value="yearly" />
+                <label for="id_yearly_date">Year</label> : <input type="text" name="yearly-date" id="id_yearly_date" />
+                <button>View</button>
+            </form>
+        </div>
+        <div class="summary">
+            <div>
+                <b>Total Commission: </b><span class="currency">RM<?php echo number_format($yearly_commission, 2); ?></span>
+            </div>
+            <div>
+                <b>Total Commission Cashout: </b><span class="currency">RM<?php echo number_format($yearly_paid, 2); ?></span>
+            </div>
+            <div>
+                <b>Balance: </b><span class="currency">RM<?php echo number_format($yearly_commission - $yearly_paid, 2); ?></span>
+            </div>
+        </div>
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($monthly_sales)): ?>
+                    <tr>
+                        <td colspan="2" align="center">No sales was found</td>
+                    </tr>
+                <?php else: ?>
+                    <?php foreach ($monthly_sales as $month => $unit): ?>
+                        <tr>
+                            <td align="center"><?php echo date('F', mktime(0, 0, 0, $month)); ?></td>
+                            <td align="center"><?php echo $unit; ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                <?php endif ?>
+            </tbody>
+        </table>
     </div>
 </div>

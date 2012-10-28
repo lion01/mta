@@ -76,6 +76,7 @@ class TravelModelSaleitemsitem extends TravelModelItem
 			$data->unit = null;
 			$data->price = null;
 			$data->commission_rate = null;
+			$data->renewal = null;
 
 			$this->_data = $data;
 
@@ -117,10 +118,27 @@ class TravelModelSaleitemsitem extends TravelModelItem
 		if (isset($this->_active['predefined']))
 		switch($this->_active['predefined'])
 		{
+			case 'saleitem': return $this->_buildQuery_saleitem(); break;
 
 		}
 
 
+
+			$query = 'SELECT a.*'
+					. 	$this->_buildQuerySelect()
+
+					.	' FROM `#__travel_saleitems` AS a'
+					. 	$this->_buildQueryJoin()
+
+					. 	$this->_buildQueryWhere()
+
+					.	'';
+
+		return $query;
+	}
+
+	function _buildQuery_saleitem()
+	{
 
 			$query = 'SELECT a.*'
 					. 	$this->_buildQuerySelect()

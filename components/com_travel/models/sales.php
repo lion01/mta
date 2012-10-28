@@ -182,6 +182,9 @@ class TravelModelSales extends TravelModelList
 		$db= JFactory::getDBO();
 		$acl = TravelHelper::getAcl();
 
+                $user = JFactory::getUser();
+                $where[] = 'a.user_id = '.$user->get('id');
+
 
 		if (isset($this->_active['filter']) && $this->_active['filter'])
 		{

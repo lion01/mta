@@ -92,23 +92,6 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="bank_account_name">
-					<?php echo JText::_( "TRAVEL_FIELD_BANK_ACCOUNT_NAME" ); ?> :
-				</label>
-			</td>
-			<td>
-				<?php echo JDom::_('html.form.input.text', array(
-												'dataKey' => 'bank_account_name',
-												'dataObject' => $this->agent,
-												'size' => "32",
-												'domClass' => "validate[required]",
-												'required' => true
-												));
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td align="right" class="key">
 				<label for="bank_account_number">
 					<?php echo JText::_( "TRAVEL_FIELD_BANK_ACCOUNT_NUMBER" ); ?> :
 				</label>

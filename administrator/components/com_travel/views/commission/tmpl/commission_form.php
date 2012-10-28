@@ -42,13 +42,13 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 				</label>
 			</td>
 			<td>
-				<?php echo JDom::_('html.form.input.ajax', array(
+				<?php echo JDom::_('html.form.input.select', array(
 												'dataKey' => 'user_id',
 												'dataObject' => $this->commission,
-												'ajaxContext' => 'travel.users.ajax.select2',
-												'ajaxVars' => array('values' => array(
-													$this->commission->user_id
-														))
+												'list' => $this->lists['fk']['user_id'],
+												'listKey' => 'id',
+												'labelKey' => 'name',
+												'nullLabel' => "TRAVEL_JSEARCH_SELECT_USER"
 												));
 				?>
 			</td>
@@ -90,7 +90,7 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 												'dataKey' => 'attachment',
 												'dataObject' => $this->commission,
 												'size' => "",
-												'domClass' => "validate[custom[file_3139]]",
+												'domClass' => "validate[custom[file_6480]]",
 												'validatorHandler' => "file"
 												));
 				?>
