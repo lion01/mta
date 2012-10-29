@@ -30,8 +30,6 @@ $state_choices = array('Kuala Lumpur', 'Johor', 'Kedah', 'Kelantan', 'Melaka', '
 $cart = JFactory::getSession()->get('cart', array());
 $items = isset($cart['items']) ? $cart['items'] : array();
 
-$registration = new UsersModelRegistration;
-
 $user = JFactory::getUser();
 
 $db = JFactory::getDBO();
