@@ -132,6 +132,10 @@ class JHtmlValidator
 			"alertText" => LI_PREFIX . addslashes(JText::_("TRAVEL_FORMVALIDATOR_THIS_IS_NOT_A_VALID_EMAIL")),
 		);
 
+                $baseRules["equals"] = array(
+                        "alertText" => LI_PREFIX . addslashes(JText::_("Invalid")),
+                );
+
 
 
 
