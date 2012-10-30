@@ -48,9 +48,10 @@ $sales = $db->loadObjectList();
 $group_date = isset($_GET['group-date']) ? date('Y-m-d', strtotime($_GET['group-date'])) : $today;
 $total_unit = 0.0;
 $total_commission = 0.0;
-$percentage_commission_count = 0;
-$percentage_commission_total = 0;
-$percentage_commission_total_unit = 0;
+$group_commission = 0.0;
+$bonus_commission_count = 0;
+$bonus_commission_total = 0;
+$bonus_commission_total_unit = 0;
 
 $query = 'SELECT u.id AS id, u.name AS name, a.expired_date AS expired_date FROM #__travel_agents a INNER JOIN #__users u ON a.user_id = u.id WHERE parent = '.$user->get('id');
 $db->setQuery($query);
@@ -83,26 +84,32 @@ if ( ! empty($downlines)) {
             $downlines[$row->user_id]['commission'] = calculate_commission($row->total_unit);
             $total_unit += $row->total_unit;
 
-            if ($row->total_unit >= 20) {
+            if ($row->total_unit >= 10) {
                 $total_commission += $downlines[$row->user_id]['commission'];
             }
 
-            if ($row->total_unit > 50) {
-                $percentage_commission_count ++;
-                $percentage_commission_total += $downlines[$row->user_id]['commission'];
-                $percentage_commission_total_unit += $row->total_unit;
+            if ($row->total_unit > 50 && $row->user_id != $user->get('id')) {
+                $bonus_commission_count ++;
+                //$bonus_commission_total += $downlines[$row->user_id]['commission'];
+                $bonus_commission_total_unit += $row->total_unit;
             }
         }
     }
 }
 
-if ($percentage_commission_count > 1) {
-    $group_commission = ($percentage_commission_total_unit * 798) * (1 / 100);
-} else {
-    $group_commission = calculate_commission($total_unit);
-    $group_commission -= $total_commission;
+if ($bonus_commission_count > 1) {
+    $bonus_commission_total = ($bonus_commission_total_unit * 798) * (1 / 100);
+    $group_commission += $bonus_commission_total;
 }
 
+$query = 'SELECT SUM(total_unit) AS total_unit FROM #__travel_sales WHERE DATE_FORMAT(order_date, "%Y-%m") = "'.date('Y-m', strtotime($group_date)).'" AND user_id = '.$user->get('id');
+$db->setQuery($query);
+$row = $db->loadObject();
+
+$total_unit += $group_personal_unit = $row->total_unit;
+
+$group_commission += calculate_commission($total_unit);
+$group_commission -= $total_commission;
 // end of group commission
 // yearly incentive
 $yearly_date = isset($_GET['yearly-date']) ? date('Y-m-d', strtotime($_GET['yearly-date'])) : $today;
