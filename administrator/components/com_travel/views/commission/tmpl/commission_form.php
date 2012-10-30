@@ -55,82 +55,59 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="amount">
-					<?php echo JText::_( "TRAVEL_FIELD_AMOUNT" ); ?> :
+				<label for="sale_id">
+					<?php echo JText::_( "TRAVEL_FIELD_SALES_ID" ); ?> :
 				</label>
 			</td>
 			<td>
 				<?php echo JDom::_('html.form.input.text', array(
-												'dataKey' => 'amount',
+												'dataKey' => 'sale_id',
 												'dataObject' => $this->commission,
-												'size' => "12",
-												'domClass' => "validate[required,custom[positive_decimal]]",
-												'validatorHandler' => "positive_decimal",
-												'required' => true,
-												'validatorRegex' => "/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/"
+												'size' => ""
 												));
 				?>
 			</td>
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="attachment">
-					<?php echo JText::_( "TRAVEL_FIELD_ATTACHMENT" ); ?> :
+				<label for="total_commission">
+					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_COMMISSION" ); ?> :
 				</label>
 			</td>
 			<td>
-				<?php echo JDom::_('html.form.input.file.remove', array(
-												'dataKey' => 'attachment',
+				<?php echo JDom::_('html.form.input.text', array(
+												'dataKey' => 'total_commission',
 												'dataObject' => $this->commission,
-												'actions' => array('remove', 'thumbs', 'trash', 'delete')
-												));
-				?>
-
-				<?php echo JDom::_('html.form.input.file', array(
-												'dataKey' => 'attachment',
-												'dataObject' => $this->commission,
-												'size' => "",
-												'domClass' => "validate[custom[file_6480]]",
-												'validatorHandler' => "file"
+												'size' => "10"
 												));
 				?>
 			</td>
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="payment_date">
-					<?php echo JText::_( "TRAVEL_FIELD_PAYMENT_DATE" ); ?> :
+				<label for="total_unit">
+					<?php echo JText::_( "TRAVEL_FIELD_TOTAL_UNIT" ); ?> :
 				</label>
 			</td>
 			<td>
-				<?php echo JDom::_('html.form.input.calendar', array(
-												'dataKey' => 'payment_date',
+				<?php echo JDom::_('html.form.input.text', array(
+												'dataKey' => 'total_unit',
 												'dataObject' => $this->commission,
-												'dateFormat' => "%Y-%m-%d",
-												'domClass' => "validate[required,custom[timeYYYYmmdd]]",
-												'validatorHandler' => "timeYYYYmmdd",
-												'required' => true
+												'size' => "10"
 												));
-
 				?>
 			</td>
 		</tr>
 		<tr>
 			<td align="right" class="key">
-				<label for="type">
-					<?php echo JText::_( "TRAVEL_FIELD_TYPE" ); ?> :
+				<label for="paid">
+					<?php echo JText::_( "TRAVEL_FIELD_PAID" ); ?> :
 				</label>
 			</td>
 			<td>
-				<?php echo JDom::_('html.form.input.select', array(
-												'dataKey' => 'type',
-												'dataObject' => $this->commission,
-												'list' => $this->lists['select']['type']->list,
-												'listKey' => 'value',
-												'labelKey' => 'text',
-												'nullLabel' => "",
-												'domClass' => "validate[required]",
-												'required' => true
+				<?php echo JDom::_('html.form.input.bool', array(
+												'dataKey' => 'paid',
+												'dataObject' => $this->commission
 												));
 				?>
 			</td>

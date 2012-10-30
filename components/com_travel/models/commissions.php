@@ -51,16 +51,13 @@ class TravelModelCommissions extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
-				'payment_date', 'a.payment_date',
 
 			);
 		}
 
 		//Define the filterable fields
 		$this->set('filter_vars', array(
-			'payment_date_from' => 'date:%Y-%m-%d',
-			'payment_date_to' => 'date:%Y-%m-%d',
-			'payment_date' => 'string'
+			'sale_id' => 'int'
 				));
 
 
@@ -88,7 +85,6 @@ class TravelModelCommissions extends TravelModelList
 	protected function getStoreId($id = '')
 	{
 		// Compile the store id.
-
 
 		return parent::getStoreId($id);
 	}
@@ -127,32 +123,10 @@ class TravelModelCommissions extends TravelModelList
 		if (isset($this->_active['predefined']))
 		switch($this->_active['predefined'])
 		{
-			case 'default': return $this->_buildQuery_default(); break;
 
 		}
 
 
-
-		$query = ' SELECT a.*'
-
-			. $this->_buildQuerySelect()
-
-			. ' FROM `#__travel_commissions` AS a '
-
-			. $this->_buildQueryJoin() . ' '
-
-			. $this->_buildQueryWhere()
-
-
-			. $this->_buildQueryOrderBy()
-			. $this->_buildQueryExtra()
-		;
-
-		return $query;
-	}
-
-	function _buildQuery_default()
-	{
 
 		$query = ' SELECT a.*'
 
@@ -180,17 +154,12 @@ class TravelModelCommissions extends TravelModelList
 		$db= JFactory::getDBO();
 		$acl = TravelHelper::getAcl();
 
-                $user = JFactory::getUser();
-                $where[] = 'a.user_id = '.$user->get('id');
 
 		if (isset($this->_active['filter']) && $this->_active['filter'])
 		{
-		// Range : payment_date
-			$filter_payment_date_from = $this->getState('filter.payment_date_from');
-			if ($filter_payment_date_from != '')		$where[] = "DATEDIFF(a.payment_date, " . $db->Quote($filter_payment_date_from) . ") >= 0";
+			$filter_sale_id = $this->getState('filter.sale_id');
+			if ($filter_sale_id != '')		$where[] = "a.sale_id = " . (int)$filter_sale_id . "";
 
-			$filter_payment_date_to = $this->getState('filter.payment_date_to');
-			if ($filter_payment_date_to != '')		$where[] = "DATEDIFF(a.payment_date, " . $db->Quote($filter_payment_date_to) . ") <= 0";
 
 		}
 

@@ -38,7 +38,7 @@ require_once(JPATH_ADMIN_TRAVEL .DS.'classes'.DS.'jmodel.list.php');
  */
 class TravelModelSaleitems extends TravelModelList
 {
-	var $_name_sing = 'saleitemsitem';
+	var $_name_sing = 'saleitem';
 
 
 
@@ -113,7 +113,7 @@ class TravelModelSaleitems extends TravelModelList
 
 
 	/**
-	 * Method to build a the query string for the Saleitemsitem
+	 * Method to build a the query string for the Saleitem
 	 *
 	 * @access public
 	 * @return integer

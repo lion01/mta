@@ -51,7 +51,7 @@ function TravelBuildRoute(&$query){
 
 	if(isset($query['cid']))
 	{
-		if(in_array($view, array('package')))
+		if(in_array($view, array('package','sale')))
 		{
 			$segments[] = (is_array($query['cid'])?implode(',', $query['cid']):$query['cid']);
 			unset( $query['cid'] );
@@ -85,7 +85,7 @@ function TravelParseRoute($segments)
 	}
 
 	//Item layout : get the cid value
-	if(in_array($vars['view'], array('package')) && isset($segments[$nextPos]))
+	if(in_array($vars['view'], array('package','sale')) && isset($segments[$nextPos]))
 	{
 		$slug = $segments[$nextPos];
 		$id = explode( ':', $slug );

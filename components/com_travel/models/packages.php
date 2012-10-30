@@ -184,7 +184,7 @@ class TravelModelPackages extends TravelModelList
 		return parent::_buildQueryWhere($where);
 	}
 
-	function _buildQueryOrderBy($order = array(), $pre_order = 'a.ordering, a.title')
+	function _buildQueryOrderBy($order = array(), $pre_order = 'a.ordering, a.code')
 	{
 
 		return parent::_buildQueryOrderBy($order, $pre_order);

@@ -137,12 +137,13 @@ class ContactControllerContact extends JControllerForm
 
 			$name		= $data['contact_name'];
 			$email		= $data['contact_email'];
+                        $phone          = $data['contact_phone'];
 			$subject	= $data['contact_subject'];
 			$body		= $data['contact_message'];
 
 			// Prepare email body
 			$prefix = JText::sprintf('COM_CONTACT_ENQUIRY_TEXT', JURI::base());
-			$body	= $prefix."\n".$name.' <'.$email.'>'."\r\n\r\n".stripslashes($body);
+			$body	= $prefix."\n".$name.' <'.$email.'>'."\r\n\r\nPhone Number: $phone\r\n\r\n".stripslashes($body);
 
 			$mail = JFactory::getMailer();
 			$mail->addRecipient($contact->email_to);

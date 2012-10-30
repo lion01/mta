@@ -25,6 +25,8 @@ JHtml::_('behavior.tooltip');
 				<dd><?php echo $this->form->getInput('contact_name'); ?></dd>
 				<dt><?php echo $this->form->getLabel('contact_email'); ?></dt>
 				<dd><?php echo $this->form->getInput('contact_email'); ?></dd>
+				<dt><?php echo $this->form->getLabel('contact_phone'); ?></dt>
+				<dd><?php echo $this->form->getInput('contact_phone'); ?></dd>
 				<dt><?php echo $this->form->getLabel('contact_subject'); ?></dt>
 				<dd><?php echo $this->form->getInput('contact_subject'); ?></dd>
 				<dt><?php echo $this->form->getLabel('contact_message'); ?></dt>

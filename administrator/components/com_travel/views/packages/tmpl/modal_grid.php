@@ -38,7 +38,7 @@ $function	= JRequest::getCmd('function', 'jSelectItem');
 			</th>
 
 			<th align="left">
-				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_TITLE", 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_CODE", 'a.code', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 
 			<th align="center">
@@ -61,14 +61,14 @@ $function	= JRequest::getCmd('function', 'jSelectItem');
 
 		<tr class="<?php echo "row$k"; ?>"
 			style="cursor:pointer"
-			onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $row->id; ?>', '<?php echo $this->escape(addslashes($row->title)); ?>', 'cid');">
+			onclick="if (window.parent) window.parent.<?php echo $this->escape($function);?>('<?php echo $row->id; ?>', '<?php echo $this->escape(addslashes($row->code)); ?>', 'cid');">
 
 			<td class='row_id'>
 				<?php echo $this->pagination->getRowOffset( $i ); ?>
             </td>
 
 			<td align="left">
-				<?php echo $row->title; ?>
+				<?php echo $row->code; ?>
 			</td>
 
             <td align="center">

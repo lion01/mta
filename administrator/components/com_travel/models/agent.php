@@ -72,6 +72,7 @@ class TravelModelAgent extends TravelModelItem
 			$data->attribs = null;
 			$data->user_id = null;
 			$data->parent = null;
+			$data->ic_number = null;
 			$data->bank = null;
 			$data->bank_account_number = null;
 			$data->organization = null;

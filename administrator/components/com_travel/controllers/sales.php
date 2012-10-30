@@ -143,7 +143,6 @@ class TravelControllerSales extends TravelController
         if (!$this->can('access-delete', JText::_("JTOOLBAR_DELETE"), $item->params))
             return;
 
-
         $cid = JRequest::getVar( 'cid', array(), 'post', 'array' );
         if (empty($cid))
             $cid = JRequest::getVar( 'cid', array(), 'get', 'array' );
@@ -193,7 +192,7 @@ class TravelControllerSales extends TravelController
             if (!$this->can('access-edit', JText::_("JTOOLBAR_SAVE"), $item->params))
                 return;
 
-            $this->complete_order($model);
+            $this->complete_order($item);
         }
 
 
@@ -241,7 +240,7 @@ class TravelControllerSales extends TravelController
             if (!$this->can('access-edit', JText::_("JTOOLBAR_APPLY"), $item->params))
                 return;
 
-            $this->complete_order($model);
+            $this->complete_order($item);
         }
 
 
@@ -303,7 +302,7 @@ class TravelControllerSales extends TravelController
                 $renewal_items_id[] = $row->id;
             }
 
-            if ( ! empty($renwal_items_id)) {
+            if ( ! empty($renewal_items_id)) {
                 $query = 'UPDATE #__travel_saleitems SET renewal = 2 WHERE id IN ('.implode(',', $renewal_items_id).')';
                 $db->setQuery($query);
                 $db->query();

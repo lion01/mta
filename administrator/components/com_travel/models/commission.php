@@ -71,11 +71,10 @@ class TravelModelCommission extends TravelModelItem
 			$data->id = 0;
 			$data->attribs = null;
 			$data->user_id = null;
-			$data->amount = null;
-			$data->attachment = null;
-			$data->payment_date = null;
-			$data->created_date = null;
-			$data->type = JRequest::getVar('filter_type', $this->getState('filter.type'));
+			$data->total_commission = null;
+			$data->total_unit = null;
+			$data->paid = null;
+			$data->sale_id = JRequest::getInt('filter_sale_id', $this->getState('filter.sale_id'));
 
 			$this->_data = $data;
 
@@ -98,9 +97,6 @@ class TravelModelCommission extends TravelModelItem
 		// Initialise variables.
 		$app = JFactory::getApplication();
 		$session = JFactory::getSession();
-
-		if ($search_search = $app->getUserState($this->context.'.search.search'))
-			$this->setState('search.search', $search_search, null, 'varchar');
 
 
 

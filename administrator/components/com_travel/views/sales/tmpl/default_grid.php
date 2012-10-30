@@ -175,7 +175,7 @@ defined('_JEXEC') or die('Restricted access');
                 <?php echo JDom::_('html.grid.datetime', array(
                                         'dataKey' => 'order_date',
                                         'dataObject' => $row,
-                                        'dateFormat' => "%d-%m-%Y"
+                                        'dateFormat' => "%d-%m-%Y, %H:%I"
                                             ));
                 ?>
             </td>

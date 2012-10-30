@@ -89,6 +89,12 @@ class TravelModelSale extends TravelModelItem
 	}
 
 
+        function id()
+        {
+            return $this->_id;
+        }
+
+
 	/**
 	 * Method to auto-populate the model state.
 	 *
@@ -124,10 +130,27 @@ class TravelModelSale extends TravelModelItem
 		if (isset($this->_active['predefined']))
 		switch($this->_active['predefined'])
 		{
+			case 'sale': return $this->_buildQuery_sale(); break;
 
 		}
 
 
+
+			$query = 'SELECT a.*'
+					. 	$this->_buildQuerySelect()
+
+					.	' FROM `#__travel_sales` AS a'
+					. 	$this->_buildQueryJoin()
+
+					. 	$this->_buildQueryWhere()
+
+					.	'';
+
+		return $query;
+	}
+
+	function _buildQuery_sale()
+	{
 
 			$query = 'SELECT a.*'
 					. 	$this->_buildQuerySelect()
@@ -174,11 +197,6 @@ class TravelModelSale extends TravelModelItem
 		}
 		return true;
 	}
-
-        function id()
-        {
-            return $this->_id;
-        }
 
 	/**
 	 * Method to save the sale

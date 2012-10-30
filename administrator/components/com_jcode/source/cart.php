@@ -35,12 +35,12 @@ if (JRequest::getMethod() == 'POST') {
 }
 
 if ( ! empty($items)) {
-    $query = 'SELECT id, title, price FROM #__travel_packages WHERE id IN ('.implode(',', array_keys($items)).')';
+    $query = 'SELECT id, code, title, price FROM #__travel_packages WHERE id IN ('.implode(',', array_keys($items)).')';
     $db->setQuery($query);
     $rows = $db->loadObjectList();
 
     foreach ($rows as $row) {
-        $packages[$row->id] = array('title' => $row->title, 'price' => $row->price);
+        $packages[$row->id] = array('title' => $row->title, 'price' => $row->price, 'code' => $row->code);
     }
 }
 
@@ -94,6 +94,7 @@ input.integer {
         <thead>
             <tr>
                 <th width="20px"></th>
+                <th><?php echo JText::_('Code'); ?></th>
                 <th><?php echo JText::_('Package Title'); ?></th>
                 <th width="75px"><?php echo JText::_('Quantity'); ?></th>
                 <th width="75px"><?php echo JText::_('Subtotal'); ?></th>
@@ -105,6 +106,7 @@ input.integer {
                 <?php if (isset($packages[$package_id])): ?>
                     <tr>
                         <td align="center"><input type='checkbox' class="selector" name='cid[]' value='<?php echo $package_id; ?>' /></td>
+                        <td><?php echo $packages[$package_id]['code']; ?></td>
                         <td><?php echo $packages[$package_id]['title']; ?></td>
                         <td align='center'><input type="text" class="integer" name="quantity_id_<?php echo $package_id; ?>" value="<?php echo $quantity; ?>" size="1" /></td>
                         <td align="right"><?php echo number_format($quantity * $packages[$package_id]['price'], 2); ?></td>
@@ -113,7 +115,7 @@ input.integer {
                 <?php endif ?>
             <?php endforeach; ?>
             <tr class="lastrow">
-                <td colspan="3" align="right">Total</td>
+                <td colspan="4" align="right">Total</td>
                 <td class="summary" align="right"><?php echo number_format($total, 2); ?></td>
             </tr>
         </tbody>

@@ -37,6 +37,25 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
 
 		<tr>
 			<td align="right" class="key">
+				<label for="code">
+					<?php echo JText::_( "TRAVEL_FIELD_CODE" ); ?> :
+				</label>
+			</td>
+			<td>
+				<?php echo JDom::_('html.form.input.text', array(
+												'dataKey' => 'code',
+												'dataObject' => $this->package,
+												'size' => "32",
+												'domClass' => "validate[required,custom[length5]]",
+												'validatorHandler' => "length5",
+												'required' => true,
+												'validatorRegex' => "/^.{0,5}$/"
+												));
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="key">
 				<label for="title">
 					<?php echo JText::_( "TRAVEL_FIELD_TITLE" ); ?> :
 				</label>

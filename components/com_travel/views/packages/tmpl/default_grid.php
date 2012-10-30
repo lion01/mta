@@ -39,7 +39,11 @@ $user = JFactory::getUser();
     <thead>
         <tr>
             <th width="20">
-                <!--<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />-->
+                &nbsp;
+            </th>
+
+            <th>
+                <?php echo JText::_("TRAVEL_FIELD_CODE"); ?>
             </th>
 
             <th style="text-align:left">
@@ -84,6 +88,14 @@ $user = JFactory::getUser();
                                         'dataObject' => $row,
                                         'num' => $i
                                             ));
+                ?>
+            </td>
+
+            <td>
+                <?php echo JDom::_('html.fly', array(
+                                                'dataKey' => 'code',
+                                                'dataObject' => $row
+                                                ));
                 ?>
             </td>
 
@@ -133,7 +145,17 @@ $user = JFactory::getUser();
     </tbody>
     </table>
 
-
     <button name="order">Add to Cart</button>
 
+
 </div>
+
+<?php echo JDom::_('html.pagination', array(
+                                        'pagination' => $this->pagination,
+                                        'showLimit' => true,
+                                        'showCounter' => true,
+
+                                            ));
+?>
+
+

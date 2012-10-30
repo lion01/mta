@@ -6,7 +6,7 @@
 * --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
 * @version		1.0.0
 * @package		Travel
-* @subpackage	Agents
+* @subpackage	Commissions
 * @copyright	Copyright 2012, All rights reserved
 * @author		Edward Khor - www.enfonius.com - edward@enfonius.com
 * @license		GNU/GPL
@@ -88,19 +88,19 @@ switch ($view)
 
 		break;
 		case 'saleitems' :
-		case 'saleitemsitem' :
+		case 'saleitem' :
 
 
 
         	$controllerName = "saleitems";
 
 		break;
-		case 'commissions' :
-		case 'commission' :
+		case 'payouts' :
+		case 'payout' :
 
 
 
-        	$controllerName = "commissions";
+        	$controllerName = "payouts";
 
 		break;
 		case 'agents' :
@@ -109,6 +109,14 @@ switch ($view)
 
 
         	$controllerName = "agents";
+
+		break;
+		case 'commissions' :
+		case 'commission' :
+
+
+
+        	$controllerName = "commissions";
 
 		break;
 
@@ -127,7 +135,7 @@ if ($mainMenu)
 {
 		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_PACKAGES"), 'index.php?option=com_travel&view=packages', ($view == 'packages'));
 		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_SALES"), 'index.php?option=com_travel&view=sales', ($view == 'sales'));
-		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_COMMISSIONS"), 'index.php?option=com_travel&view=commissions', ($view == 'commissions'));
+		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_PAYOUTS"), 'index.php?option=com_travel&view=payouts', ($view == 'payouts'));
 		JSubMenuHelper::addEntry(JText::_("TRAVEL_VIEW_AGENTS"), 'index.php?option=com_travel&view=agents', ($view == 'agents'));
 
 }

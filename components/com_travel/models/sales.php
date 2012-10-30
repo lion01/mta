@@ -155,6 +155,11 @@ class TravelModelSales extends TravelModelList
 
 	function _buildQuery_sales()
 	{
+                $order =  $this->_buildQueryOrderBy();
+
+                if ( ! (substr($order, - strlen($order)) === 'ASC' || substr($order, - strlen($order)) === 'DESC')) {
+                    $order .= ' DESC ';
+                }
 
 		$query = ' SELECT a.*'
 
@@ -167,7 +172,7 @@ class TravelModelSales extends TravelModelList
 			. $this->_buildQueryWhere()
 
 
-			. $this->_buildQueryOrderBy()
+                        . $order
 			. $this->_buildQueryExtra()
 		;
 
@@ -181,9 +186,6 @@ class TravelModelSales extends TravelModelList
 		$app = JFactory::getApplication();
 		$db= JFactory::getDBO();
 		$acl = TravelHelper::getAcl();
-
-                $user = JFactory::getUser();
-                $where[] = 'a.user_id = '.$user->get('id');
 
 
 		if (isset($this->_active['filter']) && $this->_active['filter'])
@@ -204,7 +206,7 @@ class TravelModelSales extends TravelModelList
 		return parent::_buildQueryWhere($where);
 	}
 
-	function _buildQueryOrderBy($order = array(), $pre_order = 'a.user_id')
+	function _buildQueryOrderBy($order = array(), $pre_order = 'a.order_date')
 	{
 
 		return parent::_buildQueryOrderBy($order, $pre_order);

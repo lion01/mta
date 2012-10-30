@@ -1,14 +1,15 @@
 CREATE TABLE IF NOT EXISTS `#__travel_packages` (
 	`id` int(11) NOT NULL auto_increment,
 	`params` text NOT NULL DEFAULT '',
+	`code` VARCHAR(5) NOT NULL ,
 	`title` VARCHAR(255) NOT NULL ,
 	`content` TEXT ,
 	`commission_rate` DECIMAL(10,2 ) NOT NULL ,
 	`price` DECIMAL(10,2 ) NOT NULL ,
 	`unit` FLOAT(10,2 ) NOT NULL DEFAULT 1 ,
-	`ordering` INT(11) ,
-	`published` TINYINT NOT NULL DEFAULT 0 ,
 	`renewable` TINYINT NOT NULL DEFAULT 0 ,
+	`published` TINYINT NOT NULL DEFAULT 0 ,
+	`ordering` INT(11) ,
 	`creation_date` DATE ,
 	`modification_date` DATE ,
 
@@ -32,16 +33,6 @@ CREATE TABLE IF NOT EXISTS `#__travel_sales` (
 	PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `#__travel_carts` (
-	`id` int(11) NOT NULL auto_increment,
-	`params` text NOT NULL DEFAULT '',
-	`package_id` INT(11) NOT NULL ,
-	`quantity` INT(11) NOT NULL ,
-	`user_id` INT(11) NOT NULL ,
-
-	PRIMARY KEY  (`id`)
-);
-
 CREATE TABLE IF NOT EXISTS `#__travel_saleitems` (
 	`id` int(11) NOT NULL auto_increment,
 	`params` text NOT NULL DEFAULT '',
@@ -56,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `#__travel_saleitems` (
 	PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `#__travel_commissions` (
+CREATE TABLE IF NOT EXISTS `#__travel_payouts` (
 	`id` int(11) NOT NULL auto_increment,
 	`params` text NOT NULL DEFAULT '',
 	`user_id` INT(11) ,
@@ -74,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `#__travel_agents` (
 	`params` text NOT NULL DEFAULT '',
 	`user_id` INT(11) NOT NULL ,
 	`parent` INT(11) ,
+	`ic_number` VARCHAR(255) NOT NULL ,
 	`bank` VARCHAR(255) NOT NULL ,
 	`bank_account_number` VARCHAR(255) NOT NULL ,
 	`organization` VARCHAR(255) ,
@@ -85,6 +77,18 @@ CREATE TABLE IF NOT EXISTS `#__travel_agents` (
 	`country` VARCHAR(255) NOT NULL DEFAULT 'Malaysia' ,
 	`contact_phone` VARCHAR(255) NOT NULL ,
 	`expired_date` DATE NOT NULL ,
+
+	PRIMARY KEY  (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `#__travel_commissions` (
+	`id` int(11) NOT NULL auto_increment,
+	`params` text NOT NULL DEFAULT '',
+	`user_id` INT(11) ,
+	`total_commission` DECIMAL(10,2 ) ,
+	`total_unit` FLOAT(10,2 ) ,
+	`paid` TINYINT ,
+	`sale_id` INT(11) ,
 
 	PRIMARY KEY  (`id`)
 );

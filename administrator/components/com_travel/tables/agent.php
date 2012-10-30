@@ -62,6 +62,10 @@ class TableAgent extends JTable
 	/**
 	 * @var string
 	 */
+	var $ic_number = null;
+	/**
+	 * @var string
+	 */
 	var $bank = null;
 	/**
 	 * @var string
@@ -159,6 +163,7 @@ class TableAgent extends JTable
 		$filter = new JFilterInput(array(), array(), 0, 0);
 		$this->user_id = $filter->clean($this->user_id, 'INT');
 		$this->parent = $filter->clean($this->parent, 'INT');
+		$this->ic_number = $filter->clean($this->ic_number, 'STRING');
 		$this->bank = $filter->clean($this->bank, 'STRING');
 		$this->bank_account_number = $filter->clean($this->bank_account_number, 'STRING');
 		$this->organization = $filter->clean($this->organization, 'STRING');
@@ -202,6 +207,11 @@ class TableAgent extends JTable
 
 		if (($this->user_id === null) || ($this->user_id === '')){
 			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_USER")));
+			$valid = false;
+		}
+
+		if (($this->ic_number === null) || ($this->ic_number === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_IC_NUMBER")));
 			$valid = false;
 		}
 

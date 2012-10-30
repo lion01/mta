@@ -25,7 +25,6 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-jimport('joomla.utilities.date');
 
 /**
  * Travel Commissions Controller
@@ -53,7 +52,6 @@ class TravelControllerCommissions extends TravelController
 					);
 
 		$app = JFactory::getApplication();
-		$this->registerTask( 'new',  'new_' );
 		$this->registerTask( 'apply',  'apply' );
 
 
@@ -77,55 +75,6 @@ class TravelControllerCommissions extends TravelController
 			return;
 		}
 
-	}
-
-	function new_()
-	{
-		if (!$this->can('core.create', JText::_("JTOOLBAR_NEW")))
-			return;
-
-		$vars = array();
-		//Predefine fields depending on filters values
-		$app = JFactory::getApplication();
-		//User > Name
-		$filter_user_id = $app->getUserState( $this->context . ".filter.user_id");
-		if ($filter_user_id) $vars["filter_user_id"] = $filter_user_id;
-
-		//Payment Date
-		$filter_payment_date = $app->getUserState( $this->context . ".filter.payment_date");
-		if ($filter_payment_date) $vars["filter_payment_date"] = $filter_payment_date;
-
-		//Created Date
-		$filter_created_date = $app->getUserState( $this->context . ".filter.created_date");
-		if ($filter_created_date) $vars["filter_created_date"] = $filter_created_date;
-
-
-
-		JRequest::setVar( 'cid', 0 );
-		JRequest::setVar( 'view'  , 'commission');
-		JRequest::setVar( 'layout', 'commission' );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
-	}
-
-	function edit()
-	{
-		//Check Component ACL
-		if (!$this->can(array('core.edit', 'core.edit.own'), JText::_("JTOOLBAR_EDIT")))
-			return;
-
-		$model = $this->getModel('commission');
-		$item = $model->getItem();
-
-		//Check Item ACL
-		if (!$this->can('access-edit', JText::_("JTOOLBAR_EDIT"), $item->params))
-			return;
-
-		$vars = array();
-		JRequest::setVar( 'view'  , 'commission');
-		JRequest::setVar( 'layout', 'commission' );
-
-		$this->setRedirect(TravelHelper::urlRequest($vars));
 	}
 
 	function delete()
@@ -160,8 +109,8 @@ class TravelControllerCommissions extends TravelController
 		$vars = array();
 		if (parent::_delete($cid))
 		{
-			JRequest::setVar( 'view'  , 'commissions');
-			JRequest::setVar( 'layout', 'default' );
+			JRequest::setVar( 'view'  , 'commission');
+			JRequest::setVar( 'layout', 'commission' );
 			JRequest::setVar( 'cid', null );
 
 		}
@@ -200,22 +149,12 @@ class TravelControllerCommissions extends TravelController
 		$post['id'] = $model->getId();
 
 
-		//UPLOAD FILE : Attachment
-		if (!$this->_upload('attachment', $post, array(
-														'image/jpeg' => 'jpg,jpeg',
-														'application/pdf' => 'pdf',
-														'image/png' => 'png')
-													, array(
-														'maxSize' => 2097152,
-
-													)))
-			return;
 
 		if ($cid = parent::_save($post))
 		{
 			$vars = array();
-			JRequest::setVar( 'view'  , 'commissions');
-			JRequest::setVar( 'layout', 'default' );
+			JRequest::setVar( 'view'  , 'commission');
+			JRequest::setVar( 'layout', 'commission' );
 			JRequest::setVar( 'cid', null );
 
 			$this->setRedirect(TravelHelper::urlRequest($vars));
@@ -256,16 +195,6 @@ class TravelControllerCommissions extends TravelController
 		$post['id'] = $model->getId();
 
 
-		//UPLOAD FILE : Attachment
-		if (!$this->_upload('attachment', $post, array(
-														'image/jpeg' => 'jpg,jpeg',
-														'application/pdf' => 'pdf',
-														'image/png' => 'png')
-													, array(
-														'maxSize' => 2097152,
-
-													)))
-			return;
 
 		if ($cid = parent::_apply($post))
 		{
@@ -291,8 +220,8 @@ class TravelControllerCommissions extends TravelController
 
 
 		$vars = array();
-		JRequest::setVar( 'view'  , 'commissions');
-		JRequest::setVar( 'layout', 'default' );
+		JRequest::setVar( 'view'  , 'commission');
+		JRequest::setVar( 'layout', 'commission' );
 		JRequest::setVar( 'cid', null );
 
 		$this->setRedirect(TravelHelper::urlRequest($vars));

@@ -51,6 +51,7 @@ class TravelModelPackages extends TravelModelList
 		//Define the sortables fields (in lists)
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
+				'code', 'a.code',
 				'title', 'a.title',
 				'ordering', 'a.ordering',
 				'creation_date', 'a.creation_date',
@@ -220,7 +221,7 @@ class TravelModelPackages extends TravelModelList
 		return parent::_buildQueryWhere($where);
 	}
 
-	function _buildQueryOrderBy($order = array(), $pre_order = 'a.ordering, a.title')
+	function _buildQueryOrderBy($order = array(), $pre_order = 'a.ordering, a.code')
 	{
 
 		return parent::_buildQueryOrderBy($order, $pre_order);

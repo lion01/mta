@@ -5,7 +5,7 @@
 * --------oOOO-----(_)-----OOOo---------------------------------- www.j-cook.pro --- +
 * @version		1.0.0
 * @package		Travel
-* @subpackage	Agents
+* @subpackage	Commissions
 * @copyright	Copyright 2012, All rights reserved
 * @author		Edward Khor - www.enfonius.com - edward@enfonius.com
 * @license		GNU/GPL
@@ -97,5 +97,6 @@ div.toolbar:hover div.icon-16
 
 
 .icon-16-task-delete 		{ background-image: url('../images/icon-16-task-delete.png'); }
+.icon-16-task-cancel 		{ background-image: url('../images/icon-16-task-cancel.png'); }
 
 

@@ -54,6 +54,10 @@ class TablePackage extends JTable
 	/**
 	 * @var string
 	 */
+	var $code = null;
+	/**
+	 * @var string
+	 */
 	var $title = null;
 	/**
 	 * @var string
@@ -72,17 +76,17 @@ class TablePackage extends JTable
 	 */
 	var $unit = null;
 	/**
-	 * @var int
+	 * @var bool
 	 */
-	var $ordering = null;
+	var $renewable = null;
 	/**
 	 * @var int
 	 */
 	var $published = null;
 	/**
-	 * @var bool
+	 * @var int
 	 */
-	var $renewable = null;
+	var $ordering = null;
 	/**
 	 * @var string
 	 */
@@ -145,16 +149,22 @@ class TablePackage extends JTable
 		$valid = true;
 
 		$filter = new JFilterInput(array(), array(), 0, 0);
+		$this->code = $filter->clean($this->code, 'STRING');
 		$this->title = $filter->clean($this->title, 'STRING');
 		$this->commission_rate = $filter->clean($this->commission_rate, 'FLOAT');
 		$this->price = $filter->clean($this->price, 'FLOAT');
 		$this->unit = $filter->clean($this->unit, 'FLOAT');
-		$this->ordering = $filter->clean($this->ordering, 'INT');
-		$this->published = $filter->clean($this->published, 'INT');
 		$this->renewable = $filter->clean($this->renewable, 'BOOL');
+		$this->published = $filter->clean($this->published, 'INT');
+		$this->ordering = $filter->clean($this->ordering, 'INT');
 		$this->creation_date = $filter->clean($this->creation_date, 'STRING');
 		$this->modification_date = $filter->clean($this->modification_date, 'STRING');
 
+
+		if (!empty($this->code) && !preg_match("/^.{0,5}$/", $this->code)){
+			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_CODE")) );
+			$valid = false;
+		}
 
 		if (!empty($this->commission_rate) && !preg_match("/(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)/", $this->commission_rate)){
 			JError::raiseWarning( 1000, JText::sprintf("TRAVEL_VALIDATOR_WRONG_VALUE_FOR_PLEASE_RETRY", JText::_("TRAVEL_FIELD_COMMISSSION_RATE")) );
@@ -197,10 +207,10 @@ class TablePackage extends JTable
 
 		if ($this->unit == null)
 			$this->unit = 1;
-		if ($this->published == null)
-			$this->published = 0;
 		if ($this->renewable === null)
 			$this->renewable = 0;
+		if ($this->published == null)
+			$this->published = 0;
 
 
 		//Creation date
@@ -223,6 +233,11 @@ class TablePackage extends JTable
 		}
 
 
+		if (($this->code === null) || ($this->code === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_CODE")));
+			$valid = false;
+		}
+
 		if (($this->title === null) || ($this->title === '')){
 			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_TITLE")));
 			$valid = false;
@@ -243,13 +258,13 @@ class TablePackage extends JTable
 			$valid = false;
 		}
 
-		if (($this->published === null) || ($this->published === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PUBLISHED")));
+		if (($this->renewable === null) || ($this->renewable === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_RENEWABLE")));
 			$valid = false;
 		}
 
-		if (($this->renewable === null) || ($this->renewable === '')){
-			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_RENEWABLE")));
+		if (($this->published === null) || ($this->published === '')){
+			JError::raiseWarning(2001, JText::sprintf("TRAVEL_VALIDATOR_IS_REQUESTED_PLEASE_RETRY", JText::_("TRAVEL_FIELD_PUBLISHED")));
 			$valid = false;
 		}
 

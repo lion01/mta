@@ -185,11 +185,13 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
                 ?>
             </td>
         </tr>
+
+
     </table>
 
     <?php if ( ! empty($this->sale_items)): ?>
         <h2>Sale Items</h2>
-        <table cellpadding="0" cellspacing="0" width="100%" id="sale_items">
+        <table cellpadding='0' cellspacing='0' width='100%' id='sale_items'>
             <thead>
                 <tr>
                     <th>Package</th>
@@ -212,4 +214,5 @@ $actionText = $isNew ? JText::_( "TRAVEL_NEW" ) : JText::_( "TRAVEL_EDIT" );
             </tbody>
         </table>
     <?php endif ?>
+
 </fieldset>

@@ -60,7 +60,7 @@ class JFormFieldModal_Itempackage extends JFormFieldModal_Item
 	{
 		$db	= JFactory::getDBO();
 		$db->setQuery(
-			'SELECT `title`' .
+			'SELECT `code`' .
 			' FROM #__travel_packages' .
 			' WHERE id = '.(int) $this->value
 		);

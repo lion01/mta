@@ -219,7 +219,7 @@ class TravelFile extends JFile
 
 
 		return array(
-			'DIR_COMMISSIONS_ATTACHMENT' => $config->get("upload_dir_commissions_attachment", "[COM_SITE]" .DS. "files" .DS. "commissions_attachment") .DS,
+			'DIR_PAYOUTS_ATTACHMENT' => $config->get("upload_dir_payouts_attachment", "[COM_SITE]" .DS. "files" .DS. "payouts_attachment") .DS,
 			'DIR__TRASH' => $config->get("trash_dir", JPATH_ADMIN_TRAVEL .DS. "images" . DS . "trash") .DS,
 
 			'COM_ADMIN' => JPATH_ADMIN_TRAVEL,

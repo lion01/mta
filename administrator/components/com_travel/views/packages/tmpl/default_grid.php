@@ -42,6 +42,10 @@ defined('_JEXEC') or die('Restricted access');
 			</th>
 			<?php endif; ?>
 
+			<th style="text-align:right">
+				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_CODE", 'a.code', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
+			</th>
+
 			<th style="text-align:left">
 				<?php echo JHTML::_('grid.sort',  "TRAVEL_FIELD_TITLE", 'a.title', $this->state->get('list.direction'), $this->state->get('list.ordering') ); ?>
 			</th>
@@ -116,6 +120,14 @@ defined('_JEXEC') or die('Restricted access');
 
 			</td>
 			<?php endif; ?>
+
+            <td style="text-align:right">
+				<?php echo JDom::_('html.fly', array(
+												'dataKey' => 'code',
+												'dataObject' => $row
+												));
+				?>
+			</td>
 
             <td style="text-align:left">
 				<?php echo JDom::_('html.fly', array(

@@ -70,14 +70,15 @@ class TravelModelPackage extends TravelModelItem
 
 			$data->id = 0;
 			$data->attribs = null;
+			$data->code = null;
 			$data->title = null;
 			$data->content = null;
 			$data->commission_rate = null;
 			$data->price = null;
 			$data->unit = null;
-			$data->ordering = null;
-			$data->published = null;
 			$data->renewable = null;
+			$data->published = null;
+			$data->ordering = null;
 			$data->creation_date = null;
 			$data->modification_date = null;
 
@@ -283,15 +284,6 @@ class TravelModelPackage extends TravelModelItem
 			if(!$this->_db->query()) {
 				JError::raiseWarning(1000, $this->_db->getErrorMsg());
 				return false;
-			}
-
-			//Integrity : Cascade delete in cart on package_id
-			$model = JModel::getInstance('cart', 'TravelModel');
-			if (!$model->integrityDelete('package_id', $cid))
-			{
-				// Don't show this error in front-end (Uncoment if you want so)
-				// JError::raiseWarning( 1010, JText::_("TRAVEL_ALERT_ERROR_ON_CASCAD_DELETE") );
-				// return false;
 			}
 
 

@@ -36,7 +36,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 class TravelControllerSaleitems extends TravelController
 {
 	var $ctrl = 'saleitems';
-	var $singular = 'saleitemsitem';
+	var $singular = 'saleitem';
 
 	function __construct($config = array())
 	{
@@ -82,7 +82,7 @@ class TravelControllerSaleitems extends TravelController
 		// Check for request forgeries
 		JRequest::checkToken() or jexit( 'Invalid Token' );
 
-		$model = $this->getModel('saleitemsitem');
+		$model = $this->getModel('saleitem');
 		$item = $model->getItem();
 
 		if ($model->getId() == 0)
@@ -111,7 +111,7 @@ class TravelControllerSaleitems extends TravelController
 		if ($cid = parent::_save($post))
 		{
 			$vars = array();
-			JRequest::setVar( 'view'  , 'saleitemsitem');
+			JRequest::setVar( 'view'  , 'saleitem');
 			JRequest::setVar( 'layout', 'saleitem' );
 			JRequest::setVar( 'cid', null );
 
@@ -130,7 +130,7 @@ class TravelControllerSaleitems extends TravelController
 
 
 		$vars = array();
-		JRequest::setVar( 'view'  , 'saleitemsitem');
+		JRequest::setVar( 'view'  , 'saleitem');
 		JRequest::setVar( 'layout', 'saleitem' );
 		JRequest::setVar( 'cid', null );
 

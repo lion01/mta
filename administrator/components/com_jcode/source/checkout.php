@@ -5,11 +5,13 @@ define('JPATH_ADMIN_TRAVEL', JPATH_COMPONENT_ADMINISTRATOR.'/../com_travel');
 
 require JPATH_COMPONENT.'/../com_users/models/registration.php';
 require JPATH_COMPONENT.'/../com_travel/models/sale.php';
-require JPATH_COMPONENT.'/../com_travel/models/saleitemsitem.php';
+require JPATH_COMPONENT.'/../com_travel/models/saleitem.php';
+require JPATH_COMPONENT.'/../com_travel/models/commission.php';
 require JPATH_ADMIN_TRAVEL.'/models/agent.php';
 require JPATH_ADMIN_TRAVEL.'/tables/sale.php';
 require JPATH_ADMIN_TRAVEL.'/tables/agent.php';
-require JPATH_ADMIN_TRAVEL.'/tables/saleitemsitem.php';
+require JPATH_ADMIN_TRAVEL.'/tables/saleitem.php';
+require JPATH_ADMIN_TRAVEL.'/tables/commission.php';
 require JPATH_ADMIN_TRAVEL.'/helpers/html/validator.php';
 
 $doc = JFactory::getDocument();
@@ -31,6 +33,7 @@ $cart = JFactory::getSession()->get('cart', array());
 $items = isset($cart['items']) ? $cart['items'] : array();
 
 $user = JFactory::getUser();
+$guest = $user->guest;
 
 $db = JFactory::getDBO();
 $packages = array();
@@ -40,7 +43,7 @@ if (empty($cart) || empty($items)) {
 }
 
 $packages_id = array_keys($items);
-$query = 'SELECT id, title, price, renewable, commission_rate, unit FROM #__travel_packages WHERE id IN ('.implode(',', $packages_id).')';
+$query = 'SELECT id, code, title, price, renewable, commission_rate, unit FROM #__travel_packages WHERE id IN ('.implode(',', $packages_id).')';
 
 $db->setQuery($query);
 $rows = $db->loadObjectList();
@@ -52,6 +55,7 @@ $renewable = NULL;
 foreach ($rows as $row) {
     $packages[$row->id] = array(
         'unit' => $row->unit,
+        'code' => $row->code,
         'title' => $row->title,
         'price' => $row->price,
         'renewable' => $row->renewable,
@@ -74,6 +78,7 @@ if ($user->guest) {
         'verify_password' => NULL,
         'email' => NULL,
         'confirm_email' => NULL,
+        'ic_number' => NULL,
         'bank' => NULL,
         'bank_account_number' => NULL,
         'organization' => NULL,
@@ -134,6 +139,7 @@ if (JRequest::getMethod() == 'POST') {
                     $errors['referrer'] = 'Referrer not found';
                 } else {
                     $form['parent'] = $rows[0]->id;
+                    $referrer_id = $form['parent'];
                 }
             }
 
@@ -184,7 +190,7 @@ if (JRequest::getMethod() == 'POST') {
         }
 
         if (isset($packages[$renewable])) {
-            $total_commission -= $packages[$package_id]['commission'];
+            $total_commission -= $packages[$renewable]['commission'];
         }
 
         $sale = new TravelModelSale;
@@ -208,7 +214,7 @@ if (JRequest::getMethod() == 'POST') {
                 continue;
             }
 
-            $saleitem = new TravelModelSaleitemsitem;
+            $saleitem = new TravelModelSaleitem;
 
             $data = array(
                 'id' => NULL,
@@ -221,8 +227,7 @@ if (JRequest::getMethod() == 'POST') {
             );
 
             if ($renewable != NULL && $renewable == $package_id) {
-                $data['commission_rate'] = 0.0;
-                $date['renewal'] = 1;
+                $data['renewal'] = TRUE;
                 $renewable = NULL;
             }
 
@@ -230,9 +235,35 @@ if (JRequest::getMethod() == 'POST') {
 
         }
 
+        $commission = new TravelModelCommission;
+
+        $data = array(
+            'user_id' => $user_id,
+            'total_commission' => $total_commission,
+            'total_unit' => $total_unit,
+            'paid' => FALSE,
+            'sale_id' => $sale->id(),
+        );
+
+        $commission->save($data);
+
+        if ($guest && isset($referrer)) {
+            $commission = new TravelModelCommission;
+
+            $data = array(
+                'user_id' => $referrer,
+                'total_commission' => $packages[$renewal]['commission'],
+                'total_unit' => $packages[$renewal]['unit'],
+                'paid' => FALSE,
+                'sale_id' => $sale->id(),
+            );
+
+            $commission->save($data);
+        }
+
         JFactory::getSession()->clear('cart');
         JFactory::getSession()->clear('registered-id');
-        JFactory::getApplication()->redirect('/index.php/travel-packages/cart/checkout/confirm');
+        JFactory::getApplication()->redirect('/index.php/travel-packages/cart/checkout/confirm?sale_id='.$sale->id());
     }
 }
 ?>
@@ -327,6 +358,7 @@ label {
     <table cellpadding='0' cellspacing='0' width='100%'>
         <thead>
             <tr>
+                <th><?php echo JText::_('Code'); ?></th>
                 <th><?php echo JText::_('Package Title'); ?></th>
                 <?php if ( ! $user->guest): ?>
                     <th width="75px"><?php echo JText::_('Commission (Unit)'); ?></th>
@@ -343,6 +375,7 @@ label {
             <?php foreach ($items as $package_id => $quantity): ?>
                 <?php if (isset($packages[$package_id])): ?>
                     <tr>
+                        <td><?php echo $packages[$package_id]['code']; ?></td>
                         <td><?php echo $packages[$package_id]['title']; ?></td>
                         <?php if ( ! $user->guest): ?>
                             <td align="right"><?php echo number_format($packages[$package_id]['commission'], 2); ?></td>
@@ -390,6 +423,10 @@ label {
         <div>
             <label for="id_verify_password">Verify Password</label>
             <input class="validate[required, equals[id_password]]" type="password" name="verify_password" id="id_verify_password" /> *
+        </div>
+        <div>
+            <label for="id_ic_number">IC No.</label>
+            <input class="validate[required]" type="text" name="ic_number" id="id_ic_number" value="<?php $form['ic_number']; ?>" /> *
         </div>
         <div>
             <label for="id_bank">Bank</label>
