@@ -71,14 +71,6 @@ JHtml::_('behavior.keepalive');
 			<a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>">
 			<?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_USERNAME'); ?></a>
 		</li>
-		<?php
-		$usersConfig = JComponentHelper::getParams('com_users');
-		if ($usersConfig->get('allowUserRegistration')) : ?>
-		<li>
-			<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
-				<?php echo JText::_('MOD_LOGIN_REGISTER'); ?></a>
-		</li>
-		<?php endif; ?>
 	</ul>
 	<?php if ($params->get('posttext')): ?>
 	<div class="posttext">
