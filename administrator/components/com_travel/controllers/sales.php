@@ -309,7 +309,13 @@ class TravelControllerSales extends TravelController
             }
 
             if ($renewal_count > 0) {
-                $query = 'UPDATE #__travel_agents SET expired_date = DATE_ADD(expired_date, INTERVAL '.($renewal_count * 6).' MONTH) WHERE user_id = '.$model->user_id;
+                $query = 'SELECT expired_date FROM #__travel_agents WHERE user_id = '.$model->user_id;
+                $db->setQuery($query);
+                $agent = $db->loadObject();
+
+                $expired_date = $agent->expired_date && $agent->expired_date != '0000-00-00' ? date('Y-m-d', strtotime($agent->expired_date)) : date('Y-m-d');
+                $expired_date = date('Y-m-d', strtotime('+6 month', strtotime($expired_date)));
+                $query = 'UPDATE #__travel_agents SET expired_date = "'.$expired_date.'" WHERE user_id = '.$model->user_id;
                 $db->setQuery($query);
                 $db->query();
             }

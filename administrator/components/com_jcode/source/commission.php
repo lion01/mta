@@ -114,16 +114,39 @@ $group_commission -= $total_commission;
 $yearly_date = isset($_GET['yearly-date']) ? date('Y-m-d', strtotime($_GET['yearly-date'])) : $today;
 $total_unit = 0.0;
 $monthly_sales = array(
-    '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0, '8' => 0, '9' => 0, '10' => 0, '11' => 0, '12' => 0,
+    '1' => array('personal' => 0, 'group' => 0),
+    '2' => array('personal' => 0, 'group' => 0),
+    '3' => array('personal' => 0, 'group' => 0),
+    '4' => array('personal' => 0, 'group' => 0),
+    '5' => array('personal' => 0, 'group' => 0),
+    '6' => array('personal' => 0, 'group' => 0),
+    '7' => array('personal' => 0, 'group' => 0),
+    '8' => array('personal' => 0, 'group' => 0),
+    '9' => array('personal' => 0, 'group' => 0),
+    '10' => array('personal' => 0, 'group' => 0),
+    '11' => array('personal' => 0, 'group' => 0),
+    '12' => array('personal' => 0, 'group' => 0),
 );
 
-$query = 'SELECT SUM(total_unit) AS total_unit, DATE_FORMAT(order_date, "%m") AS month FROM #__travel_sales WHERE DATE_FORMAT(order_date, "%Y") = "'.date('Y', strtotime($yearly_date)).'" AND user_id = '.$user->get('id').' GROUP BY DATE_FORMAT(order_date, "%m")';
+
+$query = 'SELECT SUM(c.total_unit) AS total_unit, DATE_FORMAT(s.order_date, "%m") AS month FROM #__travel_commissions c INNER JOIN #__travel_sales s ON s.id = c.sale_id WHERE DATE_FORMAT(s.order_date, "%Y") = "'.date('Y', strtotime($yearly_date)).'" AND c.user_id = '.$user->get('id').' AND s.status = 2 GROUP BY DATE_FORMAT(s.order_date, "%m")';
 $db->setQuery($query);
 $rows = $db->loadObjectList();
 
 foreach ($rows as $row) {
-    $monthly_sales[$row->month] = $row->total_unit;
+    $monthly_sales[$row->month]['personal'] = $row->total_unit;
     $total_unit += $row->total_unit;
+}
+
+if ( ! empty($downlines)) {
+    $query = 'SELECT SUM(c.total_unit) AS total_unit, DATE_FORMAT(s.order_date, "%m") AS month FROM #__travel_commissions c INNER JOIN #__travel_sales s ON s.id = c.sale_id WHERE DATE_FORMAT(s.order_date, "%Y") = "'.date('Y', strtotime($yearly_date)).'" AND c.user_id IN ('.implode(',', array_keys($downlines)).') AND s.status = 2 GROUP BY DATE_FORMAT(s.order_date, "%m")';
+    $db->setQuery($query);
+    $rows = $db->loadObjectList();
+
+    foreach ($rows as $row) {
+        $monthly_sales[$row->month]['group'] = $row->total_unit;
+        $total_unit += $row->total_unit;
+    }
 }
 
 $yearly_commission = 0.0;
@@ -135,7 +158,7 @@ if ($total_sales_per_day == 2) {
     $yearly_commission = $total_sales_per_day * 10000;
 }
 
-$query = 'SELECT SUM(amount) as total_paid FROM #__travel_commissions WHERE DATE_FORMAT(payment_date, "%Y") = "'.date('Y', strtotime($yearly_date)).'" AND user_id = '.$user->get('id').' ABD type = 3';
+$query = 'SELECT SUM(amount) as total_paid FROM #__travel_commissions WHERE DATE_FORMAT(payment_date, "%Y") = "'.date('Y', strtotime($yearly_date)).'" AND user_id = '.$user->get('id').' AND type = 3';
 $db->setQuery($query);
 $rows = $db->loadObjectList();
 
@@ -362,11 +385,11 @@ table tr td {
                         <td colspan="3" align="center">No sales was found</td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach ($monthly_sales as $month => $unit): ?>
+                    <?php foreach ($monthly_sales as $month => $data): ?>
                         <tr>
                             <td align="center"><?php echo date('F', mktime(0, 0, 0, $month)); ?></td>
-                            <td align="center"><?php echo $unit; ?></td>
-                            <td align='center'><?php echo 0; ?></td>
+                            <td align="center"><?php echo $data['personal']; ?></td>
+                            <td align='center'><?php echo $data['group']; ?></td>
                         </tr>
                     <?php endforeach ?>
                 <?php endif ?>

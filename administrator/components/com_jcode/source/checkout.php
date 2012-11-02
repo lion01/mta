@@ -12,6 +12,7 @@ require JPATH_ADMIN_TRAVEL.'/tables/sale.php';
 require JPATH_ADMIN_TRAVEL.'/tables/agent.php';
 require JPATH_ADMIN_TRAVEL.'/tables/saleitem.php';
 require JPATH_ADMIN_TRAVEL.'/tables/commission.php';
+require JPATH_ADMIN_TRAVEL.'/helpers/helper.php';
 require JPATH_ADMIN_TRAVEL.'/helpers/html/validator.php';
 
 $doc = JFactory::getDocument();
@@ -145,7 +146,6 @@ if (JRequest::getMethod() == 'POST') {
 
             if (empty($errors)) {
                 $user = JFactory::getUser(0);
-                $acl =& Jfactory::getACL();
 
                 $form['password2'] = $form['password'];
                 $form['sendEmail'] = 1;
@@ -163,7 +163,16 @@ if (JRequest::getMethod() == 'POST') {
                     $error = TRUE;
                 }
 
+                $query = 'SELECT id FROM #__usergroups WHERE title="Registered"';
+                $db->setQuery($query);
+                $row = $db->loadObject();
+
+                $query = 'INSERT INTO #__user_usergroup_map VALUES('.$user->get('id').', '.$row->id.')';
+                $db->setQuery($query);
+                $db->query();
+
                 $agent = new TravelModelAgent;
+                $form['id'] = NULL;
                 $form['expired_date'] = '0000-00-00';
                 $form['user_id'] = $user->get('id');
 
@@ -329,7 +338,12 @@ label {
         });
 
         jQuery('form').submit(function(e) {
-            if ( ! confirm('Confirm to checkout your items?')) {
+            if (jQuery('input#id_term_condition').attr('checked')) {
+                if ( ! confirm('Confirm to checkout your items?')) {
+                    return false;
+                }
+
+                alert('You must agree to our Terms & Condition to continue');
                 return false;
             }
         });
@@ -485,7 +499,9 @@ label {
     </div>
     <?php endif ?>
 
+    <br />
+    <input type="checkbox" name="term_agreement" id="id_term_condition" /> I Agree to the <a href="index.php/travel-packages/term-condition" target="_blank">Terms and Condition</a>
     <div id="buttongroup">
-        <button name="checkout">Continue</button>
+        <button name="checkout">Confirm</button>
     </div>
 </form>
