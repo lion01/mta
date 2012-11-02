@@ -33,36 +33,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 <h1 class='componentheading'><?php echo(JText::_("TRAVEL_LAYOUT_PACKAGE"));?></h1>
 
-<script language="javascript" type="text/javascript">
-jQuery(document).ready(function(){
-	jQuery("#adminForm").validationEngine();
-});
-
-Joomla.submitform = function(pressbutton)
-{
-	//Unlock the page
-	holdForm = false;
-
-	var parts = pressbutton.split('.');
-
-	jQuery("#task").val(pressbutton);
-	switch(parts[parts.length-1])
-	{
-		case 'delete':
-		case 'cancel':
-			jQuery("#adminForm").validationEngine('detach');
-			break;
-	}
-
-	jQuery("#adminForm").submit();
-}
-
-//Secure the user navigation on the page, in order preserve datas.
-var holdForm = true;
-window.onbeforeunload = function closeIt(){	if (holdForm) return false;};
-</script>
-
-<form action="<?php echo(JRoute::_("index.php")); ?>" method="post" name="adminForm" id="adminForm" enctype='multipart/form-data'>
 
 
 
@@ -90,4 +60,3 @@ window.onbeforeunload = function closeIt(){	if (holdForm) return false;};
 				)));
 	?>
 
-</form>
