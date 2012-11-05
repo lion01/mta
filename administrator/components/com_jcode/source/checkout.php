@@ -144,6 +144,10 @@ if (JRequest::getMethod() == 'POST') {
                 }
             }
 
+            if (count($form['ic_number']) != 12 || ! is_numeric($form['ic_number'])) {
+                $errors['ic_number'] = 'Invalid IC Number. Please enter the IC number with the dash "-"';
+            }
+
             if (empty($errors)) {
                 $user = JFactory::getUser(0);
 
@@ -246,23 +250,21 @@ if (JRequest::getMethod() == 'POST') {
 
         $commission = new TravelModelCommission;
 
-        $data = array(
-            'user_id' => $user_id,
-            'total_commission' => $total_commission,
-            'total_unit' => $total_unit,
-            'paid' => FALSE,
-            'sale_id' => $sale->id(),
-        );
-
-        $commission->save($data);
-
         if ($guest && isset($referrer)) {
-            $commission = new TravelModelCommission;
-
             $data = array(
                 'user_id' => $referrer,
-                'total_commission' => $packages[$renewal]['commission'],
-                'total_unit' => $packages[$renewal]['unit'],
+                'total_commission' => $total_commission,
+                'total_unit' => $total_unit,
+                'paid' => FALSE,
+                'sale_id' => $sale->id(),
+            );
+
+            $commission->save($data);
+        } elseif ( ! $guest) {
+            $data = array(
+                'user_id' => $user_id,
+                'total_commission' => $total_commission,
+                'total_unit' => $total_unit,
                 'paid' => FALSE,
                 'sale_id' => $sale->id(),
             );

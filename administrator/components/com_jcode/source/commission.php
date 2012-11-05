@@ -375,7 +375,7 @@ table tr td {
             <thead>
                 <tr>
                     <th>Month</th>
-                    <th>Unit</th>
+                    <th>Personal Unit</th>
                     <th>Group Unit</th>
                 </tr>
             </thead>
