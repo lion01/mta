@@ -221,6 +221,8 @@ if (JRequest::getMethod() == 'POST') {
 
         $sale->save($data);
 
+        $email_items = '';
+
         foreach ($items as $package_id => $quantity) {
 
             if ( ! isset($packages[$package_id])) {
@@ -243,6 +245,8 @@ if (JRequest::getMethod() == 'POST') {
                 $data['renewal'] = TRUE;
                 $renewable = NULL;
             }
+
+            $email_items .= '<tr><td>'.$packages[$package_id]['title'].'</td><td>'.$quantity.'</td><td>'.$packages[$package_id]['price'].'</td></tr>';
 
             $saleitem->save($data);
 
@@ -271,6 +275,23 @@ if (JRequest::getMethod() == 'POST') {
 
             $commission->save($data);
         }
+
+        $mailer = JFactory::getMailer();
+
+        $mailer->setSender('mail@mta2u.com');
+        $mailer->addRecipient($user->email);
+        $mailer->addBCC('mail@mta2u.com');
+        $mailer->setSubject('Confirmation of your Order, ID: '.$sale->id());
+
+        $email = '<p>Hi, '.$user->name.'</p><br />';
+        $email .= '<p>Thank you for order at Mta2u. The items you ordered has been confirmed below:</p>';
+        $email .= '<table><thead><tr><td>Package</td><td>Quantity</td><td>Price</td></tr></thead><tbody>'.$email_items.'</tbody></table>';
+        $email .= '<p>Please send the total amount of RM'.$total_amount.' to our respective bank accounts to continue your order</p>';
+        $email .= '<br /><p>Regards,<br />Mta2u</p>';
+
+        $mailer->setBody($email);
+        $mailer->isHTML();
+        $mailer->send();
 
         JFactory::getSession()->clear('cart');
         JFactory::getSession()->clear('registered-id');
@@ -344,10 +365,10 @@ label {
                 if ( ! confirm('Confirm to checkout your items?')) {
                     return false;
                 }
-
-                alert('You must agree to our Terms & Condition to continue');
-                return false;
             }
+
+            alert('You must agree to our Terms & Condition to continue');
+            return false;
         });
 
         jQuery('form').validationEngine();
