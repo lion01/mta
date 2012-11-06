@@ -144,8 +144,8 @@ if (JRequest::getMethod() == 'POST') {
                 }
             }
 
-            if (count($form['ic_number']) != 12 || ! is_numeric($form['ic_number'])) {
-                $errors['ic_number'] = 'Invalid IC Number. Please enter the IC number with the dash "-"';
+            if (strlen($form['ic_number']) != 12 || ! is_numeric($form['ic_number'])) {
+                $errors['ic_number'] = 'Invalid IC Number. Please enter the IC number without the dash "-"';
             }
 
             if (empty($errors)) {
@@ -254,10 +254,10 @@ if (JRequest::getMethod() == 'POST') {
 
         $commission = new TravelModelCommission;
 
-        if ($guest && isset($referrer)) {
+        if ($guest && isset($referrer_id)) {
             $data = array(
-                'user_id' => $referrer,
-                'total_commission' => $total_commission,
+                'user_id' => $referrer_id,
+                'total_commission' => $total_commission + $packages[$renewal]['commission'],
                 'total_unit' => $total_unit,
                 'paid' => FALSE,
                 'sale_id' => $sale->id(),
@@ -365,6 +365,8 @@ label {
                 if ( ! confirm('Confirm to checkout your items?')) {
                     return false;
                 }
+
+                return true;
             }
 
             alert('You must agree to our Terms & Condition to continue');
@@ -439,15 +441,15 @@ label {
     <div id="user-registration">
         <div>
             <label for="id_name">Name</label>
-            <input class="validate[required]" type="text" name="name" id="id_name" value="<?php $form['name']; ?>" /> *
+            <input class="validate[required]" type="text" name="name" id="id_name" value="<?php echo $form['name']; ?>" /> *
         </div>
         <div>
             <label for="id_username">Username</label>
-            <input class="validate[required]" type="text" name="username" id="id_username" value="<?php $form['username']; ?>" /> *
+            <input class="validate[required]" type="text" name="username" id="id_username" value="<?php echo $form['username']; ?>" /> *
         </div>
         <div>
             <label for="id_email">Email</label>
-            <input class="validate[required, custom[email]]"  type="email" name="email" id="id_email" value="<?php $form['email']; ?>" /> *
+            <input class="validate[required, custom[email]]"  type="email" name="email" id="id_email" value="<?php echo $form['email']; ?>" /> *
         </div>
         <div>
             <label for="id_email_confirm">Email Confirm</label>
@@ -455,7 +457,7 @@ label {
         </div>
         <div>
             <label for="id_password">Password</label>
-            <input class="validate[required]" type="password" name="password" id="id_password" value="<?php $form['password']; ?>" /> *
+            <input class="validate[required]" type="password" name="password" id="id_password" value="<?php echo $form['password']; ?>" /> *
         </div>
         <div>
             <label for="id_verify_password">Verify Password</label>
@@ -463,47 +465,47 @@ label {
         </div>
         <div>
             <label for="id_ic_number">IC No.</label>
-            <input class="validate[required]" type="text" name="ic_number" id="id_ic_number" value="<?php $form['ic_number']; ?>" /> *
+            <input class="validate[required]" type="text" name="ic_number" id="id_ic_number" value="<?php echo $form['ic_number']; ?>" /> *
         </div>
         <div>
             <label for="id_bank">Bank</label>
             <select class="validate[required]" name="bank" id="id_bank">
                 <option value>Choose a bank option</option>
                 <?php foreach ($bank_choices as $bank_choice): ?>
-                    <option value="<?php echo $bank_choice; ?>"><?php echo $bank_choice; ?></option>
+                    <option value="<?php echo $bank_choice; ?>"<?php if ($form['bank'] == $bank_choice): ?> selected="selected"<?php endif ?>><?php echo $bank_choice; ?></option>
                 <?php endforeach ?>
             </select> *
         </div>
         <div>
             <label for="id_bank_account_number">Bank Account No.</label>
-            <input class="validate[required]" type="text" name="bank_account_number" id="id_bank_account_number" value="<?php $form['bank_account_number']; ?>" /> *
+            <input class="validate[required]" type="text" name="bank_account_number" id="id_bank_account_number" value="<?php echo $form['bank_account_number']; ?>" /> *
         </div>
         <div>
             <label for="id_organization">Organization</label>
-            <input type="text" name="organization" id="id_organization" value="<?php $form['organization']; ?>" /> *
+            <input type="text" name="organization" id="id_organization" value="<?php echo $form['organization']; ?>" /> *
         </div>
         <div>
             <label for="id_street_address">Street Address</label>
-            <input class="validate[required]" type="text" name="street_address" id="id_street_address" value="<?php $form['street_address']; ?>" /> *
+            <input class="validate[required]" type="text" name="street_address" id="id_street_address" value="<?php echo $form['street_address']; ?>" /> *
         </div>
         <div>
             <label for="id_address">Address</label>
-            <input type="text" name="address" id="id_address" value="<?php $form['address']; ?>" />
+            <input type="text" name="address" id="id_address" value="<?php echo $form['address']; ?>" />
         </div>
         <div>
             <label for="id_postcode">Postcode</label>
-            <input class="validate[required]" type="text" name="postcode" id="id_postcode" value="<?php $form['postcode']; ?>" /> *
+            <input class="validate[required]" type="text" name="postcode" id="id_postcode" value="<?php echo $form['postcode']; ?>" /> *
         </div>
         <div>
             <label for="id_city">City</label>
-            <input class="validate[required]" type="text" name="city" id="id_city" value="<?php $form['city']; ?>" /> *
+            <input class="validate[required]" type="text" name="city" id="id_city" value="<?php echo $form['city']; ?>" /> *
         </div>
         <div>
             <label for="id_state">State</label>
             <select class="validate[required]" name="state" id="id_state">
                 <option value>Choose a state</option>
                 <?php foreach ($state_choices as $state_choice): ?>
-                    <option value="<?php echo $state_choice; ?>"><?php echo $state_choice; ?></option>
+                    <option value="<?php echo $state_choice; ?>"<?php if ($form['state'] == $state_choice): ?> selected="selected"<?php endif ?>><?php echo $state_choice; ?></option>
                 <?php endforeach ?>
             </select> *
         </div>
@@ -513,11 +515,11 @@ label {
         </div>
         <div>
             <label for="id_contact_phone">Contact Phone</label>
-            <input type="text" name="contact_phone" id="id_contact_phone" value="<?php $form['contact_phone']; ?>" /> *
+            <input type="text" name="contact_phone" id="id_contact_phone" value="<?php echo $form['contact_phone']; ?>" /> *
         </div>
         <div>
             <label for="id_referrer">Referrer Username</label>
-            <input type="text" name="referrer" id="id_referrer" value="<?php $form['referrer']; ?>" />
+            <input type="text" name="referrer" id="id_referrer" value="<?php echo $form['referrer']; ?>" />
         </div>
     </div>
     <?php endif ?>
