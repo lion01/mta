@@ -150,11 +150,9 @@ if ( ! empty($downlines)) {
 }
 
 $yearly_commission = 0.0;
-$total_sales_per_day = $total_unit / 264;
+$total_sales_per_day = floor($total_unit / 264);
 
-if ($total_sales_per_day == 2) {
-    $yearly_commission = 15000;
-} elseif ($total_sales_per_day >= 1) {
+if ($total_sales_per_day >= 1) {
     $yearly_commission = $total_sales_per_day * 10000;
 }
 

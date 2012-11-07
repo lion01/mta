@@ -108,7 +108,7 @@ input.integer {
                         <td align="center"><input type='checkbox' class="selector" name='cid[]' value='<?php echo $package_id; ?>' /></td>
                         <td><?php echo $packages[$package_id]['code']; ?></td>
                         <td><?php echo $packages[$package_id]['title']; ?></td>
-                        <td align='center'><input type="text" class="integer" name="quantity_id_<?php echo $package_id; ?>" value="<?php echo $quantity; ?>" size="1" /></td>
+                        <td align='center'><input type="text" class="integer" name="quantity_id_<?php echo $package_id; ?>" value="<?php echo $quantity; ?>" size="3" /></td>
                         <td align="right"><?php echo number_format($quantity * $packages[$package_id]['price'], 2); ?></td>
                         <?php $total += $quantity * $packages[$package_id]['price']; ?>
                     </tr>
