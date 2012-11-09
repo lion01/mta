@@ -202,7 +202,7 @@ if (JRequest::getMethod() == 'POST') {
             }
         }
 
-        if (isset($packages[$renewable])) {
+        if (isset($packages[$renewable]) && ! $user->guest) {
             $total_commission -= $packages[$renewable]['commission'];
         }
 
@@ -257,7 +257,7 @@ if (JRequest::getMethod() == 'POST') {
         if ($guest && isset($referrer_id)) {
             $data = array(
                 'user_id' => $referrer_id,
-                'total_commission' => $total_commission + $packages[$renewal]['commission'],
+                'total_commission' => $total_commission,
                 'total_unit' => $total_unit,
                 'paid' => FALSE,
                 'sale_id' => $sale->id(),
